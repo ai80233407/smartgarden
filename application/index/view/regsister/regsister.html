@@ -1,0 +1,72 @@
+{include file="public/head"}
+<style>
+	body{
+		background:url(/static/image/login-background.jpg) no-repeat center fixed;
+	}
+	.modal-center {
+		margin-top:40px;
+		border-radius:20px;
+		background: #f8f8f8;
+	}
+</style>
+{include file="public/header"}
+<div class="login-bg" >
+	<div class="am-u-sm-5 am-u-sm-centered">
+		<div class="modal-center">
+			<div class="am-padding-top">
+				<h3 class="am-text-center">用户注册</h3>
+			</div>
+			<hr />
+			<div class="am-u-sm-8 am-u-sm-centered" >
+				<form class="am-form">
+					<div class="am-form-group">
+						<label>帐号</label>
+						<input type="text" class="am-form-field" placeholder="3-16个字符，必修以英文字母开头" />
+					</div>
+					<div class="am-form-group">
+						<label>昵称</label>
+						<input type="text" class="am-form-field" placeholder="您的代称" />
+					</div>
+					<div class="am-form-group">
+						<label>密码</label>
+						<input type="tpassword" class="am-form-field" placeholder="6-18个字符，建议字母+数字的组合" />
+					</div>
+					<div class="am-form-group">
+						<label>重复密码</label>
+						<input type="password" class="am-form-field" placeholder="请您再输入一次密码" />
+					</div>
+					<div class="am-form-group">
+						<label>手机</label>
+						<input type="phone" class="am-form-field" placeholder="您的手机号" />
+					</div>
+					<div class="am-form-group">
+						<label>邮箱</label>
+						<input type="email" class="am-form-field" placeholder="您的邮箱号" />
+					</div>
+					<div class="am-form-group">
+						<label>QQ</label>
+						<input type="number" class="am-form-field" placeholder="您的QQ号" />
+					</div>
+					<div class="am-form-group">
+						<label>微信</label>
+						<input type="text" class="am-form-field" placeholder="您的微信号" />
+					</div>
+				</form>
+				<a class="am-btn am-btn-success am-btn-block am-round login-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'注册中...',resetText:'注册成功'}">注册</a>
+			</div>
+			<hr />
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script>
+	$('.login-btn').on('click',function (){
+		var btn=$(this);
+		btn.button('loading');
+		setTimeout(function (){
+			btn.button('reset');
+		},3000);
+	});
+</script>
+{include file="public/foot"}

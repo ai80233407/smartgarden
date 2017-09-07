@@ -1,0 +1,67 @@
+{include file="public/head"}
+<style>
+	html{
+		height:100%;
+	}
+	body{
+		height:100%;
+		background:url(/static/image/login-background.jpg) no-repeat center fixed;
+	}
+	.modal-center {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin:auto;
+		width:600px;
+		height:360px;
+		border-radius:20px;
+		background: #f8f8f8;
+	}
+</style>
+{include file="public/header"}
+<div class="login-bg" style="height:100%;">
+	<div class="am-u-sm-6 am-u-sm-centered">
+		<div class="modal-center">
+			<div>
+				<h3 class="am-text-center">用户登录</h3>
+			</div>
+			<hr />
+			<div class="am-u-sm-8 am-u-sm-centered" style="height:165px;">
+				<div class="am-input-group am-input-group-primary">
+					<span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+					<input class="am-form-field" type="text" placeholder="帐号" />
+				</div>
+				<br />
+				<div class="am-input-group am-input-group-secondary">
+					<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+					<input class="am-form-field" type="password" placeholder="密码" />
+				</div>
+				<br />
+				<a class="am-btn am-btn-success am-btn-block am-round login-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录成功'}">登录</a>
+			</div>
+			<hr />
+			<div class="am-u-sm-8 am-u-sm-centered">
+				<ul class="am-nav-pills am-nav-justify">
+					<li><a class="am-icon-btn am-icon-qq am-primary"></a></li>
+					<li><a class="am-icon-btn am-icon-weixin am-success"></a></li>
+					<li><a class="am-icon-btn am-icon-weibo am-danger"></a></li>
+					<li><a class="am-icon-btn am-icon-bank am-warning"></a></li>
+				</ul>	
+			</div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script>
+	$('.login-btn').on('click',function (){
+		var btn=$(this);
+		btn.button('loading');
+		setTimeout(function (){
+			btn.button('reset');
+		},3000);
+	});
+</script>
+{include file="public/foot"}

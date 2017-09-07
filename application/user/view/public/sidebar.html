@@ -1,0 +1,35 @@
+  <!-- sidebar start -->
+  <div class="admin-sidebar">
+    <div class="am-offcanvas-bar admin-offcanvas-bar">
+      <ul class="am-list admin-sidebar-list">
+	    <li><a href="/index.php/Admin/Index"><span class="am-icon-fw am-icon-home"></span> 首页</a></li>
+        <li class="admin-parent">
+          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-fw am-icon-users"></span> 用户管理 <span class="am-icon-fw am-icon-angle-right am-fr am-margin-right"></span></a>
+          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
+            <li><a href="/index.php/Admin/User" class="am-cf"><span class="am-icon-fw am-icon-user"></span> 所有用户</a></li>
+			<li><a href="/index.php/Admin/User/Search"><span class="am-icon-fw am-icon-circle"></span> 高级搜索</a></li>
+			<li><a href="/index.php/Admin/User/Address"><span class="am-icon-fw am-icon-map-o"></span> 通讯录</a></li>
+            <li><a href="/index.php/Admin/User/End" style="display:none;"><span class="am-icon-fw am-icon-graduation-cap"></span> 结业处理</a></li>
+          </ul>
+        </li>
+		<li><a href="/index.php/Admin/Pass"><span class="am-icon-fw am-icon-key"></span> 修改密码</a></li>
+        <li><a href="/index.php/User/LoginOut"><span class="am-icon-fw am-icon-sign-out"></span> 登出系统</a></li>
+		<li><a href="/index.php/Admin/Help"><span class="am-icon-fw am-icon-life-ring"></span> 帮助</a></li>
+      </ul>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-fw am-icon-bookmark"></span> 公告</p>
+          <p>请各老师学生登入后及时修改个人密码</p>
+        </div>
+      </div>
+
+      <div class="am-panel am-panel-default admin-sidebar-panel">
+        <div class="am-panel-bd">
+          <p><span class="am-icon-fw am-icon-tag"></span> BUG反馈</p>
+          <p>欢迎向石蕴金反馈您发现的问题，详情请看帮助页面。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- sidebar end -->

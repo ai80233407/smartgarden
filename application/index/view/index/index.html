@@ -1,0 +1,102 @@
+{include file='public/head'}
+<style>
+	.center-parent{
+		position:relactive;
+	}
+	.center-child{
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin:auto;
+	}
+</style>
+{include file='public/header'}
+<div class="p0">
+	<div style="height:395px;background-color:#25243D;">
+		<div class="main-title">
+			<p>数据引领时代的浪潮，计算谱写世纪的篇章</p>
+		</div>
+		<div class="main-sub">
+			<p>欢迎加入我们智能菜园开发组</p>
+		</div>
+	</div>
+	<div class="am-u-sm-8 am-u-sm-centered" style="height:400px;">
+		<div class="center-parent">
+			<video class="center-child" src="/static/video/sehe.mp4" poster="/static/video/fengmian.jpg" width="525" height="315" controls="controls">
+				您的浏览器不支持本视频播放！
+			</video>
+		</div>
+	</div>
+	<div class="am-u-sm-8 am-u-sm-centered am-text-center" style="height:100px;">
+		<div class="am-u-sm-4">
+			<span class="am-icon-skyatlas am-icon-lg"></span>
+			<p>完全基于云的平台</p>
+			<p>为您提供24小时全天候的服务体验</p>
+		</div>
+		<div class="am-u-sm-4">
+			<span class="am-icon-usb am-icon-lg"></span>
+			<p>优雅的硬件架构</p>
+			<p>让灵感与创造成为无数可能</p>
+		</div>
+		<div class="am-u-sm-4">
+			<span class="am-icon-wifi am-icon-lg"></span>
+			<p>无缝的WLAN连接</p>
+			<p>让您摆脱排线与布局的困扰</p>
+		</div>
+	</div>
+</div>
+<div class="p1" style="height:900px;background-color:red;display:none;">
+</div>
+<div class="p2" style="height:900px;background-color:blue;display:none;">
+</div>
+{include file='public/footer'}
+{include file='public/common'}
+<script type="text/javascript">
+	/*$(function(){
+		var page=0;
+		var scrollFunc=function (e){
+			e=e||window.event;
+			if(e.wheelDelta){
+				//-+120 正上负下
+				//console.log();
+				//
+				if(e.wheelDelta>0){
+					$('.p'+page).fadeOut(3000);
+					--page;
+					$('.p'+page).fadeIn(3000);*/
+					/*$('.p0').animate({top:"-500px"},998,function (){
+						//$('.no-alive').hide();
+					});
+				}else{
+					$('.p'+page).fadeOut(3000);
+					++page;
+					$('.p'+page).fadeIn(3000);
+				}
+			}else if(e.detail){
+				//firefox -+3
+			}
+		};
+		if(document.addEventListener){
+			document.addEventListener('DOMMouseScroll',scrollFunc,false);//firefox
+		}
+		window.onmousewheel=document.onmousewheel=scrollFunc;*/
+		//alert($(window).height());
+		//$('footer').hide();
+		/*$('.alive-page').slideToggle('slow',function (){
+			//$('.alive-page').hide();
+		});
+		
+		$('.no-alive').animate({top:0},999,function(){
+			$('.no-alive').animate({height:0},998,function (){
+				//$('.no-alive').hide();
+			});
+			$('.n-alive').animate({height:857},997,function(){
+				//$('footer').show();
+			});
+		});
+		
+	});*/
+</script>
+{include file='public/foot'}
