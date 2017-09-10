@@ -1,35 +1,69 @@
-  <!-- sidebar start -->
-  <div class="admin-sidebar">
-    <div class="am-offcanvas-bar admin-offcanvas-bar">
-      <ul class="am-list admin-sidebar-list">
-	    <li><a href="/index.php/Admin/Index"><span class="am-icon-fw am-icon-home"></span> 首页</a></li>
-        <li class="admin-parent">
-          <a class="am-cf" data-am-collapse="{target: '#collapse-nav'}"><span class="am-icon-fw am-icon-users"></span> 用户管理 <span class="am-icon-fw am-icon-angle-right am-fr am-margin-right"></span></a>
-          <ul class="am-list am-collapse admin-sidebar-sub" id="collapse-nav">
-            <li><a href="/index.php/Admin/User" class="am-cf"><span class="am-icon-fw am-icon-user"></span> 所有用户</a></li>
-			<li><a href="/index.php/Admin/User/Search"><span class="am-icon-fw am-icon-circle"></span> 高级搜索</a></li>
-			<li><a href="/index.php/Admin/User/Address"><span class="am-icon-fw am-icon-map-o"></span> 通讯录</a></li>
-            <li><a href="/index.php/Admin/User/End" style="display:none;"><span class="am-icon-fw am-icon-graduation-cap"></span> 结业处理</a></li>
-          </ul>
-        </li>
-		<li><a href="/index.php/Admin/Pass"><span class="am-icon-fw am-icon-key"></span> 修改密码</a></li>
-        <li><a href="/index.php/User/LoginOut"><span class="am-icon-fw am-icon-sign-out"></span> 登出系统</a></li>
-		<li><a href="/index.php/Admin/Help"><span class="am-icon-fw am-icon-life-ring"></span> 帮助</a></li>
-      </ul>
-
-      <div class="am-panel am-panel-default admin-sidebar-panel">
-        <div class="am-panel-bd">
-          <p><span class="am-icon-fw am-icon-bookmark"></span> 公告</p>
-          <p>请各老师学生登入后及时修改个人密码</p>
-        </div>
-      </div>
-
-      <div class="am-panel am-panel-default admin-sidebar-panel">
+<div class="am-u-sm-1 sidebar">
+	<div>
+		<ul class="am-list am-list-border" style="margin:0px;" id="sidebar-main">
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin'}" href="/User/Index/Index"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;我的花园</a>
+			</li>
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin',target:'#eir-see'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;环境监测<i class="am-icon-angle-right am-fr"></i></a>
+				<ul class="am-list am-collapse sidebar-son" id="eir-see">
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;自然环境</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;监控</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;统计信息</a>
+					</li>
+				</ul>
+			</li>
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-users am-margin-left-sm"></i>&nbsp;环境调节</a>
+			</li>
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin',target:'#ques-info'}" href="#/"><i class="am-icon-table am-margin-left-sm"></i>&nbsp;资讯信息<i class="am-icon-angle-right am-fr"></i></a>
+				<ul class="am-list am-collapse sidebar-son" id="ques-info">
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;天气资讯</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;生长资讯</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;智能提示</a>
+					</li>
+				</ul>
+			</li>
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin',target:'#tom-park'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;未来花园<i class="am-icon-angle-right am-fr"></i></a>
+				<ul class="am-list am-collapse sidebar-son" id="tom-park">
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;生长日记</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;花园广场</a>
+					</li>
+					<li class="am-panel">
+						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;AR园丁</a>
+					</li>
+				</ul>
+			</li>
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;关于</a>
+			</li>
+		</ul>
+		<div class="am-panel am-panel-default sidebar-panel">
+			<div class="am-panel-bd">
+			  <p><span class="am-icon-fw am-icon-bookmark"></span> 公告</p>
+			  <p>beta 0.0.1</p>
+			</div>
+		</div>
+		<div class="am-panel am-panel-default sidebar-panel">
         <div class="am-panel-bd">
           <p><span class="am-icon-fw am-icon-tag"></span> BUG反馈</p>
-          <p>欢迎向石蕴金反馈您发现的问题，详情请看帮助页面。</p>
+          <p>欢迎向我们反馈您发现的问题。</p>
         </div>
       </div>
-    </div>
-  </div>
-  <!-- sidebar end -->
+	</div>
+</div>

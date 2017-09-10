@@ -1,22 +1,32 @@
 {include file="public/head"}
 <style>
+	html{
+		height:100%;
+	}
 	body{
+		height:100%;
 		background:url(/static/image/login-background.jpg) no-repeat center fixed;
 	}
 	.modal-center {
-		margin-top:40px;
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin:auto;
+		width:600px;
+		height:775px;
 		border-radius:20px;
 		background: #f8f8f8;
 	}
 </style>
 {include file="public/header"}
-<div class="login-bg" >
+<div class="login-bg" style="height:100%;">
 	<div class="am-u-sm-5 am-u-sm-centered">
 		<div class="modal-center">
 			<div class="am-padding-top">
 				<h3 class="am-text-center">用户注册</h3>
 			</div>
-			<hr />
 			<div class="am-u-sm-8 am-u-sm-centered" >
 				<form class="am-form">
 					<div class="am-form-group">
@@ -54,7 +64,6 @@
 				</form>
 				<a class="am-btn am-btn-success am-btn-block am-round login-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'注册中...',resetText:'注册成功'}">注册</a>
 			</div>
-			<hr />
 		</div>
 	</div>
 </div>
