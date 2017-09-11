@@ -4,6 +4,11 @@
 		opacity: 0;
 		width:100%;
 	}
+	.cssanimations [data-am-scrollspy*=animation] {
+		opacity: 0;
+		width: 100%;
+		margin:60px 0px 60px 0px;
+	}
 </style>
 {include file='public/header'}
 <div  class="am-g">
@@ -15,61 +20,112 @@
 			<p>官方邮箱： ai80233407@163.com</p>
 		</div>
 	</div>
-	<div class="am-padding am-margin am-g" data-am-scrollspy="{animation:'fade',delay:200}">
-		<div class="am-u-sm-8 am-u-sm-centered">
-			<h4>智能花园</h4>
-			<hr />
-			<div class="am-u-sm-4">
-				<img class="am-radius am-img-thumbnail" src="/static/image/about-park.jpg" width="380" height="270" />
+	<div class="am-u-sm-8 am-u-sm-centered">
+		<div class="am-g" data-am-scrollspy="{animation:'fade',delay:500}">
+			<div class="">
+				<h4>项目起源</h4>
+				<hr />
+				<div class="am-u-sm-7">
+					<p class="am-text-lg">　　随着时代的进步和信息技术的发展，人们传统的生活方式逐渐被新奇的现代信息技术产物所改变，人们的衣食住行无时无刻不再发生着翻天覆地的变化。如今在移动互联网浪潮的推动下，物联网逐渐在人们的视野中崭露头角。那么物联网是什么呢？依我个人来看，它就是嵌入式智能终端+云计算相结合的产物。我的毕业设计就是通过物联网技术开发一个面向园艺爱好者的智能花园系统平台。
+					这个系统平台的诞生的初衷就是为了帮助那些喜欢园艺而又缺乏相关知识；热爱园艺却没有足够的时间；醉心于园艺却与孤独为伴的人的。</p>
+				</div>
+				<div class="am-u-sm-5">
+					<img class="am-radius am-img-thumbnail am-fr" src="/static/image/about-soft1.jpg" width="380" height="270" />
+				</div>
 			</div>
-			<div class="am-u-sm-8">
-				
+		</div>
+		<div class="am-g" data-am-scrollspy="{animation:'fade',delay:200}">
+			<div class="">
+				<h4>智能花园</h4>
+				<hr />
+				<div class="am-u-sm-5">
+					<img class="am-radius am-img-thumbnail" src="/static/image/about-park.jpg" width="380" height="270" />
+				</div>
+				<div class="am-u-sm-7">
+					<p class="am-text-lg">　　智能花园系统平台从本质上改变了人与盆栽的绑定关系，它解放了人的精力与双手，让你可以更轻松，更简单的享受种植的乐趣；它的社交娱乐模块将单个的盆栽点连成网络，让更多的人在不同的地点不同的时间，分享他们的每一份成功每一份感动；它强大智能的培养方案库将最大程度的降低园艺爱好的门槛，让更多的人能轻松的加入到其中。它克服了种种硬件条件的限制，将环境的监测与调节功能融合到了一起。
+					将传感器与控制模块进行了分离，使它可以适应更多的应用场景。它应用组件化的硬件设计理念，使用户能拥有更多的diy空间等。</p>
+				</div>
 			</div>
 		</div>
 	</div>
-	<div class="am-padding am-margin am-g" data-am-scrollspy="{animation:'fade',delay:500}">
-		<div class="am-u-sm-8 am-u-sm-centered">
-			<h4>项目起源</h4>
-			<hr />
-			<div class="am-u-sm-8">
-				
-			</div>
-			<div class="am-u-sm-4">
-				<img class="am-radius am-img-thumbnail" src="/static/image/about-soft1.jpg" width="380" height="280" />
-			</div>
-		</div>
-	</div>
+	
 	<div class="am-u-sm-8 am-u-sm-centered">
 		<div class="am-panel am-panel-warning" data-am-scrollspy="{animation:'slide-left',delay:200}">
 			<div class="am-panel-hd">
 				声明
 			</div>
 			<div class="am-panel-bd">
-				....
+				<p>&nbsp;&nbsp;&nbsp;&nbsp;智能花园系统平台（以下简称智能花园项目），是由方海诺老师提出，2018届毕业生张昊民同学等人开发的，基于物联网与云计算的智能盆栽系统。
+					智能花园项目积聚了很多老师与同学的心血，我们希望当您使用或是学习此系统时，您能遵守以下几点建议要求：</p>
+				<p class="am-margin-left"><span class="am-icon-dot-circle-o am-icon-fw"></span> 在没有授权的情况下，请不要将智能花园项目用于商业化的活动中</p>
+				<p class="am-margin-left"><span class="am-icon-dot-circle-o am-icon-fw"></span> 请不要将智能花园项目用于违法犯罪的活动中</p>
+				<p class="am-margin-left"><span class="am-icon-dot-circle-o am-icon-fw"></span> 请不要恶意利用智能花园项目源代码中的Bug来攻击我们</p>
+				<p class="am-margin-left"><span class="am-icon-dot-circle-o am-icon-fw"></span> 智能花园项目的软件著作权归我们所有，如遇侵权，我们将保留追究其法律责任的权利</p>
 			</div>
 		</div>
 		<div class="am-panel am-panel-primary" data-am-scrollspy="{animation:'slide-right',delay:500}">
 			<div class="am-panel-hd">
 				项目成员
 			</div>
-			<div class="am-panel-bd">
-				....
+			<div class="am-panel-bd am-g">
+				<div class="am-u-sm-4">
+					<p>主要成员</p>
+					<p class="am-margin-left"><span class="am-icon-user am-icon-fw"></span> 张昊民</p>
+					
+				</div>
+				<div class="am-u-sm-4">
+					<p>其他成员</p>
+					<p class="am-margin-left"><span class="am-icon-user am-icon-fw"></span> 张智博</p>
+				</div>
+				<div class="am-u-sm-4">
+					<p>荣誉团</p>
+					<p class="am-margin-left"><span class="am-icon-user am-icon-fw"></span> 吕志峰老师</p>
+					<p class="am-margin-left"><span class="am-icon-user am-icon-fw"></span> 方海诺老师</p>
+				</div>
 			</div>
 		</div>
 		<div class="am-panel am-panel-secondary" data-am-scrollspy="{animation:'slide-left',delay:800}">
 			<div class="am-panel-hd">
 				联系我们
 			</div>
-			<div class="am-panel-bd">
-				....
+			<div class="am-panel-bd am-g">
+				<div class="am-u-sm-6">
+					<p>我们的联系方式:</p>
+					<p class="am-margin-left"><span class="am-icon-qq am-icon-fw"></span> 930197464</p>
+					<p class="am-margin-left"><span class="am-icon-weixin am-icon-fw"></span> ai80233407</p>
+					<p class="am-margin-left"><span class="am-icon-envelope am-icon-fw"></span> ai80233407@163.com</p>
+					<p class="am-margin-left"><span class="am-icon-map-marker am-icon-fw"></span>黑龙江省哈尔滨市哈尔滨华德学院 学院路288号</p>
+				</div>
+				<div class="am-u-sm-6">
+					<p>我们的项目维护于:</p>
+					<p class="am-margin-left"><span class="am-icon-github am-icon-fw"></span> https://github.com/ai80233407/zhinengpark.git</p>
+					<p class="am-margin-left"><span class="am-icon-git am-icon-fw"></span> https://git.coding.net/ai80233407/daydream.git</p>
+					<p class="am-margin-left"><span class="am-icon-edge am-icon-fw"></span> http://www.hdgarden.cn</p>
+				</div>
 			</div>
 		</div>
 		<div class="am-panel am-panel-danger" data-am-scrollspy="{animation:'slide-right',delay:1000}">
 			<div class="am-panel-hd">
 				鸣谢
 			</div>
-			<div class="am-panel-bd">
-				....
+			<div class="am-panel-bd am-g">
+				<p class="am-margin-left">以下排名不分先后顺序</p>
+				<div class="am-u-sm-4">
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 哈尔滨华德学院-软件工程系</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 吕志峰老师</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 方海诺老师</p>
+				</div>
+				<div class="am-u-sm-4">
+					
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 哈尔滨华德学院-ACM小组</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 龚丹老师</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 石蕴金同学</p>
+				</div>
+				<div class="am-u-sm-4">
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 哈尔滨华德学院-电子与信息工程学院</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 哈尔滨华德学院-1401311班全体同学</p>
+					<p class="am-margin-left"><span class="am-icon-circle am-icon-fw"></span> 赵云老师</p>
+				</div>
 			</div>
 		</div>
 	</div>
