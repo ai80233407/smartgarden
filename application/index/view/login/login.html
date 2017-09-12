@@ -15,7 +15,7 @@
 		left: 0;
 		margin:auto;
 		width:600px;
-		height:360px;
+		height:420px;
 		border-radius:20px;
 		background: #f8f8f8;
 	}
@@ -28,18 +28,23 @@
 				<h3 class="am-text-center">用户登录</h3>
 			</div>
 			<hr />
-			<div class="am-u-sm-8 am-u-sm-centered" style="height:165px;">
-				<div class="am-input-group am-input-group-primary">
-					<span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
-					<input class="am-form-field" type="text" placeholder="帐号" />
-				</div>
+			<div class="am-u-sm-8 am-u-sm-centered" style="height:220px;">
+				<form  id="form_check">
+					<div class="am-input-group am-input-group-primary">
+						<span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
+						<input class="am-form-field" name="name" type="text" placeholder="帐号" />
+					</div>
+					<br />
+					<div class="am-input-group am-input-group-secondary">
+						<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
+						<input class="am-form-field" name="pwd" type="password" placeholder="密码" />
+					</div>
+				</form>
 				<br />
-				<div class="am-input-group am-input-group-secondary">
-					<span class="am-input-group-label"><i class="am-icon-lock am-icon-fw"></i></span>
-					<input class="am-form-field" type="password" placeholder="密码" />
-				</div>
+				<!-- 请不要改此处的id -->
+				<div id="yth_captchar" class="yth_captchar"></div>
 				<br />
-				<a class="am-btn am-btn-success am-btn-block am-round login-btn" href="/User/index/index" data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录成功'}">登录</a>
+				<a class="am-btn am-btn-success set-width am-btn-block am-round login-btn" href="/User/index/index" data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录成功'}">登录</a>
 			</div>
 			<hr />
 			<div class="am-u-sm-8 am-u-sm-centered">
@@ -55,6 +60,37 @@
 </div>
 {include file="public/footer"}
 {include file="public/common"}
+<script type="text/javascript" src="http://cdn.bootcss.com/loadjs/3.5.0/loadjs.min.js"></script>
+<script type="text/javascript" src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script>
+<script type="text/javascript" src="/static/plugins/verify/js/hlz_rsa.js"></script>
+<script>
+loadjs(["/static/plugins/verify/js/yth_drag.js"], {
+	success: function() {
+		// 异步初始化验证码
+		$.ajax({
+			"url": "/Index/Verify/init", // 获取初始的验证码 `css + 验证码图片` 的地址
+			"success": function(html) {
+				$("#yth_captchar").html(html);
+				$(this).yth_drag({
+					"verify_url": "/Index/Verify/check",
+					"source_url": "/Index/Verify/captchar",
+					"auto_submit": false,
+					"submit_url": "/Index/Verify/demo_rsa",
+					"form_id": "form_check",
+					"crypt_func": "rsa_encode",
+					"if_hide": true,
+				});
+			}
+		});
+		// 适应当前样式
+		// $("#yth_captchar").css({
+		//     "margin-left": "10px",
+		//     "width": "280px",
+		//     "margin-top": "20px"
+		// });
+	}
+});
+</script>
 <script>
 	$('.login-btn').on('click',function (){
 		var btn=$(this);

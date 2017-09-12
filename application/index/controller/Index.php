@@ -9,4 +9,5 @@ class Index extends \think\Controller{
 	public function Regsister(){
 		return $this->fetch('regsister/regsister');
 	}
+	
 }
