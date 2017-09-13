@@ -33,12 +33,12 @@
             }, options);
         //添加背景，文字，滑块
 		console.log($('.set-width').css('width'));
-		$('#drag').css('width',$('.set-width').css('width'));
+		//$('#drag').css('width',$('.set-width').css('width'));
         if (initial.if_hide) {
 			$('#Verification').css({
 				'display': 'none',
 				'position': 'fixed',
-				'top': ''+$('.handler').offset().top-270+'px',
+				'top': ''+$('.handler').offset().top-235+'px',
 				'z-index': '1000',
 			});
 			$('#yth_captchar').removeClass('yth_captchar');
