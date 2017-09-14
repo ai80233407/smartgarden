@@ -15,7 +15,7 @@
 		left: 0;
 		margin:auto;
 		width:600px;
-		height:550px;
+		height:600px;
 		border-radius:20px;
 		background: #f8f8f8;
 	}
@@ -31,7 +31,7 @@
 				<form class="am-form">
 					<div class="am-form-group">
 						<label>帐号</label>
-						<input type="text" class="am-form-field" placeholder="3-16个字符，必修以英文字母开头" />
+						<input type="text" class="am-form-field" placeholder="3-16个字符，必需以英文字母开头" />
 					</div>
 					<div class="am-form-group">
 						<label>密码</label>
@@ -44,6 +44,10 @@
 					<div class="am-form-group">
 						<label>手机</label>
 						<input type="phone" class="am-form-field" placeholder="您的手机号" />
+					</div>
+					<div class="am-input-group am-margin-bottom">
+						<input type="text" class="am-form-field" placeholder="您收到的短信验证码" />
+						<span class="am-input-group-label countdown" style="cursor:pointer;">发送</span>
 					</div>
 					<div class="am-form-group">
 						<label>邮箱</label>
@@ -58,12 +62,32 @@
 {include file="public/footer"}
 {include file="public/common"}
 <script>
-	$('.login-btn').on('click',function (){
-		var btn=$(this);
-		btn.button('loading');
-		setTimeout(function (){
-			btn.button('reset');
-		},3000);
+	$(function(){
+		$('.login-btn').on('click',function (){
+			var btn=$(this);
+			btn.button('loading');
+			setTimeout(function (){
+				btn.button('reset');
+			},3000);
+		});
+		function countdown(time,selector){
+			if(!((typeof time==='number')&&(time%1===0))){
+				time=Number(time);
+			}
+			if(time<0){
+				time=Math.abs(time);
+			}
+			var count=setInterval(function(){
+				$(selector).text((time--)+' s');
+				if(time==-1){
+					$(selector).text('发送');
+					clearInterval(count);
+				}
+			},1000);
+		}
+		$('.countdown').on('click',function(){
+			countdown(60,'.countdown');
+		});
 	});
 </script>
 {include file="public/foot"}
