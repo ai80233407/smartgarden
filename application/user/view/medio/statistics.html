@@ -1,0 +1,178 @@
+{include file="public/head"}
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">统计信息</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li><a href="/User/Index" >&nbsp;我的花园</a></a></li>
+				<li class="am-active">环境监测</li>
+				<li class="am-active">统计信息</li>
+			</ol>
+		</div>
+		<hr />
+	</div>
+	<div class="am-u-sm-10 am-u-sm-centered am-g">
+		<div>
+			<h4>温度记录</h4>
+			<hr />
+			<div>
+				<a class="am-btn am-btn-sm am-btn-primary">近一周</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一月</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一年</a>
+				<span class="am-form am-fr" style="text-align:right;">
+					<input style="width:30%;display:inline;" type="text" placeholder="开始日期" readonly/>
+					-
+					<input style="width:30%;display:inline;" type="text" placeholder="结束日期" readonly/>
+					<a class="am-btn am-btn-sm am-btn-primary">
+					<span class="am-icon-search"></span>
+					查询
+					</a>
+				</span>
+			</div>
+			<div id="temperatrue" class="" style="width:1387px;height:300px;margin:50px 0px 50px 0px;"></div>
+		</div>
+		<div>
+			<h4>湿度记录</h4>
+			<hr />
+			<div>
+				<a class="am-btn am-btn-sm am-btn-primary">近一周</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一月</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一年</a>
+				<span class="am-form am-fr" style="text-align:right;">
+					<input style="width:30%;display:inline;" type="text" placeholder="开始日期" readonly />
+					-
+					<input style="width:30%;display:inline;" type="text" placeholder="结束日期" readonly />
+					<a class="am-btn am-btn-sm am-btn-primary">
+					<span class="am-icon-search"></span>
+					查询
+					</a>
+				</span>
+			</div>
+			<div id="humidity" style="width:1387px;height:300px;margin:50px 0px 50px 0px;"></div>
+		</div>
+		<div>
+			<h4>光照记录</h4>
+			<hr />
+			<div>
+				<a class="am-btn am-btn-sm am-btn-primary">近一周</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一月</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一年</a>
+				<span class="am-form am-fr" style="text-align:right;">
+					<input style="width:30%;display:inline;" type="text" placeholder="开始日期" readonly />
+					-
+					<input style="width:30%;display:inline;" type="text" placeholder="结束日期" readonly />
+					<a class="am-btn am-btn-sm am-btn-primary">
+					<span class="am-icon-search"></span>
+					查询
+					</a>
+				</span>
+			</div>
+			<div id="intensity" style="width:1387px;height:300px;margin:50px 0px 50px 0px;"></div>
+		</div>
+		<div>
+			<h4>P.H.记录</h4>
+			<hr />
+			<div>
+				<a class="am-btn am-btn-sm am-btn-primary">近一周</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一月</a>
+				<a class="am-btn am-btn-sm am-btn-primary">近一年</a>
+				<span class="am-form am-fr" style="text-align:right;">
+					<input style="width:30%;display:inline;" type="text" placeholder="开始日期" readonly />
+					-
+					<input style="width:30%;display:inline;" type="text" placeholder="结束日期" readonly />
+					<a class="am-btn am-btn-sm am-btn-primary">
+					<span class="am-icon-search"></span>
+					查询
+					</a>
+				</span>
+			</div>
+			<div id="ph" style="width:1387px;height:300px;margin:50px 0px 50px 0px;"></div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script type="text/javascript" src="/static/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+	function echartsinit(option,object){
+		var doc=document.getElementById(object.idname);
+		doc.style.width=object.width+'px';
+		doc.style.height=object.height+'px';
+		var myChart = echarts.init(doc);
+		myChart.setOption(option);
+	}
+	option = {
+		title: {
+			text: '折线图堆叠'
+		},
+		tooltip: {
+			trigger: 'axis'
+		},
+		legend: {
+			data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+		},
+		grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+		},
+		toolbox: {
+			feature: {
+				saveAsImage: {}
+			}
+		},
+		xAxis: {
+			type: 'category',
+			boundaryGap: false,
+			data: ['周一','周二','周三','周四','周五','周六','周日']
+		},
+		yAxis: {
+			type: 'value'
+		},
+		series: [
+			{
+				name:'邮件营销',
+				type:'line',
+				stack: '总量',
+				data:[120, 132, 101, 134, 90, 230, 210]
+			},
+			{
+				name:'联盟广告',
+				type:'line',
+				stack: '总量',
+				data:[220, 182, 191, 234, 290, 330, 310]
+			},
+			{
+				name:'视频广告',
+				type:'line',
+				stack: '总量',
+				data:[150, 232, 201, 154, 190, 330, 410]
+			},
+			{
+				name:'直接访问',
+				type:'line',
+				stack: '总量',
+				data:[320, 332, 301, 334, 390, 330, 320]
+			},
+			{
+				name:'搜索引擎',
+				type:'line',
+				stack: '总量',
+				data:[820, 932, 901, 934, 1290, 1330, 1320]
+			}
+		]
+	};
+
+	echartsinit(option,{idname:'temperatrue',width:1387,height:300});
+	echartsinit(option,{idname:'humidity',width:1387,height:300});
+	echartsinit(option,{idname:'intensity',width:1387,height:300});
+	echartsinit(option,{idname:'ph',width:1387,height:300});
+	
+	$('input').datepicker({format: 'yyyy-mm-dd'});
+</script>
+{include file="public/foot"}

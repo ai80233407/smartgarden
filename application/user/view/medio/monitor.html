@@ -1,0 +1,164 @@
+{include file="public/head"}
+<style>
+	body{
+		font-family: FontAwesome;
+	}	
+</style>
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">实时动态</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li><a href="/User/Index" >&nbsp;我的花园</a></a></li>
+				<li class="am-active">环境监测</li>
+				<li class="am-active">实时动态</li>
+			</ol>
+		</div>
+		<hr />
+	</div>
+	<div class="am-u-sm-10 am-u-sm-centered">
+		<div class=" am-g">
+			<h4>远程视频</h4>
+			<hr />
+			<div class="am-u-sm-6" >
+				<video class="center-child" src="/static/video/sehe.mp4" poster="/static/video/fengmian.jpg" width="500" height="315" controls="controls">
+					您的浏览器不支持本视频播放！
+				</video>
+			</div>
+			<div class="am-u-sm-6">
+				<div class="am-panel am-panel-success" style="height:315px;" >
+					<div class="am-panel-hd">
+						<div class="am-panel-title">系统信息</div>
+					</div>
+					<div class="am-panel-bd">
+						<p style="height:200px;" >........</p>
+						<ul class="am-nav-pills am-nav-justify">
+							<li><a class="am-btn am-btn-primary">打开链接</a></li>
+							<li><a class="am-btn am-btn-success">重新连接</a></li>
+							<li><a class="am-btn am-btn-danger">关闭连接</a></li>
+							<li><a class="am-btn am-btn-warning">调试信息</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-g">
+			<h4>远程音频</h4>
+			<hr />
+			<div class="am-u-sm-6">
+				<div class="am-slider am-slider-default" style="width:500px;height:265px;" data-am-flexslider="{playAfterPaused: 8000}">
+					<ul class="am-slides">
+						<li><img src="/static/video/fengmian.jpg" /></li>
+						<li><img src="/static/video/fengmian.jpg" /></li>
+						<li><img src="/static/video/fengmian.jpg" /></li>
+					</ul>
+				</div>
+				<audio style="width:500px;" controls>
+					<source type="audio/mpeg" src="" />
+					您的浏览器不支持本视频播放！
+				</audio>
+			</div>
+			<div class="am-u-sm-6">
+				<div class="am-panel am-panel-success" style="height:315px;" >
+					<div class="am-panel-hd">
+						<div class="am-panel-title">系统信息</div>
+					</div>
+					<div class="am-panel-bd">
+						<p style="height:200px;" >........</p>
+						<ul class="am-nav-pills am-nav-justify">
+							<li><a class="am-btn am-btn-primary">打开链接</a></li>
+							<li><a class="am-btn am-btn-success">重新连接</a></li>
+							<li><a class="am-btn am-btn-danger">关闭连接</a></li>
+							<li><a class="am-btn am-btn-warning">调试信息</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-g">
+			<h4>远程图像</h4>
+			<hr />
+			<div class="am-u-sm-6" style="border:1px solid #eee;width:550px;">
+			  <ul data-am-widget="gallery" class="am-gallery am-avg-lg-3 am-gallery-default" data-am-gallery="{ pureview: true }" >
+				  <li>
+					<div class="am-gallery-item">
+						<a href="/static/video/fengmian.jpg" class="">
+						  <img src="/static/video/fengmian.jpg"  alt="远方 有一个地方 那里种有我们的梦想"/>
+							<div class="am-gallery-title am-text-center">2375-09-26</div>
+						</a>
+					</div>
+				  </li>
+				  <li>
+					<div class="am-gallery-item">
+						<a href="/static/video/fengmian.jpg" class="">
+						  <img src="/static/video/fengmian.jpg"  alt="某天 也许会相遇 相遇在这个好地方"/>
+							<div class="am-gallery-title am-text-center">2375-09-26</div>
+						</a>
+					</div>
+				  </li>
+				  <li>
+					<div class="am-gallery-item">
+						<a href="/static/video/fengmian.jpg" class="">
+						  <img src="/static/video/fengmian.jpg"  alt="不要太担心 只因为我相信"/>
+							<div class="am-gallery-title am-text-center">2375-09-26</div>
+						</a>
+					</div>
+				  </li>
+				  <li>
+					<div class="am-gallery-item">
+						<a href="/static/video/fengmian.jpg" class="">
+						  <img src="/static/video/fengmian.jpg"  alt="终会走过这条遥远的道路"/>
+							<div class="am-gallery-title am-text-center">2375-09-26</div>
+						</a>
+					</div>
+				  </li>
+			  </ul>
+			</div>
+			<div class="am-u-sm-6">
+				<div class="am-panel am-panel-success" style="height:280px;" >
+					<div class="am-panel-hd">
+						<div class="am-panel-title">系统信息</div>
+					</div>
+					<div class="am-panel-bd">
+						<p style="height:150px;" >........</p>
+						<ul class="am-nav-pills am-nav-justify">
+							<li><a class="am-btn am-btn-primary">打开链接</a></li>
+							<li><a class="am-btn am-btn-success">重新连接</a></li>
+							<li><a class="am-btn am-btn-danger">关闭连接</a></li>
+							<li><a class="am-btn am-btn-warning">调试信息</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script>
+	$('#your-slider').flexslider({
+	  playAfterPaused: 8000,
+	  before: function(slider) {
+		if (slider._pausedTimer) {
+		  window.clearTimeout(slider._pausedTimer);
+		  slider._pausedTimer = null;
+		}
+	  },
+	  after: function(slider) {
+		var pauseTime = slider.vars.playAfterPaused;
+		if (pauseTime && !isNaN(pauseTime) && !slider.playing) {
+		  if (!slider.manualPause && !slider.manualPlay && !slider.stopped) {
+			slider._pausedTimer = window.setTimeout(function() {
+			  slider.play();
+			}, pauseTime);
+		  }
+		}
+	  }
+	  // 设置其他参数
+	});
+</script>
+{include file="public/foot"}
