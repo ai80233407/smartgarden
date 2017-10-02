@@ -6,7 +6,7 @@ $msg['out'] ;           // 编码对应输出
 */
 namespace app\index\controller;
 
-use Mine\Slide;     // 引入 Slide 类
+use \Mine\Slide;     // 引入 Slide 类
 
 class Verify extends \think\Controller{
 
