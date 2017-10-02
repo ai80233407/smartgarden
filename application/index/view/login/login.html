@@ -72,10 +72,10 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 			"success": function(html) {
 				$("#yth_captchar").html(html);
 				$(this).yth_drag({
-					"verify_url": "/Index/Verify/check",
-					"source_url": "/Index/Verify/captchar",
+					"verify_url": "/index.php/Index/Verify/check",
+					"source_url": "/index.php/Index/Verify/captchar",
 					"auto_submit": false,
-					"submit_url": "/Index/Verify/demo_rsa",
+					"submit_url": "/index.php/Index/Verify/demo_rsa",
 					"form_id": "form_check",
 					"crypt_func": "rsa_encode",
 					"if_hide": true,
