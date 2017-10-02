@@ -6,7 +6,7 @@ $msg['out'] ;           // 编码对应输出
 */
 namespace app\index\controller;
 
-use \Mine\Slide;     // 引入 Slide 类
+use Mine\Slide;     // 引入 Slide 类
 
 class Verify extends \think\Controller{
 
@@ -14,7 +14,7 @@ class Verify extends \think\Controller{
     * 初始获取 验证码
     */
     public function init(){
-        echo \Mine\Slide::instance();
+        echo Slide::instance();
     }
     /**
     * 获取验证码的html
