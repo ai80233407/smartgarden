@@ -68,7 +68,7 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 	success: function() {
 		// 异步初始化验证码
 		$.ajax({
-			"url": "/Index/Verify/init", // 获取初始的验证码 `css + 验证码图片` 的地址
+			"url": "/index.php/Index/Verify/init", // 获取初始的验证码 `css + 验证码图片` 的地址
 			"success": function(html) {
 				$("#yth_captchar").html(html);
 				$(this).yth_drag({
