@@ -48,6 +48,7 @@
 				$('#Verification').fadeOut();
 			});
 		}
+		
 		$('.login-btn').off('click').on('click',function (){
 			if (verify && initial.submit_url && initial.form_id) {
 				sub_form()
@@ -57,6 +58,7 @@
 				});
 			}
 		});
+		
         //放验证码的容器
         var now_container = drag.parent().eq(0).parent().eq(0),
             handler = drag.find('.handler'),
