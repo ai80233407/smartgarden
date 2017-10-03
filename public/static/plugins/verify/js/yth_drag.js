@@ -30,9 +30,8 @@
                 "crypt_func": false, // 是否启用加密函数，一般用RSA
                 "post_field": "x_value", // 用于验证的字段名
                 "layer_time": 1000 // 错误信息[除验证码] 弹出窗口显示时间，单位 ms
-            }, options);
+            }, options),verify=false;
         //添加背景，文字，滑块
-		console.log($('.set-width').css('width'));
 		//$('#drag').css('width',$('.set-width').css('width'));
         if (initial.if_hide) {
 			$('#Verification').css({
@@ -49,6 +48,15 @@
 				$('#Verification').fadeOut();
 			});
 		}
+		$('.login-btn').off('click').on('click',function (){
+			if (verify && initial.submit_url && initial.form_id) {
+				sub_form()
+			}else{
+				layer.msg("验证码为空！", {
+					time: initial.layer_time
+				});
+			}
+		});
         //放验证码的容器
         var now_container = drag.parent().eq(0).parent().eq(0),
             handler = drag.find('.handler'),
@@ -150,6 +158,7 @@
                         });
                         getnow_xy_img.removeClass('xy_img_bord');
                         remove_listener();
+						verify=true;
                         if (initial.auto_submit && initial.submit_url && initial.form_id) {
                             sub_form()
                         }
@@ -190,7 +199,7 @@
                 dataType: 'json',
                 success: function(msg) {
                     layer.close(page_load_index);// 加载层 关闭
-                    if (!msg.status) {
+                    if (!msg.logstatus) {
                         layer.msg(msg.out, {
                             time: initial.layer_time
                         });
@@ -236,7 +245,8 @@
                     now_container.eq(0).html(get_html);
                     $(this).yth_drag(initial)
                 }
-            })
+            });
+			verity=false;
         }
         // 清空监听事件
 

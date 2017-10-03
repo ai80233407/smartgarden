@@ -44,7 +44,7 @@
 				<!-- 请不要改此处的id -->
 				<div id="yth_captchar" class="yth_captchar"></div>
 				<br />
-				<a class="am-btn am-btn-success set-width am-btn-block am-round login-btn" href="/User/index/index" data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录成功'}">登录</a>
+				<a class="am-btn am-btn-success set-width am-btn-block am-round login-btn"  data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录成功'}">登录</a>
 			</div>
 			<hr />
 			<div class="am-u-sm-8 am-u-sm-centered">
@@ -68,14 +68,14 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 	success: function() {
 		// 异步初始化验证码
 		$.ajax({
-			"url": "/index.php/Index/Verify/init", // 获取初始的验证码 `css + 验证码图片` 的地址
+			"url": "/Index/Verify/init", // 获取初始的验证码 `css + 验证码图片` 的地址
 			"success": function(html) {
 				$("#yth_captchar").html(html);
 				$(this).yth_drag({
-					"verify_url": "/index.php/Index/Verify/check",
-					"source_url": "/index.php/Index/Verify/captchar",
+					"source_url": "/Index/Verify/captchar",
+					"verify_url": "/Index/Verify/check",
 					"auto_submit": false,
-					"submit_url": "/index.php/Index/Verify/demo_rsa",
+					"submit_url": "/Index/Api/Login",
 					"form_id": "form_check",
 					"crypt_func": "rsa_encode",
 					"if_hide": true,
@@ -92,12 +92,5 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 });
 </script>
 <script>
-	$('.login-btn').on('click',function (){
-		var btn=$(this);
-		btn.button('loading');
-		setTimeout(function (){
-			btn.button('reset');
-		},3000);
-	});
 </script>
 {include file="public/foot"}

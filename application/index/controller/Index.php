@@ -6,6 +6,10 @@ class Index extends \think\Controller{
 		return $this->fetch('index/index');
 	}
 	
+	public function login(){
+		return $this->fetch('login/login');
+	}
+	
 	public function Regsister(){
 		return $this->fetch('regsister/regsister');
 	}
