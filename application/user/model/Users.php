@@ -31,6 +31,14 @@ class Users extends Model{
 		return Users::get(['id'=>$uid]);
 	}
 	
+	public static function add_one_user($data){
+		return Users::create($data);
+	}
+	
+	public static function update_one_logtime($data){
+		return Users::update($data);
+	}
+	
 	public function get_uid(){
 		$uid=session('uid');
 		if(empty($uid)){

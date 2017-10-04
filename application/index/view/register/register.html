@@ -28,47 +28,49 @@
 				<h3 class="am-text-center">用户注册</h3>
 			</div>
 			<div class="am-u-sm-8 am-u-sm-centered" >
-				<form class="am-form">
+				<form class="am-form reg-info">
 					<div class="am-form-group">
 						<label>帐号</label>
-						<input type="text" name="account" class="am-form-field" placeholder="3-16个字符，必需以英文字母开头" />
+						<input type="text" name="account" class="am-form-field" placeholder="6-18个字符(仅包括a-Z 0-9 _)" />
 					</div>
 					<div class="am-form-group">
 						<label>密码</label>
-						<input type="tpassword" name="password" class="am-form-field" placeholder="6-18个字符，建议字母+数字的组合" />
+						<input type="password" name="password" class="am-form-field" placeholder="6-18个字符(仅包括a-Z 0-9 _)" />
 					</div>
 					<div class="am-form-group">
 						<label>重复密码</label>
-						<input type="password" class="am-form-field" placeholder="请您再输入一次密码" />
+						<input type="password" name="repwd" class="am-form-field" placeholder="请您再输入一次密码" />
 					</div>
 					<div class="am-form-group">
 						<label>手机</label>
 						<input type="phone" name="phone" class="am-form-field" placeholder="您的手机号" />
 					</div>
 					<div class="am-input-group am-margin-bottom">
-						<input type="text" class="am-form-field" placeholder="您收到的短信验证码" />
-						<span class="am-input-group-label countdown" style="cursor:pointer;">发送</span>
+						<input type="text" name="sms" class="am-form-field" placeholder="您收到的短信验证码" />
+						<a class="am-input-group-label am-btn countdown" style="cursor:pointer;background-color: #0e90d2;color:white;width:150px;" >发送</a>
 					</div>
 					<div class="am-form-group">
 						<label>邮箱</label>
 						<input type="email" name="email" class="am-form-field" placeholder="您的邮箱号" />
 					</div>
+					<div>
+						{:token()}
+					</div>
 				</form>
-				<a class="am-btn am-btn-success am-btn-block am-round login-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'注册中...',resetText:'注册成功'}">注册</a>
+				<a class="am-btn am-btn-success am-btn-block am-round reg-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'注册中...',resetText:'注册'}">注册</a>
 			</div>
 		</div>
 	</div>
 </div>
 {include file="public/footer"}
 {include file="public/common"}
+<script type="text/javascript" src="http://cdn.bootcss.com/layer/3.0.1/layer.min.js"></script>
 <script>
 	$(function(){
-		$('.login-btn').on('click',function (){
+		$('.reg-btn').on('click',function (){
 			var btn=$(this);
 			btn.button('loading');
-			setTimeout(function (){
-				btn.button('reset');
-			},3000);
+			sub_form(btn);
 		});
 		function countdown(time,selector){
 			if(!((typeof time==='number')&&(time%1===0))){
@@ -81,13 +83,44 @@
 				$(selector).text((time--)+' s');
 				if(time==-1){
 					$(selector).text('发送');
+					$(selector).removeAttr("disabled");
 					clearInterval(count);
 				}
 			},1000);
 		}
 		$('.countdown').on('click',function(){
+			$(this).attr("disabled","disabled");
 			countdown(60,'.countdown');
 		});
+		function sub_form(btn){
+			var data=$('.reg-info').serialize();
+			var page_load_index = layer.load(0, {shade: false}); // 加载层 开启
+			$.ajax({
+				type:'post',
+				url:'/Index/Index/Register',
+				dataType:'json',
+				data:data,
+				async:true,
+				success:function(data){
+					layer.close(page_load_index);// 加载层 关闭
+					if(data.regstatus){
+						btn.text('注册成功');
+                        layer.msg('正在跳转...', {
+                            icon: 6,
+                            time: 2000
+                        }, function() {
+                            window.location.href = "/Index/Index/Login";
+                       })
+					}else{
+						btn.button('reset');
+						layer.msg(data.out, {
+                            icon: 5,
+							time: 1000
+                        });
+					}
+				}
+			});
+		}
 	});
 </script>
 {include file="public/foot"}

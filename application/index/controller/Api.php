@@ -46,6 +46,7 @@ class Api extends \think\Controller{
 				$msg['url']     = '/User/Index/Index';
 				$msg['out'] = '登陆成功';
 				session('uid',$uid);
+				Users::update_one_logtime(array('id'=>$uid,'lastime'=>date("Y-m-d H:i:s")));
 				exit( json_encode($msg) );
 			}else{
 				$msg['logstatus']  = false; 
