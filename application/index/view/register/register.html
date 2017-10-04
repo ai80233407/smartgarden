@@ -31,11 +31,11 @@
 				<form class="am-form">
 					<div class="am-form-group">
 						<label>帐号</label>
-						<input type="text" class="am-form-field" placeholder="3-16个字符，必需以英文字母开头" />
+						<input type="text" name="account" class="am-form-field" placeholder="3-16个字符，必需以英文字母开头" />
 					</div>
 					<div class="am-form-group">
 						<label>密码</label>
-						<input type="tpassword" class="am-form-field" placeholder="6-18个字符，建议字母+数字的组合" />
+						<input type="tpassword" name="password" class="am-form-field" placeholder="6-18个字符，建议字母+数字的组合" />
 					</div>
 					<div class="am-form-group">
 						<label>重复密码</label>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="am-form-group">
 						<label>手机</label>
-						<input type="phone" class="am-form-field" placeholder="您的手机号" />
+						<input type="phone" name="phone" class="am-form-field" placeholder="您的手机号" />
 					</div>
 					<div class="am-input-group am-margin-bottom">
 						<input type="text" class="am-form-field" placeholder="您收到的短信验证码" />
@@ -51,7 +51,7 @@
 					</div>
 					<div class="am-form-group">
 						<label>邮箱</label>
-						<input type="email" class="am-form-field" placeholder="您的邮箱号" />
+						<input type="email" name="email" class="am-form-field" placeholder="您的邮箱号" />
 					</div>
 				</form>
 				<a class="am-btn am-btn-success am-btn-block am-round login-btn" data-am-loading="{spinner:'circle-o-notch',loadingText:'注册中...',resetText:'注册成功'}">注册</a>

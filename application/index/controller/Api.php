@@ -64,13 +64,12 @@ class Api extends \think\Controller{
 	}
 	
 	public function out_login(){
-		$User=new Users;
-		$User->out_login();
+		Users::out_login();
 		return redirect('/');
 	}
 	
 	public function test(){
-		echo phpinfo();
+		echo sha1('smartgarden');
 		//return $this->fetch('');
 	}
 }
