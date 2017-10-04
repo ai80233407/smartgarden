@@ -1,6 +1,5 @@
 <?php
 namespace app\user\controller;
-
 class Weather extends \think\Controller{
 	public function Index(){
 		$city=http_build_query(array('city'=>'北京'));

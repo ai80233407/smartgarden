@@ -7,16 +7,20 @@
 				<a class="logo-icon"></a>
 			</header>
 		</div>
-		<div class="am-u-sm-1 am-dropdown" data-am-dropdown>
-			<div class="head-div am-dropdown-toggle" data-am-dropdown-toggle>
-				<img src="/static/image/avatar/avatar-.png" class="am-circle head-icon">
-				<span class="head-text">张昊民&nbsp;<i class=" am-icon-caret-down"></i></span>
+{php}
+use app\user\model\Users;
+$user=Users::get_one_user(session('uid'));
+{/php}
+		<div class="am-u-sm-2">
+			<div class="head-div am-dropdown"  data-am-dropdown>
+				<img src="/static/image/avatar/avatar-{$user->head}.png" class="am-circle head-icon am-dropdown-toggle" data-am-dropdown-toggle>
+				<span class="head-text">{$user->nickname}</span>}&nbsp;<i class=" am-icon-caret-down"></i></span>
+				<ul class="am-dropdown-content">
+					<li><a href="/Index/Index/Index">首页</a></li>
+					<li><a>我的消息<span class="am-badge am-round am-badge-success am-margin-left-xl">7</span></a></li>
+					<li><a href="/Index/Api/Out_login">注销</a></li>
+				</ul>
 			</div>
-			<ul class="am-dropdown-content">
-				<li><a href="/">首页</a></li>
-				<li><a>我的消息<span class="am-badge am-round am-badge-success am-margin-left-xl">7</span></a></li>
-				<li><a href="/Index/Api/Out_login">注销</a></li>
-			</ul>
 		</div>
 	</div>
 	

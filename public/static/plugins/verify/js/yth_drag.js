@@ -50,12 +50,15 @@
 		}
 		
 		$('.login-btn').off('click').on('click',function (){
+			var btn=$(this);
+			btn.button('loading');
 			if (verify && initial.submit_url && initial.form_id) {
-				sub_form()
+				sub_form(btn)
 			}else{
 				layer.msg("验证码为空！", {
 					time: initial.layer_time
 				});
+				btn.button('reset');
 			}
 		});
 		
@@ -188,7 +191,7 @@
         }
         // 自动提交表单
 
-        function sub_form() {
+        function sub_form(btn) {
             var sub_form_data = $("#" + initial.form_id).serialize();
             if (false != initial.crypt_func) {
                 sub_form_data = crypt_data(sub_form_data)
@@ -202,11 +205,15 @@
                 success: function(msg) {
                     layer.close(page_load_index);// 加载层 关闭
                     if (!msg.logstatus) {
-                        layer.msg(msg.out, {
+						if(btn!='undefined'){
+							btn.button('reset');
+						}
+						layer.msg(msg.out, {
                             time: initial.layer_time
                         });
                         get_src();
                     }else {
+						btn.text('登录成功');
                         layer.msg('正在跳转...', {
                             icon: 6,
                             time: 1000

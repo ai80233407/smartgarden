@@ -13,15 +13,15 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => '127.0.0.1',
+    'hostname'        => '139.129.25.150',
     // 数据库名
-    'database'        => '',
+    'database'        => 'smartgarden',
     // 用户名
     'username'        => 'root',
     // 密码
-    'password'        => '',
+    'password'        => '159632147',
     // 端口
-    'hostport'        => '',
+    'hostport'        => '9001',
     // 连接dsn
     'dsn'             => '',
     // 数据库连接参数
