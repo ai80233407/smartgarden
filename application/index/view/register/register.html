@@ -31,11 +31,11 @@
 				<form class="am-form reg-info">
 					<div class="am-form-group">
 						<label>帐号</label>
-						<input type="text" name="account" class="am-form-field" placeholder="6-18个字符(仅包括a-Z 0-9 _)" />
+						<input type="text" name="account" class="am-form-field" placeholder="6-18个字符( 仅包括a-Z 0-9 _ )" />
 					</div>
 					<div class="am-form-group">
 						<label>密码</label>
-						<input type="password" name="password" class="am-form-field" placeholder="6-18个字符(仅包括a-Z 0-9 _)" />
+						<input type="password" name="password" class="am-form-field" placeholder="6-18个字符( 仅包括a-Z 0-9 _ )" />
 					</div>
 					<div class="am-form-group">
 						<label>重复密码</label>
@@ -43,7 +43,7 @@
 					</div>
 					<div class="am-form-group">
 						<label>手机</label>
-						<input type="phone" name="phone" class="am-form-field" placeholder="您的手机号" />
+						<input type="phone" name="phone" class="am-form-field user-phone" placeholder="您的手机号" />
 					</div>
 					<div class="am-input-group am-margin-bottom">
 						<input type="text" name="sms" class="am-form-field" placeholder="您收到的短信验证码" />
@@ -89,8 +89,28 @@
 			},1000);
 		}
 		$('.countdown').on('click',function(){
-			$(this).attr("disabled","disabled");
-			countdown(60,'.countdown');
+			var btn=$(this);
+			$.ajax({
+				type:'post',
+				url:'/Index/Api/Send_sms',
+				data:{'phone':$('.user-phone').val()},
+				dataType:'json',
+				async:true,
+				success:function(data){
+					if(data.sendstatus){
+                        btn.attr("disabled","disabled");
+						layer.msg(data.out, {
+                            icon: 6,
+                            time: 2000
+                        },countdown(60,'.countdown'))
+					}else{
+						layer.msg(data.out, {
+                            icon: 5,
+							time: 1000
+                        });
+					}
+				}
+			});
 		});
 		function sub_form(btn){
 			var data=$('.reg-info').serialize();

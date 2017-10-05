@@ -34,10 +34,20 @@
         "topthink/think-queue": "^1.0",
         "topthink/think-testing": "^1.0"
     },
+	"require-dev": {
+        "phpunit/phpunit": "~4.0"
+    },
     "extra": {
         "think-path": "thinkphp"
     },
     "config": {
         "preferred-install": "dist"
+    },
+	"minimum-stability": "stable",
+	"autoload": {
+        "psr-4": {
+            "Aliyun\\": "alidayu/lib/",
+            "Aliyun\\Test\\": "alidayu/tests/"
+        }
     }
 }

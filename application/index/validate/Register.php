@@ -10,6 +10,7 @@ class Register extends Validate{
 		'phone|手机号'=>'number|length:11',
 		'email|邮箱'=>'email',
 		'repwd|重复密码'=>'looklike|require',
+		'sms|短信验证码'=>'require|number|length:6',
 	];
 	
 	protected $message=[
@@ -18,7 +19,7 @@ class Register extends Validate{
 	
 	protected $scene=[
 		'login'=>['account','password'],
-		'register'=>['account','password','phone','email','repwd'],
+		'register'=>['account','password','phone','email','repwd','sms'],
 	];
 	function looklike($value,$rule,$data){
 		return $value==$data['password'] ? true:false;

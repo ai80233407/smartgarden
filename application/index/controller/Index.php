@@ -24,6 +24,17 @@ class Index extends \think\Controller{
 				if($validate->scene('register')->check($regdata)){
 					unset($regdata['__token__']);
 					unset($regdata['repwd']);
+					if(time()-session('user.sendtime')>301){
+						$msg['regstatus']=false;
+						$msg['out']='短信验证码超时！';
+						exit(json_encode($msg));
+					}
+					if($regdata['sms']!=session('user.validate')){
+						$msg['regstatus']=false;
+						$msg['out']='短信验证码错误！';
+						//$msg['out']=session('user.validate');
+						exit(json_encode($msg));
+					}
 					unset($regdata['sms']);
 					if(empty(Users::get_one_record($regdata['account'])->id)){
 						$regdata['password']=sha1($regdata['password']);
@@ -31,11 +42,12 @@ class Index extends \think\Controller{
 						$regdata['lastime']=$regdata['regtime'];
 						$regdata['nickname']=$regdata['account'];
 						$regdata['role']=1;
-						$regdata['status']=2;
+						$regdata['status']=1;
 						$regdata['head']=rand(1,20);
 						Users::add_one_user($regdata);
 						$msg['regstatus']=true;
 						$msg['out']='注册成功！';
+						session(null);
 						exit(json_encode($msg));
 					}else{
 						$msg['regstatus']=false;
