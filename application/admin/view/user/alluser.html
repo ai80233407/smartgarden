@@ -1,0 +1,74 @@
+{include file="public/head"}
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">管理中心</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li class="am-active">管理中心</li>
+			</ol>
+		</div>
+		<hr />
+	</div>
+	<div class="am-g am-margin-bottom">
+		<div class="am-u-sm-12 am-u-md-3 am-fr">
+			<div class="am-input-group am-input-group-sm">
+				<input id="search_text" value="{$key}" type="text" class="am-form-field limitset" placeholder="搜索">
+				<span class="am-input-group-btn">
+					<button onclick="javascript:search();" class="am-btn am-btn-primary search" type="button"><span class="am-icon-search"></span></button>
+				</span>
+			</div>
+		</div>
+	</div>
+	<div class="am-g">
+		<div class="am-u-sm-12">
+			<table class="am-table am-table-bd am-table-striped am-table-hover admin-content-table">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>用户名</th>
+						<th class="am-hide-sm-only classrom">昵称</th>
+						<th class="am-hide-sm-only">角色</th>
+						<th class="am-hide-sm-only">手机号</th>
+						<th>邮箱</th>
+						<th class="am-hide-sm-only">状态</th>
+						<th>最后登录时间</th>
+						<th>帐号创建时间</th>
+					</tr>
+				</thead>
+				<tbody class="user_table">
+					{volist name="userlist" id="row"}
+					<tr>
+						<td>{$row.id}</td>
+						<td>{$row.account}</td>
+						<td>{$row.nickname}</td>
+						<td>{$row.role}</td>
+						<td>{$row.phone}</td>
+						<td>{$row.email}</td>
+						<td>{$row.status}</td>
+						<td>{$row.lastime}</td>
+						<td>{$row.regtime}</td>
+					</tr>
+					{/volist}
+				</tbody>
+			</table>
+		</div>
+	</div>
+	{$userlist->render()}
+</div>
+<div class="am-modal am-modal-alert" tabindex="-1" id="sub">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd">系统提示</div>
+		<div class="am-modal-bd">请确认是否保存这些数据 ?</div>
+		<div class="am-modal-footer">
+			<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+			<span class="am-modal-btn decide">确定</span>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+{include file="public/foot"}

@@ -39,6 +39,14 @@ class Users extends Model{
 		return Users::update($data);
 	}
 	
+	public static function get_all_user(){
+		return Users::table(['users'=>'u','root_role'=>'r','users_status'=>'s'])->field('u.id,account,nickname,r.name as role,s.name as status,phone,email,regtime,lastime')->where('u.role=r.id and u.status=s.id')->paginate(10,false,['type' => 'app\common\page\Amh']);
+	}
+	
+	public static function search_user($key){
+		return Users::table(['users'=>'u','root_role'=>'r','users_status'=>'s'])->field('u.id,account,nickname,r.name as role,s.name as status,phone,email,regtime,lastime')->where("u.role=r.id and u.status=s.id and( account like %'{$key}'% or nickname like %'{$key}'% or email like %'{$key}'% phone like %'{$key}'% )")->paginate(10,false,['type' => 'app\common\page\Amh']);
+	}
+	
 	public function get_uid(){
 		$uid=session('uid');
 		if(empty($uid)){

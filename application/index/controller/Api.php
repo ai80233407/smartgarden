@@ -134,7 +134,7 @@ class Api extends \think\Controller{
 	
 	public function test(){
 		//echo json_encode(array('用户1'=>1));
-		echo queryroot(array('管理'=>array('查看'=>1)))? 'true':'false';
+		//echo queryroot(array('管理'=>array('查看'=>1)))? 'true':'false';
 		//echo json_encode(array('管理'=>array('查看'=>1,'新增'=>1)));
 	}
 }
