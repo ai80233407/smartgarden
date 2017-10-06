@@ -19,7 +19,7 @@ class Users extends Model{
 	
 	public static function out_login(){
 		if(Users::is_login()){
-			session('uid',null);
+			session(null);
 		}
 	}
 	

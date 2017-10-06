@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use Mine\Slide;
 use app\user\model\Users;
+use app\user\model\Roots_role;
 
 class Index extends \think\Controller{
     
@@ -58,17 +59,18 @@ class Index extends \think\Controller{
 				exit( json_encode($msg) );
 			}
 			session(null);
-			session('role',$role);
+			$rootlist=Roots_role::get_one_role($role)->rootlist;
+			session('rootlist',$rootlist);
 			session('uid',$uid);
 			$msg['logstatus']  = true;
 			// 若验证成功后需要跳转到某个地址 {"status":true,"url":"/"} 形式输出
 			$msg['out'] = '登陆成功';
-			if(queryroot(array('用户'=>1),1)){
-				$msg['url'] = '/User/Index/Index';
-			}else if(queryroot(array('管理'=>1),1)){
-				$msg['url'] = '/Admin/Index/Index';
-			}else if(queryroot(array('用户'=>1,'管理'=>1),1)){
+			if(queryroot(array('用户'=>array('查看'=>1),'管理'=>array('查看'=>1)))){
 				$msg['url'] = '/Index/Index/Index';
+			}else if(queryroot(array('用户'=>array('查看'=>1)))){
+				$msg['url'] = '/User/Index/Index';
+			}else if(queryroot(array('管理'=>array('查看'=>1)))){
+				$msg['url'] = '/Admin/Index/Index';
 			}else{
 				$msg['url'] = '/Index/About/Index';
 			}
