@@ -15,6 +15,7 @@ class Register extends Validate{
 	
 	protected $message=[
 		'repwd'=>'两次输入密码不一致！',
+		'account.token'=>'令牌失效，请刷新页面后重新提交！',
 	];
 	
 	protected $scene=[

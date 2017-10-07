@@ -37,17 +37,17 @@
 				<ul class="am-list am-collapse sidebar-son" id="ques-info">
 	{if queryroot(array('权限列表'=>array('查看'=>1)))}
 					<li class="am-panel">
-						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;权限列表</a>
-					</li>
-	{/if}
-	{if queryroot(array('角色管理'=>array('查看'=>1)))}
-					<li class="am-panel">
-						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;角色管理</a>
+						<a href="/Admin/Root/Root_list"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;权限列表</a>
 					</li>
 	{/if}
 	{if queryroot(array('模块管理'=>array('查看'=>1)))}
 					<li class="am-panel">
-						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;模块管理</a>
+						<a href="/Admin/Root/Block_list"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;模块管理</a>
+					</li>
+	{/if}
+	{if queryroot(array('角色管理'=>array('查看'=>1)))}
+					<li class="am-panel">
+						<a href="/Admin/Root/Role_list"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;角色管理</a>
 					</li>
 	{/if}
 				</ul>

@@ -11,9 +11,6 @@ class User extends Controller{
 			if(!queryroot(array('所有用户'=>array('查看'=>1)))){
 				return redirect('/Admin/Index/Index');
 			}
-			if(request()->isPost()){
-				
-			}
 			$key=input('get.key');
 			if(empty($key)){
 				$key='';

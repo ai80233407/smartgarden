@@ -22,6 +22,7 @@ class Index extends \think\Controller{
 			// RSA 解密 、 [使用了加密函数的，都需要 urldecode 再次解码]
 			$account = urldecode(   \Crypt\Rsa::decrypt(input('post.account'))    );
 			$pwd  = urldecode(   \Crypt\Rsa::decrypt(input('post.pwd'))     );
+			$token = urldecode(   \Crypt\Rsa::decrypt(input('post.__token__'))     );
 			// 待验证的 帐号与密码
 			//$account=input('post.account');
 			//$pwd=input('post.pwd');
@@ -31,6 +32,12 @@ class Index extends \think\Controller{
 				// 提示用户的错误信息，请以 {"status":false,"out":"这里是错误信息"} 形式输出
 				$msg['out'] = '帐号或者密码为空哟';
 				exit( json_encode($msg)  );
+			}
+			$validate=validate('Register');
+			if(!$validate->scene('login')->check(array('account'=>$account,'password'=>$pwd,'__token__'=>$token))){
+				$msg['logstatus']=false;
+				$msg['out']=$validate->getError();
+				exit(json_encode($msg));
 			}
 			$test=Users::get_one_record($account);
 			if(empty($test->account)){
