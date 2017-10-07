@@ -25,7 +25,7 @@
 		</div>
 	</div>
 	<div class="am-g">
-		<div class="am-u-sm-12">
+		<div class="am-u-sm-12 am-margin-bottom">
 			<table class="am-table am-table-bd am-table-striped am-table-hover admin-content-table">
 				<thead>
 					<tr>
@@ -58,8 +58,13 @@
 									<span class="am-icon-caret-down"></span>
 								</a>
 								<ul class="am-dropdown-content">
+								{if queryroot(array('角色管理'=>array('查看'=>1,"删除"=>1)))}
 									<li><a>删除角色</a></li>
+								{/if}
+								{if queryroot(array('角色管理'=>array('查看'=>1,"修改"=>1)))}
 									<li><a>修改角色</a></li>
+								{/if}
+									<li><a>详细信息</a></li>
 								</ul>
 							</div>
 						</td>
@@ -67,6 +72,9 @@
 					{/volist}
 				</tbody>
 			</table>
+			{if queryroot(array('角色管理'=>array('查看'=>1,"新增"=>1)))}
+			<a class="am-btn am-btn-block am-btn-primary"><span class="am-icon-plus"></span>&nbsp;创建角色</a>
+			{/if}
 		</div>
 	</div>
 	{$rolelist->render()}

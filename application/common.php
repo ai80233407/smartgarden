@@ -22,6 +22,9 @@ function queryroot($block){
 				return false;
 			}
 			foreach($val as $k=>$v){
+				if(empty($b1[$key][$k])){
+					return false;
+				}
 				if($b1[$key][$k]!=$v){
 					return false;
 				}
