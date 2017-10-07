@@ -1,0 +1,72 @@
+{include file="public/head"}
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">角色信息</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li class="am-active">权限管理</li>
+				<li class="am-active"><a class="" href="/Admin/Root/Role_list">角色管理</a></li>
+				<li class="am-active">角色信息</li>
+			</ol>
+		</div>
+		<hr />
+		<div class="am-g">
+			<div class="am-u-sm-8 am-u-sm-centered">
+				<h4>基本信息</h4>
+				<hr />
+				<table class="am-table am-table-striped">
+					<tbody>
+						<tr>
+							<td>角色名</td>
+							<td>{$role.name}</td>
+						</tr>
+						<tr>
+							<td>备注</td>
+							<td>{$role->mark}</td>
+						</tr>
+						<tr>
+							<td>创建时间</td>
+							<td>{$role->ctime}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
+			<div class="am-u-sm-8 am-u-sm-centered">
+				<h4>权限信息</h4>
+				<hr />
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						
+					</div>
+					<div class="am-u-sm-6">
+						
+					</div>
+				</div>
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						
+					</div>
+					<div class="am-u-sm-6">
+						
+					</div>
+				</div>
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						
+					</div>
+					<div class="am-u-sm-6">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+{include file="public/foot"}

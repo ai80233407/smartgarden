@@ -65,4 +65,22 @@ class Root extends Controller{
 			 return Users::need_login();
 		 }
 	 }
+	 
+	 public function role_look(){
+		 if(islogined()){
+			 if(!queryroot(array('角色管理'=>array('查看'=>1)))){
+				 return redirect('/Admin/Index/Index');
+			 }
+			 $id=input('get.id');
+			 if(empty($id)){
+				 return redirect('/Admin/Root/Root_list');
+			 }
+			 $role=Roots::get_one_role($id);
+			 //print_r($role);
+			 $this->assign('role',$role);
+			 return $this->fetch('/root/rolelook');
+		 }else{
+			 return needlogined();
+		 }
+	 }
  }

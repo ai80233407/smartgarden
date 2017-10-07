@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: 流年 <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-
+use app\user\model\Users;
 // 应用公共文件
 
 function queryroot($block){
@@ -34,4 +34,16 @@ function queryroot($block){
 	}else{
 		return Users::need_login();
 	}
+}
+
+function islogined(){
+	
+	return Users::is_login();
+
+}
+
+function needlogined(){
+	
+	return Users::need_login();
+
 }

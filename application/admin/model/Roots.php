@@ -31,6 +31,12 @@ class Roots extends Model{
 		
 	}
 	
+	public static function get_one_role($id){
+		
+		return Roots::table('root_role')->where("id='{$id}'")->find();
+		
+	}
+	
 	public static function get_all_role(){
 		
 		return Roots::table('root_role')->where('1=1')->paginate(10,false,['type'=>'app\common\page\Amh']);
