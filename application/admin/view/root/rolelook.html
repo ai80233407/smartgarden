@@ -41,10 +41,49 @@
 				<hr />
 				<div class="am-u-sm-12">
 					<div class="am-u-sm-6">
-						
+						<h5>一级模块列表</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list" style="margin:0px;padding: 0px;">
+{php}
+	use app\admin\model\Roots;
+	$first=Roots::get_block_bylevel(1);
+	$rootlist=Roots::get_all_root();
+{/php}
+{if !empty($first)}
+{foreach $first as $row}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$row['name']} - - {$row['mark']}</span>
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+{/foreach}
+{/if}
+							</ul>
+						</div>
 					</div>
 					<div class="am-u-sm-6">
-						
+						<h5>已赋权限</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list" style="margin:0px;padding: 0px;">
+								<li style="padding: 10px;overflow: hidden;border-top: 1px solid #d8e1eb;list-style: none;">
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;"></span>
+										</div>
+										<div class="am-hide-sm" style="color: #8b8b8b;font-size: 12px;width: 330px;height: 30px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></div>
+									</div>
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<div class="am-u-sm-12">

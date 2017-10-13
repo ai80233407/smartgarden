@@ -25,6 +25,19 @@ class Roots extends Model{
 		
 	}
 	
+	public static function get_block_level($name){
+		return Roots::table('root_block')->where("name= '{$name}'")->value('level');
+	}
+	
+	public static function get_block_bylevel($level){
+
+		return Roots::table('root_block')->where("level = '{$level}'")->select();
+	}
+	
+	public static function get_block_byparent($parent){
+		return Roots::table('root_block')->where("parent = '{$parent}'")->select();
+	}
+	
 	public static function search_block($key){
 		
 		return Roots::table('root_block b')->where("b.name like '%{$key}%' or b.mark like '%{$key}%' or b.level='{$key}'")->field('b.id,b.name,r.name as pname,b.level,b.mark,b.ctime')->join('root_block r','b.parent=r.id','left')->paginate(10,false,['type'=>'app\common\page\Amh']);

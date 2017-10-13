@@ -83,4 +83,13 @@ class Root extends Controller{
 			 return needlogined();
 		 }
 	 }
+	 
+	 public static function test(){
+		 $rootlist=json_decode(session('rootlist'),true);
+		 foreach($rootlist as $key=>$value){
+			 $rootlist[$key]['块级']=Roots::get_block_level($key);
+		 }
+		 header("Content-type:text/html,charset:utf-8;");
+		 echo urlencode(json_encode($rootlist));
+	 }
  }

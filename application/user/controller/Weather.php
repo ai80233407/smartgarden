@@ -6,7 +6,7 @@ class Weather extends \think\Controller{
 		$curl=curl_init('');
 		//http://www.sojson.com/open/api/weather/json.shtml?city=哈尔滨
 		//http://wthrcdn.etouch.cn/weather_mini?city=北京
-		//curl_setopt($curl,CURLOPT_URL,'wthrcdn.etouch.cn/weather_mini?city='.$city);
+		curl_setopt($curl,CURLOPT_URL,'wthrcdn.etouch.cn/weather_mini?city='.$city);
 		curl_setopt($curl,CURLOPT_HEADER,0);
 		curl_setopt($curl,CURLOPT_RETURNTRANSFER,1);
 		/*

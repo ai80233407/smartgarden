@@ -25,7 +25,7 @@
 			<h4>远程视频</h4>
 			<hr />
 			<div class="am-u-sm-6" >
-				<video class="center-child" src="/static/video/sehe.mp4" poster="/static/video/fengmian.jpg" width="500" height="315" controls="controls">
+				<video id="video" class="center-child"  poster="/static/video/fengmian.jpg" width="500" height="315" autoplay controls="controls">
 					您的浏览器不支持本视频播放！
 				</video>
 			</div>
@@ -160,5 +160,23 @@
 	  }
 	  // 设置其他参数
 	});
+</script>
+<script type="text/javascript">
+    var getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+
+    getUserMedia.call(navigator, {
+        video: true,
+        audio: true
+    }, function(localMediaStream) {
+        var video = document.getElementById('video');
+        video.src = window.URL.createObjectURL(localMediaStream);
+        video.onloadedmetadata = function(e) {
+            console.log("Label: " + localMediaStream.label);
+            console.log("AudioTracks" , localMediaStream.getAudioTracks());
+            console.log("VideoTracks" , localMediaStream.getVideoTracks());
+        };
+    }, function(e) {
+        console.log('Reeeejected!', e);
+    });
 </script>
 {include file="public/foot"}

@@ -55,14 +55,12 @@
 	
 	var option = {
 		title: {
-			text: '未来一周气温变化',
-			subtext: '纯属虚构'
+			text: '',
+			subtext: '来之花园-沐浴阳光'
 		},
 		tooltip: {
-			trigger: 'axis'
-		},
-		legend: {
-			data:['最高气温','最低气温']
+			trigger: 'axis',
+			formatter: "时间：{b}<br/>温度：{c}°C"
 		},
 		toolbox: {
 			show: true,
@@ -76,10 +74,10 @@
 				saveAsImage: {}
 			}
 		},
-		xAxis:  {
+		xAxis: {
 			type: 'category',
 			boundaryGap: false,
-			data: ['周一','周二','周三','周四','周五','周六','周日']
+			data: ['08:00','09:00','10:00','11:00','12:00']
 		},
 		yAxis: {
 			type: 'value',
@@ -87,54 +85,16 @@
 				formatter: '{value} °C'
 			}
 		},
-		series: [
-			{
-				name:'最高气温',
-				type:'line',
-				data:[11, 11, 14, 13, 12, 13, 10],
-				markPoint: {
-					data: [
-						{type: 'max', name: '最大值'},
-						{type: 'min', name: '最小值'}
-					]
-				},
-				markLine: {
-					data: [
-						{type: 'average', name: '平均值'}
-					]
-				}
-			},
-			{
-				name:'最低气温',
-				type:'line',
-				data:[1, -2, 2, 5, 3, 2, 0],
-				markPoint: {
-					data: [
-						{name: '周最低', value: -2, xAxis: 1, yAxis: -1.5}
-					]
-				},
-				markLine: {
-					data: [
-						{type: 'average', name: '平均值'},
-						[{
-							symbol: 'none',
-							x: '90%',
-							yAxis: 'max'
-						}, {
-							symbol: 'circle',
-							label: {
-								normal: {
-									position: 'start',
-									formatter: '最大值'
-								}
-							},
-							type: 'max',
-							name: '最高点'
-						}]
-					]
-				}
+		series: {
+			name:'气温',
+			type:'line',
+			data:[11, 11, -11, 13, 12],
+			markLine: {
+				data: [
+					{type: 'average', name: '平均值'}
+				]
 			}
-		]
+		}
 	};
 	
 	var option1 = {
@@ -142,19 +102,18 @@
 			formatter: "{a} <br/>{b} : {c}%"
 		},
 		toolbox: {
+			show: true,
 			feature: {
-				restore: {},
+				dataView: {readOnly: false},
 				saveAsImage: {}
 			}
 		},
-		series: [
-			{
-				name: '业务指标',
-				type: 'gauge',
-				detail: {formatter:'{value}%'},
-				data: [{value: 50, name: '完成率'}]
-			}
-		]
+		series:{
+			name: '当前',
+			type: 'gauge',
+			detail: {formatter:'{value}%'},
+			data: {value: 50, name: '湿度指数'},
+		}
 	};
 
 	var option2 = {
@@ -254,9 +213,25 @@
 			}
 		]
 	};
-
-	echartsinit(option,{idname:'temperatrue',width:600,height:300});
-	echartsinit(option1,{idname:'humidity',width:700,height:300});
+	var temperature=function(){
+		$.ajax({
+			type: 'post',
+			url: '/User/Medio/Index',
+			dataType: 'json',
+			data: {'time':(new Date).valueOf()/1000},
+			async: true,
+			success: function(data){
+				option.xAxis.data=data.times;
+				option.series.data=data.data;
+				option1.series.data.value=data.value;
+				option1.series.name='当前时间：'+data.time;
+				echartsinit(option,{idname:'temperatrue',width:600,height:300});
+				echartsinit(option1,{idname:'humidity',width:700,height:300});
+			}
+		});
+	}
+	temperature();
+	setInterval(temperature,60*1000);
 	echartsinit(option2,{idname:'intensity',width:1400,height:300});
 	echartsinit(option3,{idname:'ph',width:1600,height:400});
 /*

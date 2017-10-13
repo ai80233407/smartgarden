@@ -2,6 +2,8 @@
 namespace app\index\controller;
 
 use Sms\SmsDemo;
+use app\index\model\Temperatures;
+use app\index\model\Humiditys;
 
 class Api extends \think\Controller{
 	
@@ -130,6 +132,36 @@ class Api extends \think\Controller{
 		//echo sha1('smartgarden');
 		//return $this->fetch('');
 
+	}
+	
+	public function temperature(){
+		if(request()->isPost()){
+			$value=input('post.value');
+			$time=input('post.time');
+			$eid=input('post.eid');
+			if(empty($value)){
+				exit(json_encode(array('tempstatus'=>false,'msg'=>'数据为空')));
+			}
+			Temperatures::add_one_temp(array('value'=>$value,'time'=>$time,'eid'=>$eid));
+			exit(json_encode(array('tempstatus'=>true,'msg'=>'添加成功')));
+		}else{
+			exit(json_encode(array('tempstatus'=>false,'msg'=>'请求不合法')));
+		}
+	}
+	
+	public function humidity(){
+		if(request()->isPost()){
+			$value=input('post.value');
+			$time=input('post.time');
+			$eid=input('post.eid');
+			if(empty($value)){
+				exit(json_encode(array('humistatus'=>false,'msg'=>'数据为空')));
+			}
+			Humiditys::add_one_humi(array('value'=>$value,'time'=>$time,'eid'=>$eid));
+			exit(json_encode(array('humistatus'=>true,'msg'=>'添加成功')));
+		}else{
+			exit(json_encode(array('humistatus'=>false,'msg'=>'请求不合法')));
+		}
 	}
 	
 	public function test(){
