@@ -1,0 +1,263 @@
+{include file="public/head"}
+<style>
+.am-scrollable-vertical{
+	height:310px;
+}
+</style>
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">修改角色</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li class="am-active">权限管理</li>
+				<li class="am-active"><a class="" href="/Admin/Root/Role_list">角色管理</a></li>
+				<li class="am-active">修改角色</li>
+			</ol>
+		</div>
+		<hr />
+		<div class="am-g">
+			<div class="am-u-sm-8 am-u-sm-centered">
+				<h4>基本信息</h4>
+				<hr />
+				<table class="am-table am-table-striped">
+					<tbody>
+						<tr>
+							<td>角色名</td>
+							<td><input value="{$role.name}" class="" /></td>
+						</tr>
+						<tr>
+							<td>备注</td>
+							<td><input value="{$role->mark}" class="" /></td>
+						</tr>
+						<tr>
+							<td>创建时间</td>
+							<td>{$role->ctime}</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<br />
+{php}
+	use app\admin\model\Roots;
+	$first=Roots::get_block_bylevel(1);
+	$rootlist=Roots::get_all_root();
+	foreach(json_decode(session('rootlist'),true) as $key=>$value){
+		$level=Roots::get_block_level($key);
+		if($level==1){
+			$block1[$key]=$value;
+		}
+		if($level==2){
+			$block2[$key]=$value;
+		}
+		if($level==3){
+			$block3[$key]=$value;
+		}
+	}
+	$sign2=1;
+	$sign3=1;
+{/php}
+			<div class="am-u-sm-8 am-u-sm-centered">
+				<h4>权限信息</h4>
+				<hr />
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						<h5>一级模块列表</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list{if count($first)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{if !empty($first)}
+{foreach $first as $row}
+	{if empty($block1[$row['name']])}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-chevron-circle-right am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$row['name']}</span>
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+	{/if}
+{/foreach}
+{/if}
+							</ul>
+						</div>
+					</div>
+					<div class="am-u-sm-6">
+						<h5>已赋权限</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list {if count($block1)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block1 as $key=>$value}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-times-circle am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if}/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+{/foreach}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						<h5>二级模块列表</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">	
+{if !empty($block1)}
+	{foreach $block1 as $keys=>$rows}
+		{php}
+			$parent=Roots::get_block_id($keys);
+			$second=Roots::get_block_byparent($parent);
+		{/php}
+		{if !empty($second)}
+		{if $sign2}
+						<ul class="accept-list{if count($second)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+			{php}$sign2=0;{/php}
+		{/if}
+		
+			{foreach $second as $row}
+				{if empty($block2[$row['name']])}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-chevron-circle-right am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$row['name']}</span>
+											
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+				{/if}
+			{/foreach}
+		{/if}
+	{/foreach}
+{/if}
+							</ul>
+						</div>
+					</div>
+					<div class="am-u-sm-6">
+						<h5>已赋权限</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list{if count($block2)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block2 as $key=>$value}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-times-circle am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if}/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+{/foreach}
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="am-u-sm-12">
+					<div class="am-u-sm-6">
+						<h5>三级模块列表</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">		
+{if !empty($block2)}
+	{foreach $block2 as $keys=>$rows}
+		{php}
+			$pa=Roots::get_block_id($keys);
+			$third=Roots::get_block_byparent($pa);
+		{/php}
+		{if $sign3}
+						<ul class="accept-list{if count($third)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+			{php}$sign3=0;{/php}
+		{/if}
+		{if !empty($third)}
+			{foreach $third as $row}
+				{if empty($block3[$row['name']])}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-chevron-circle-right am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$row['name']}</span>
+											
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+				{/if}
+			{/foreach}
+		{/if}
+	{/foreach}
+{/if}
+							</ul>
+						</div>
+					</div>
+					<div class="am-u-sm-6">
+						<h5>已赋权限</h5>
+						<div class="am-panel am-panel-default am-padding" style="height:350px;">
+							<ul class="accept-list{if count($block3)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block3 as $key=>$value}
+								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+									<div class="am-icon-times-circle am-fr"></div>
+									<div style="float: left;width: 330px;cursor: pointer;">
+										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
+										</div>
+										<div class="am-form-group"style="margin:10px 0 0 0">
+											{foreach $rootlist as $col}
+											<label class="am-checkbox-inline">
+												<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if}/>{$col.name}
+											</label>
+											{/foreach}
+										</div>
+									</div>
+								</li>
+{/foreach}
+							</ul>
+						</div>
+					</div>
+					<div class="am-u-sm-12">
+						<a href="/Admin/Root/Role_list" class="am-btn am-btn-warning am-btn-xs am-fr">返回</a>
+						<a class="am-btn am-btn-primary am-btn-xs am-fr am-margin-right">保存</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+{include file="public/foot"}

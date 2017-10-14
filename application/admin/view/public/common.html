@@ -1,3 +1,25 @@
+<div class="am-modal am-modal-alert" tabindex="-1" id="del-modal">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd">系统提示</div>
+		<div class="am-modal-bd">请确认是否删除这条数据 ?</div>
+		<div class="am-modal-footer">
+			<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+			<span class="am-modal-btn" data-am-modal-confirm>确定</span>
+		</div>
+	</div>
+</div>
+<div class="am-alert am-alert-success" style="display:none;position:fixed;width:250px;right:500px;top: 50px;" data-am-alert>
+	<button type="button" class="am-close" >&times;</button>
+</div>
+<div class="am-alert am-alert-danger" style="display:none;position:fixed;width:250px;right:500px;top: 50px;" data-am-alert>
+	<button type="button" class="am-close" >&times;</button>
+</div>
+<div class="am-alert am-alert-warning" style="display:none;position:fixed;width:250px;right:500px;top: 50px;" data-am-alert>
+	<button type="button" class="am-close" >&times;</button>
+</div>
+<div class="am-alert am-alert-secondary" style="display:none;position:fixed;width:250px;right:500px;top: 50px;" data-am-alert>
+	<button type="button" class="am-close" >&times;</button>
+</div>
 <script src="/static/jquery/jquery.min.js"></script>
 <!--script src="/static/layui/layui.js"></script>
 <script>
@@ -9,3 +31,48 @@
 </script-->
 <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/amazeui/js/amazeui.min.js"></script>
+<script type="text/javascript">
+	function delmodal(callback){
+		var sign=false;
+		$('#del-modal').modal({
+			onConfirm: function(){
+				sign=true;
+				callback(sign);
+			},
+			onCancel: function(){
+				sign=false;
+				callback(sign);
+			}
+		});
+		
+	}
+	function alertsuccess(msg){
+		$('.am-alert-success').append('<p>'+msg+'</p>').show('fast');
+		setTimeout(function(){
+			$('.am-alert-success').hide('fast');
+			$('.am-alert-success p').remove();
+		},3000);
+	}
+	function alertfailed(msg){
+		$('.am-alert-danger').append('<p>'+msg+'</p>').show('fast');
+		setTimeout(function(){
+			$('.am-alert-danger').hide('fast');
+			$('.am-alert-success p').remove();
+		},3000);
+	}
+	function alertwarn(){
+		$('.am-alert-warning').append('<p>'+msg+'</p>').show('fast');
+		setTimeout(function(){
+			$('.am-alert-warning').hide('fast');
+			$('.am-alert-success p').remove();
+		},3000);
+	}
+	function alertcancel(){
+		$('.am-alert-secondary').append('<p>'+msg+'</p>').show('fast');
+		setTimeout(function(){
+			$('.am-alert-secondary').hide('fast');
+			$('.am-alert-success p').remove();
+		},3000);
+	}
+	
+</script>

@@ -29,6 +29,10 @@ class Roots extends Model{
 		return Roots::table('root_block')->where("name= '{$name}'")->value('level');
 	}
 	
+	public static function get_block_id($name){
+		return Roots::table('root_block')->where("name= '{$name}'")->value('id');
+	}
+	
 	public static function get_block_bylevel($level){
 
 		return Roots::table('root_block')->where("level = '{$level}'")->select();
@@ -56,9 +60,21 @@ class Roots extends Model{
 		
 	}
 	
+	public static function update_role_byid($id,$data){
+		
+		return Roots::table('root_role')->where("id = '{$id}'")->update($data);
+		
+	}
+	
 	public static function search_role($key){
 		
 		return Roots::table('root_role')->where("name like '%{$key}%' or mark like '%{$key}%' or rootlist like '%{$key}%'")->paginate(10,false,['type'=>'app\common\page\Amh']);
+		
+	}
+	
+	public static function del_one_role($id){
+		
+		return Roots::table('root_role')->where("id = '{$id}'")->delete();
 		
 	}
 }

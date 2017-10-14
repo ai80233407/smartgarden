@@ -84,12 +84,64 @@ class Root extends Controller{
 		 }
 	 }
 	 
+	 public function role_update(){
+		 if(islogined()){
+			 if(!queryroot(array('角色管理'=>array('查看'=>1,"修改"=>1)))){
+				 return redirect('/Admin/Index/Index');
+			 }
+			 $id=input('get.id');
+			 if(empty($id)){
+				 return redirect('/Admin/Root/Root_list');
+			 }
+			 if(request()->isPost()){
+				 $role=Roots::update_one_role($id);
+				 $msg['roleupdatestatus']=true;
+				 $msg['out']='更新成功';
+				 exit(json_encode($msg));
+			 }else{
+				 $role=Roots::get_one_role($id);
+				 //print_r($role);
+				 $this->assign('role',$role);
+				 return $this->fetch('/root/roleupdate');
+			 }
+		 }else{
+			 return needlogined();
+		 }
+	 }
+	 
+	 public function role_del(){
+		 if(islogined()){
+			 if(!queryroot(array('角色管理'=>array('查看'=>1,"删除"=>1)))){
+				 return redirect('/Admin/Index/Index');
+			 }
+			 $id=input('post.id');
+			 if(empty($id)){
+				 $msg['roledelstatus']=false;
+				 $msg['out']='id为空';
+				 exit(json_encode($msg));
+			 }
+			 $role=Roots::del_one_role($id);
+			 //print_r($role);
+			 if(!$role){
+				 $msg['roledelstatus']=false;
+				 $msg['out']='id不存在';
+				 exit(json_encode($msg));
+			 }
+			 $msg['roledelstatus']=true;
+			 $msg['out']='删除成功';
+			 exit(json_encode($msg));
+		 }else{
+			 return needlogined();
+		 }
+	 }
+	 
 	 public static function test(){
 		 $rootlist=json_decode(session('rootlist'),true);
 		 foreach($rootlist as $key=>$value){
-			 $rootlist[$key]['块级']=Roots::get_block_level($key);
+			 unset($rootlist[$key]['块级']);
 		 }
-		 header("Content-type:text/html,charset:utf-8;");
-		 echo urlencode(json_encode($rootlist));
+		 //Roots::update_role_byid(2,array('rootlist'=>json_encode($rootlist)));
+		 echo json_encode($rootlist,JSON_UNESCAPED_UNICODE);
 	 }
+	 
  }

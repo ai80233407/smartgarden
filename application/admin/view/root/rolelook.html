@@ -1,4 +1,9 @@
 {include file="public/head"}
+<style>
+.am-scrollable-vertical{
+	height:310px;
+}
+</style>
 {include file="public/header"}
 {include file="public/sidebar"}
 <div class="am-u-sm-11" style="background:#fff;">
@@ -36,71 +41,95 @@
 				</table>
 			</div>
 			<br />
+{php}
+	use app\admin\model\Roots;
+	$rootlist=Roots::get_all_root();
+	foreach(json_decode(session('rootlist'),true) as $key=>$value){
+		$level=Roots::get_block_level($key);
+		if($level==1){
+			$block1[$key]=$value;
+		}
+		if($level==2){
+			$block2[$key]=$value;
+		}
+		if($level==3){
+			$block3[$key]=$value;
+		}
+	}
+{/php}
 			<div class="am-u-sm-8 am-u-sm-centered">
 				<h4>权限信息</h4>
 				<hr />
 				<div class="am-u-sm-12">
-					<div class="am-u-sm-6">
-						<h5>一级模块列表</h5>
-						<div class="am-panel am-panel-default am-padding" style="height:350px;">
-							<ul class="accept-list" style="margin:0px;padding: 0px;">
-{php}
-	use app\admin\model\Roots;
-	$first=Roots::get_block_bylevel(1);
-	$rootlist=Roots::get_all_root();
-{/php}
-{if !empty($first)}
-{foreach $first as $row}
-								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
-									<div style="float: left;width: 330px;cursor: pointer;">
-										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
-											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$row['name']} - - {$row['mark']}</span>
-										</div>
-										<div class="am-form-group"style="margin:10px 0 0 0">
-											{foreach $rootlist as $col}
-											<label class="am-checkbox-inline">
-												<input type="checkbox" value=""  data-am-ucheck/>{$col.name}
-											</label>
-											{/foreach}
-										</div>
+					<h5>已赋权限</h5>
+					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+						<ul class="accept-list {if count($block1)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block1 as $key=>$value}
+							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+								<div style="float: left;width: 330px;cursor: pointer;">
+									<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+										<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
 									</div>
-								</li>
+									<div class="am-form-group"style="margin:10px 0 0 0">
+										{foreach $rootlist as $col}
+										<label class="am-checkbox-inline">
+											<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if} disabled/>{$col.name}
+										</label>
+										{/foreach}
+									</div>
+								</div>
+							</li>
 {/foreach}
-{/if}
-							</ul>
-						</div>
+						</ul>
 					</div>
-					<div class="am-u-sm-6">
-						<h5>已赋权限</h5>
-						<div class="am-panel am-panel-default am-padding" style="height:350px;">
-							<ul class="accept-list" style="margin:0px;padding: 0px;">
-								<li style="padding: 10px;overflow: hidden;border-top: 1px solid #d8e1eb;list-style: none;">
-									<div style="float: left;width: 330px;cursor: pointer;">
-										<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
-											<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;"></span>
-										</div>
-										<div class="am-hide-sm" style="color: #8b8b8b;font-size: 12px;width: 330px;height: 30px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"></div>
+				</div>
+				<div class="am-u-sm-12">
+					<h5>已赋权限</h5>
+					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+						<ul class="accept-list{if count($block2)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block2 as $key=>$value}
+							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+								<div style="float: left;width: 330px;cursor: pointer;">
+									<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+										<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
 									</div>
-								</li>
-							</ul>
-						</div>
+									<div class="am-form-group"style="margin:10px 0 0 0">
+										{foreach $rootlist as $col}
+										<label class="am-checkbox-inline">
+											<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if} disabled/>{$col.name}
+										</label>
+										{/foreach}
+									</div>
+								</div>
+							</li>
+{/foreach}
+						</ul>
 					</div>
 				</div>
 				<div class="am-u-sm-12">
-					<div class="am-u-sm-6">
-						
-					</div>
-					<div class="am-u-sm-6">
-						
+					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+						<ul class="accept-list{if count($block3)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+{foreach $block3 as $key=>$value}
+							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
+								<div style="float: left;width: 330px;cursor: pointer;">
+									<div style="color: #5c5c5c;font-size: 14px;margin-bottom: 0;font-weight: 400;">
+										<span style="vertical-align: middle;display: inline-block;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;max-width: 200px;">{$key}</span>
+									</div>
+									<div class="am-form-group"style="margin:10px 0 0 0">
+										{foreach $rootlist as $col}
+										<label class="am-checkbox-inline">
+											<input type="checkbox" value=""  data-am-ucheck {if !empty($value[$col.name])}checked{/if} disabled/>{$col.name}
+										</label>
+										{/foreach}
+									</div>
+								</div>
+							</li>
+{/foreach}
+						</ul>
 					</div>
 				</div>
 				<div class="am-u-sm-12">
-					<div class="am-u-sm-6">
-						
-					</div>
-					<div class="am-u-sm-6">
-						
-					</div>
+					<a href="/Admin/Root/Role_list" class="am-btn am-btn-warning am-btn-xs am-fr">返回</a>
 				</div>
 			</div>
 		</div>
