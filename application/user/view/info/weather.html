@@ -1,0 +1,160 @@
+{include file="public/head"}
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">天气资讯</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li class="am-active">资讯信息</li>
+			</ol>
+		</div>
+		<hr />
+	</div>
+{php}
+	$envlist=array('aqi'=>'污染指数','pm25'=>'PM 2.5','suggest'=>'舒适度','quality'=>'空气质量','o3'=>'臭氧','co'=>'一氧化碳','pm10'=>'PM 10','no2'=>'二氧化氮','so2'=>'二氧化硫','time'=>'更新时间','MajorPollutants'=>'');
+{/php}
+	<div class="am-u-sm-8 am-u-sm-centered">
+		<div class="am-u-sm-12">
+			<h4>今日气象</h4>
+			<hr />
+			<div class="am-u-sm-12">
+				<h2 class="am-text-center"><span class=" am-text-primary">{$imweather['city']}</span><span class="am-text-sm am-text-success"> - - {$imweather['forecast']['weather'][0]['date']}</span></h2>
+				<p class="am-text-center">更新于 : {$imweather['updatetime']}</p>
+				<br />
+				<div class="am-u-sm-6">
+					<table class="am-table">
+						<tbody>
+							<tr>
+								<td><p class="am-text-center">白天</p></td>
+								<td><p class="am-text-center">夜晚</p></td>
+							</tr>
+							<tr>
+								<td><img sytle="text-align:center" src="http://open.sojson.com/images/weather/night/1.png"></td>
+								<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+							</tr>
+							<tr>
+								<td><p class="am-text-center"> {$imweather['forecast']['weather'][0]['day']['type']}</p></td>
+								<td><p class="am-text-center"> {$imweather['forecast']['weather'][0]['night']['type']}</p></td>
+							</tr>
+							<tr>
+								<td><p class="am-text-center"> {$imweather['forecast']['weather'][0]['day']['fengxiang']}</p></td>
+								<td><p class="am-text-center"> {$imweather['forecast']['weather'][0]['night']['fengxiang']}</p></td>
+							</tr>
+							<tr>
+								<td colspan="2"><p class="am-text-center">{:substr($imweather['forecast']['weather'][0]['high'],6)} / {:substr($imweather['forecast']['weather'][0]['low'],6)}</p></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td colspan="2"><p class="am-text-center">湿度 : {$imweather['shidu']}</p></td><td></td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>
+				<div class="am-u-sm-6">
+					<div class="am-u-sm-4">
+						
+					</div>
+					<div class="am-u-sm-8">
+						<table class="am-table ">
+							<tbody>
+{foreach $imweather['environment'] as $key=>$value}
+	{if !is_array($value)}
+								<tr>
+									<td>{$envlist[$key]}</td>
+									<td>{$value}</td>
+								</tr>
+	{/if}
+{/foreach}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="am-margin">
+			<h4>未来天气</h4>
+			<hr />
+{foreach $imweather['forecast']['weather'] as $key=>$value}
+{if $key==0}
+{else}
+			<div class="am-u-sm-3">
+				<table class="am-table">
+					<tbody class="">
+						<tr><td colspan="2"><p class="am-text-center">{$value['date']}</p></td><td></td></tr>
+						<tr>
+								<td><p class="am-text-center">白天</p></td>
+								<td><p class="am-text-center">夜晚</p></td>
+						</tr>
+						<tr>
+							<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+							<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+						</tr>
+						<tr>
+						<td><p class="am-text-center">{{$value['day']['type']}</p></td>
+						<td><p class="am-text-center"> {$value['night']['type']}</p></td>
+						</tr>
+						<tr>
+						<td><p class="am-text-center">{$value['day']['fengxiang']}</p></td>
+						<td><p class="am-text-center">{$value['night']['fengxiang']}</p></td>
+						</tr>
+						<tr><td colspan="2"><p class="am-text-center">{:substr($value['high'],6)}/{:substr($value['low'],6)}</p></td><td></td></tr>
+					</tbody>
+				</table>
+			</div>
+		
+{/if}
+{/foreach}
+		</div>
+		<div class="am-u-sm-12 am-g am-margin">
+			<h4>生活指数</h4>
+			<hr />
+{foreach $imweather['zhishus']['zhishu'] as $key=>$value}
+			<div>
+				<div class="am-alert am-alert-{if $key%4==1}success{elseif $key%4==2}secondary{elseif $key%4==3}warning{else}danger{/if}" data-am-alert>
+					<p>{$value['name']}</p>
+					<p>{$value['value']}</p>
+					<p>{$value['detail']}</p>
+				</div>
+			</div>
+{/foreach}
+{if queryroot(array('天气资讯'=>array('新增'=>1)))}
+			<a class="am-btn am-btn-primary am-btn-block update-weather" href="javascript:void(0);">更新天气</a>
+{/if}
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+{if queryroot(array('天气资讯'=>array('新增'=>1)))}
+<script>
+	$(function(){
+		$('.update-weather').on('click',function(){
+			$.ajax({
+				type:'post',
+				url:'/User/Info/Weather_update',
+				dataType:'json',
+				async:true,
+				success:function(data){
+					if(data.status){
+						layer.msg(data.out, {
+                            icon: 6,
+							time: 2000
+                        },function(){
+							location.reload();
+						});
+					}else{
+						layer.msg(data.out, {
+                            icon: 5,
+							time: 2000
+                        });
+					}
+				}
+			});
+		});
+	});
+</script>
+{/if}
+{include file="public/foot"}

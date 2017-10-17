@@ -99,16 +99,17 @@
 					success: function(data){
 						if(data.roledelstatus){
 							alertsuccess(data.out);
+							location.reload();
 						}else{
 							alertwarn(data.out);
 						}
 					},
 					error:function(e){
-						alertfailed();
+						alertfailed('操作失败');
 					}
 				});
 			}else{
-				alertcancel();
+				alertcancel('操作取消');
 			}
 		});
 	}

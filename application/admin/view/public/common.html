@@ -60,14 +60,14 @@
 			$('.am-alert-success p').remove();
 		},3000);
 	}
-	function alertwarn(){
+	function alertwarn(msg){
 		$('.am-alert-warning').append('<p>'+msg+'</p>').show('fast');
 		setTimeout(function(){
 			$('.am-alert-warning').hide('fast');
 			$('.am-alert-success p').remove();
 		},3000);
 	}
-	function alertcancel(){
+	function alertcancel(msg){
 		$('.am-alert-secondary').append('<p>'+msg+'</p>').show('fast');
 		setTimeout(function(){
 			$('.am-alert-secondary').hide('fast');
