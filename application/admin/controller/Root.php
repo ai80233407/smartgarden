@@ -84,21 +84,54 @@ class Root extends Controller{
 		 }
 	 }
 	 
+	 public function role_add(){
+		 if(islogined()){
+			 if(!queryroot(array('角色管理'=>array('查看'=>1,"新增"=>1)))){
+				return redirect('/Admin/Index/Index');
+			 }
+			 $roleinfo['name']=input('post.name');
+			 $roleinfo['mark']=input('post.mark');
+			 if(empty($roleinfo['name'])){
+				$msg['roleaddstatus']=false;
+				$msg['out']='角色名为空！';
+				exit(json_encode($msg));
+			 }
+			 $roleinfo['ctime']=date("Y-m-d H:i:s");
+			 Roots::insert_one_role($roleinfo);
+			 $msg['roleaddstatus']=true;
+			 $msg['out']='更新成功！';
+			 exit(json_encode($msg));
+		 }else{
+			 return needlogined();
+		 }
+	 }
+	 
 	 public function role_update(){
 		 if(islogined()){
 			 if(!queryroot(array('角色管理'=>array('查看'=>1,"修改"=>1)))){
 				 return redirect('/Admin/Index/Index');
 			 }
-			 $id=input('get.id');
-			 if(empty($id)){
-				 return redirect('/Admin/Root/Root_list');
-			 }
 			 if(request()->isPost()){
-				 $role=Roots::update_one_role($id);
+				 $alldata=input('post.');
+				 if(empty($alldata)){
+					$msg['roleupdatestatus']=false;
+					$msg['out']='提交信息为空！';
+					exit(json_encode($msg));
+				 }
+				 if(empty($alldata['root'])){
+					 $rootinfo=null;
+				 }else{
+					 $rootinfo=unicode(json_encode($alldata['root']));
+				 }
+				 Roots::update_role_byid($alldata['id'],array('name'=>$alldata['name'],'mark'=>$alldata['mark'],'rootlist'=>$rootinfo));
 				 $msg['roleupdatestatus']=true;
 				 $msg['out']='更新成功';
 				 exit(json_encode($msg));
 			 }else{
+				 $id=input('get.id');
+				 if(empty($id)){
+					 return redirect('/Admin/Root/Root_list');
+				 }
 				 $role=Roots::get_one_role($id);
 				 //print_r($role);
 				 $this->assign('role',$role);

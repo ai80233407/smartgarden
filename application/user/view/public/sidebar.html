@@ -40,41 +40,35 @@
 						<a href="/User/Info/Weather_info"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;天气资讯</a>
 					</li>
 	{/if}
-	{if queryroot(array('生长资讯'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;生长资讯</a>
 					</li>
-	{/if}
-	{if queryroot(array('智能提示'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;智能提示</a>
 					</li>
-	{/if}
 				</ul>
 			</li>
 {/if}
-{if queryroot(array('未来花园'=>array('查看'=>1)))}
+
 			<li class="am-panel">
 				<a data-am-collapse="{parent:'#sidebar-admin',target:'#tom-park'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;未来花园<i class="am-icon-angle-right am-fr"></i></a>
 				<ul class="am-list am-collapse sidebar-son" id="tom-park">
-	{if queryroot(array('生长日记'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;生长日记</a>
 					</li>
-	{/if}
-	{if queryroot(array('花园广场'=>array('查看'=>1)))}
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;花园广场</a>
 					</li>
-	{/if}
-	{if queryroot(array('AR园丁'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;AR园丁</a>
 					</li>
-	{/if}
 				</ul>
 			</li>
-{/if}
+
 			<li class="am-panel">
 				<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;关于</a>
 			</li>

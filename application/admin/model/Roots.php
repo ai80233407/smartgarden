@@ -72,6 +72,12 @@ class Roots extends Model{
 		
 	}
 	
+	public static function insert_one_role($data){
+		
+		return Roots::table('root_role')->insert($data);
+		
+	}
+	
 	public static function del_one_role($id){
 		
 		return Roots::table('root_role')->where("id = '{$id}'")->delete();

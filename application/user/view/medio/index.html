@@ -32,12 +32,8 @@
 			</div>
 		</div>
 		<div class="am-margin">
-			<h4>光照强度</h4>
+			<h4>单元测试</h4>
 			<div id="intensity" style="width:1400px;height:300px;"></div>
-		</div>
-		<div class="am-margin">
-			<h4>P.H.值</h4>
-			<div id="ph" style="width:1600px;height:400px;"></div>
 		</div>
 	</div>
 </div>
@@ -117,6 +113,10 @@
 	};
 
 	var option2 = {
+		title: {
+			text: '',
+			subtext: 'Bug数 / 项目'
+		},
 		color: ['#3398DB'],
 		tooltip : {
 			trigger: 'axis',
@@ -233,7 +233,7 @@
 	temperature();
 	setInterval(temperature,60*1000);
 	echartsinit(option2,{idname:'intensity',width:1400,height:300});
-	echartsinit(option3,{idname:'ph',width:1600,height:400});
+	//echartsinit(option3,{idname:'ph',width:1600,height:400});
 /*
 	setInterval(function () {
 		option.series[0].data[0].value = (Math.random() * 100).toFixed(2) - 0;

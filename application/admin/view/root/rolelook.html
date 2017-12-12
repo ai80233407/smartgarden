@@ -3,6 +3,10 @@
 .am-scrollable-vertical{
 	height:310px;
 }
+.am-ucheck-checkbox:disabled:checked+.am-ucheck-icons .am-icon-checked, .am-ucheck-radio:disabled:checked+.am-ucheck-icons .am-icon-checked {
+    opacity: 1;
+    color: #12e00e;
+}
 </style>
 {include file="public/header"}
 {include file="public/sidebar"}
@@ -44,25 +48,29 @@
 {php}
 	use app\admin\model\Roots;
 	$rootlist=Roots::get_all_root();
-	foreach(json_decode(session('rootlist'),true) as $key=>$value){
-		$level=Roots::get_block_level($key);
-		if($level==1){
-			$block1[$key]=$value;
-		}
-		if($level==2){
-			$block2[$key]=$value;
-		}
-		if($level==3){
-			$block3[$key]=$value;
+	$roleroot=Roots::get_one_role(input('get.id'));
+	if(!empty($roleroot['rootlist'])){
+		foreach(json_decode($roleroot['rootlist'],true) as $key=>$value){
+			$level=Roots::get_block_level($key);
+			if($level==1){
+				$block1[$key]=$value;
+			}
+			if($level==2){
+				$block2[$key]=$value;
+			}
+			if($level==3){
+				$block3[$key]=$value;
+			}
 		}
 	}
+	
 {/php}
 			<div class="am-u-sm-8 am-u-sm-centered">
 				<h4>权限信息</h4>
 				<hr />
-				<div class="am-u-sm-12">
-					<h5>已赋权限</h5>
+				<div class="am-u-sm-12" style="padding:0px;">
 					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+{if !empty($block1)}
 						<ul class="accept-list {if count($block1)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
 {foreach $block1 as $key=>$value}
 							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
@@ -80,13 +88,16 @@
 								</div>
 							</li>
 {/foreach}
+
 						</ul>
+{/if}
 					</div>
 				</div>
-				<div class="am-u-sm-12">
-					<h5>已赋权限</h5>
+				<div class="am-u-sm-12" style="padding:0px;">
 					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+{if !empty($block2)}
 						<ul class="accept-list{if count($block2)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+
 {foreach $block2 as $key=>$value}
 							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 								<div style="float: left;width: 330px;cursor: pointer;">
@@ -104,11 +115,14 @@
 							</li>
 {/foreach}
 						</ul>
+{/if}
 					</div>
 				</div>
-				<div class="am-u-sm-12">
+				<div class="am-u-sm-12" style="padding:0px;">
 					<div class="am-panel am-panel-default am-padding" style="height:350px;">
+{if !empty($block3)}
 						<ul class="accept-list{if count($block3)>4} am-scrollable-vertical{/if}" style="margin:0px;padding: 0px;">
+
 {foreach $block3 as $key=>$value}
 							<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 								<div style="float: left;width: 330px;cursor: pointer;">
@@ -126,6 +140,7 @@
 							</li>
 {/foreach}
 						</ul>
+{/if}
 					</div>
 				</div>
 				<div class="am-u-sm-12">

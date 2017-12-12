@@ -20,6 +20,9 @@
 				<input value="{$key}" type="text" class="am-form-field limitset" placeholder="搜索">
 				<span class="am-input-group-btn">
 					<button onclick="javascript:search();" class="am-btn am-btn-primary search" type="button"><span class="am-icon-search"></span></button>
+					{if queryroot(array('角色管理'=>array('查看'=>1,"新增"=>1)))}
+					<button onclick="javascript:addrole();" class="am-btn am-btn-success" type="button"><span class="am-icon-plus"></span></button>
+					{/if}
 				</span>
 			</div>
 		</div>
@@ -38,15 +41,23 @@
 					</tr>
 				</thead>
 				<tbody class="user_table">
+				
 					{volist name="rolelist" id="row"}
 					<tr>
 						<td>{$row.id}</td>
 						<td>{$row.name}</td>
 						{php}
-							$list='';
-							foreach(json_decode($row['rootlist']) as $key=>$value){
-								$list.=' [ '.$key.' ]';
+							$list='';$i=0;
+							if(!empty($row['rootlist'])){
+								foreach(json_decode($row['rootlist']) as $key=>$value){
+									$list.=' [ '.$key.' ]';$i++;
+									if($i==5){
+										$list.='......';
+										break;
+									}
+								}
 							}
+							
 						{/php}
 						<td>{$list}</td>
 						<td>{$row.mark}</td>
@@ -58,14 +69,14 @@
 									<span class="am-icon-caret-down"></span>
 								</a>
 								<ul class="am-dropdown-content">
-								{if queryroot(array('角色管理'=>array('查看'=>1,"删除"=>1)))}
-									<li><a href="javascript:delrole({$row.id});">删除角色</a></li>
+								{if queryroot(array('角色管理'=>array('查看'=>1)))}
+									<li><a href="/Admin/Root/Role_look?id={$row.id}">角色信息</a></li>
 								{/if}
 								{if queryroot(array('角色管理'=>array('查看'=>1,"修改"=>1)))}
 									<li><a href="/Admin/Root/Role_update?id={$row.id}">修改角色</a></li>
 								{/if}
-								{if queryroot(array('角色管理'=>array('查看'=>1)))}
-									<li><a href="/Admin/Root/Role_look?id={$row.id}">角色信息</a></li>
+								{if queryroot(array('角色管理'=>array('查看'=>1,"删除"=>1)))}
+									<li><a href="javascript:delrole({$row.id});">删除角色</a></li>
 								{/if}
 								</ul>
 							</div>
@@ -74,18 +85,60 @@
 					{/volist}
 				</tbody>
 			</table>
-			{if queryroot(array('角色管理'=>array('查看'=>1,"新增"=>1)))}
-			<a class="am-btn am-btn-block am-btn-primary"><span class="am-icon-plus"></span>&nbsp;创建角色</a>
-			{/if}
 		</div>
 	</div>
 	{$rolelist->render()}
+</div>
+<div class="am-modal am-modal-prompt addmodal" tabindex="-1">
+	<div class="am-modal-dialog">
+		<div class="am-modal-hd">
+			添加角色
+			<a href="javascript:void(0);" class="am-close am-close-spin" data-am-modal-close>&times;</a>
+		</div>
+		<hr />
+		<div class="am-modal-bd">
+			<input type="text" class="am-modal-prompt-input" placeholder="角色名" />
+			<textarea rows="12" class="am-modal-prompt-input" placeholder="角色说明及备注"></textarea>
+		</div>
+		<div class="am-modal-footer">
+			<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+			<span class="am-modal-btn" data-am-modal-confirm>保存</span>
+		</div>
+	</div>
 </div>
 {include file="public/footer"}
 {include file="public/common"}
 <script type="text/javascript">
 	function search(){
 		location.href="/Admin/Root/Role_list?key="+$('.limitset').val();
+	}
+	function addrole(){
+		$('.addmodal').modal({
+			relatedTarget:this,
+			onConfirm:function(e){
+				$.ajax({
+					type:'post',
+					url:'/Admin/Root/Role_add',
+					dataType:'json',
+					data:{name:e.data[0],mark:e.data[1]},
+					async:true,
+					success:function(data){
+						if(data.roleaddstatus){
+							alertsuccess(data.out);
+							setTimeout(location.reload(),1200);
+						}else{
+							alertwarn(data.out);
+						}
+					},
+					error:function(){
+						alertfailed('操作失败');
+					},
+				});
+			},
+			onCancel:function(){
+				alertcancel('操作取消');
+			}
+		});
 	}
 	function delrole(id){
 		delmodal(function(sign){
@@ -99,7 +152,7 @@
 					success: function(data){
 						if(data.roledelstatus){
 							alertsuccess(data.out);
-							location.reload();
+							setTimeout(location.reload(),1200);
 						}else{
 							alertwarn(data.out);
 						}

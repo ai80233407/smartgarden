@@ -34,11 +34,12 @@
         //添加背景，文字，滑块
 		//$('#drag').css('width',$('.set-width').css('width'));
         if (initial.if_hide) {
+			window.addEventListener('resize',function(){
+				imgposition();
+			},false);
+			imgposition();
 			$('#Verification').css({
-				'display': 'none',
-				'position': 'fixed',
-				'top': ''+$('.handler').offset().top-235+'px',
-				'z-index': '1000',
+				'top': $('.handler').offset().top-116,
 			});
 			$('#yth_captchar').removeClass('yth_captchar');
 			$('.handler').mousedown(function(){
@@ -83,6 +84,15 @@
         }).bind(endEvent, function(event) { //结束
             mouse_end(event);
         });
+		
+		function imgposition(){
+			$('#Verification').css({
+				'display': 'none',
+				'position': 'fixed',
+				'z-index': '1000',
+				'top': $('.handler').offset().top-116,
+			});
+		}
 
         function mouse_start(e) {
             getnow_xy_img.show();

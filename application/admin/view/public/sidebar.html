@@ -8,27 +8,18 @@
 			<li class="am-panel">
 				<a data-am-collapse="{parent:'#sidebar-admin',target:'#eir-see'}" href="#/"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;用户管理<i class="am-icon-angle-right am-fr"></i></a>
 				<ul class="am-list am-collapse sidebar-son" id="eir-see">
-	{if queryroot(array('所有用户'=>array('查看'=>1)))}
 					<li class="am-panel">
 						<a  href="/Admin/User/All_user"><i class="am-icon-home am-margin-left-sm"></i>&nbsp;所有用户</a>
 					</li>
-	{/if}
-	{if queryroot(array('黑名单'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a href="/User/Medio/Monitor"><i class="am-icon-pencil am-margin-left-sm"></i>&nbsp;黑名单</a>
 					</li>
-	{/if}
-	{if queryroot(array('用户概览'=>array('查看'=>1)))}
+
 					<li class="am-panel">
 						<a href="/User/Medio/Statistics"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;用户概览</a>
 					</li>
-	{/if}
 				</ul>
-			</li>
-{/if}
-{if queryroot(array('环境调节'=>array('查看'=>1)))}
-			<li class="am-panel">
-				<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-users am-margin-left-sm"></i>&nbsp;</a>
 			</li>
 {/if}
 {if queryroot(array('权限管理'=>array('查看'=>1)))}
@@ -53,6 +44,9 @@
 				</ul>
 			</li>
 {/if}
+			<li class="am-panel">
+				<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-users am-margin-left-sm">系统管理</i>&nbsp;</a>
+			</li>
 {if queryroot(array('未来花园'=>array('查看'=>1)))}
 			<li class="am-panel">
 				<a data-am-collapse="{parent:'#sidebar-admin',target:'#tom-park'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;未来花园<i class="am-icon-angle-right am-fr"></i></a>

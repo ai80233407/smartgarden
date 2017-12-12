@@ -44,7 +44,6 @@
 				callback(sign);
 			}
 		});
-		
 	}
 	function alertsuccess(msg){
 		$('.am-alert-success').append('<p>'+msg+'</p>').show('fast');
@@ -57,21 +56,21 @@
 		$('.am-alert-danger').append('<p>'+msg+'</p>').show('fast');
 		setTimeout(function(){
 			$('.am-alert-danger').hide('fast');
-			$('.am-alert-success p').remove();
+			$('.am-alert-danger p').remove();
 		},3000);
 	}
 	function alertwarn(msg){
 		$('.am-alert-warning').append('<p>'+msg+'</p>').show('fast');
 		setTimeout(function(){
 			$('.am-alert-warning').hide('fast');
-			$('.am-alert-success p').remove();
+			$('.am-alert-warning p').remove();
 		},3000);
 	}
 	function alertcancel(msg){
 		$('.am-alert-secondary').append('<p>'+msg+'</p>').show('fast');
 		setTimeout(function(){
 			$('.am-alert-secondary').hide('fast');
-			$('.am-alert-success p').remove();
+			$('.am-alert-secondary p').remove();
 		},3000);
 	}
 	
