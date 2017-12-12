@@ -125,7 +125,7 @@
 					success:function(data){
 						if(data.roleaddstatus){
 							alertsuccess(data.out);
-							setTimeout(location.reload(),1200);
+							setTimeout(location.reload(),3000);
 						}else{
 							alertwarn(data.out);
 						}
@@ -152,7 +152,7 @@
 					success: function(data){
 						if(data.roledelstatus){
 							alertsuccess(data.out);
-							setTimeout(location.reload(),1200);
+							setTimeout(location.reload(),3000);
 						}else{
 							alertwarn(data.out);
 						}
