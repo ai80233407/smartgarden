@@ -83,7 +83,7 @@ if(empty($key)){
 								</a>
 								<ul class="am-dropdown-content">
 									<li class="{$row['status']? 'am-disabled':''}"><a href="{$row['status']? 'javascript:void(0);':url('/User/Info/Stop_task',['id'=>$row['id']])}">暂停任务</a></li>
-									<li class="{$row['status']? '':'am-disabled'}"><a href="{$row['status']? url('/User/Info/Restart_task',['id'=>$row['id']]):'javascript:void(0);'}">重启任务</a></li>
+									<li class="{$row['status']? '':'am-disabled'}"><a href="{$row['status']? url('/User/Info/Restart_task',['id'=>$row['id']]):'javascript:void(0);'}">启动任务</a></li>
 									<li class="{$row['status']? '':'am-disabled'}"><a href="{$row['status']? url('/User/Info/Del_task',['id'=>$row['id']]):'javascript:void(0);'}">删除任务</a></li>
 									<li class="{$row['status']? '':'am-disabled'}"><a href="{$row['status']? url('/User/Info/Change_task',['id'=>$row['id']]):'javascript:void(0);'}">修改任务</a></li>
 								</ul>
