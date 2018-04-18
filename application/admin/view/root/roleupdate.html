@@ -89,7 +89,7 @@
 						<h5>一级模块列表</h5>
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">
 {if !empty($first)}
-							<ul class="accept-list{if count($first)>4} am-scrollable-vertical{/if} one-root-area" style="margin:0px;padding: 0px;">
+							<ul class="accept-list{if count($first)>3} am-scrollable-vertical{/if} one-root-area" style="margin:0px;padding: 0px;">
 
 {foreach $first as $row}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
@@ -122,7 +122,7 @@
 						<form >
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">
 {if !empty($block1)}
-							<ul class="accept-list {if count($block1)>4} am-scrollable-vertical{/if} one-block-area" style="margin:0px;padding: 0px;">
+							<ul class="accept-list {if count($block1)>3} am-scrollable-vertical{/if} one-block-area" style="margin:0px;padding: 0px;">
 {foreach $block1 as $key=>$value}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 									<div class="am-icon-times-circle am-fr one-remove-root"></div>
@@ -154,7 +154,7 @@
 						<h5>二级模块列表</h5>
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">
 							{if !empty($second)}
-							<ul class="accept-list{if count($second)>4} am-scrollable-vertical{/if} two-root-area" style="margin:0px;padding: 0px;">
+							<ul class="accept-list{if count($second)>3} am-scrollable-vertical{/if} two-root-area" style="margin:0px;padding: 0px;">
 								{foreach $second as $row}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 									<div class="am-icon-chevron-circle-right am-fr two-add-root"></div>
@@ -185,7 +185,7 @@
 						<form>
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">
 {if !empty($block2)}
-							<ul class="accept-list{if count($block2)>4} am-scrollable-vertical{/if} two-block-area" style="margin:0px;padding: 0px;">
+							<ul class="accept-list{if count($block2)>3} am-scrollable-vertical{/if} two-block-area" style="margin:0px;padding: 0px;">
 {foreach $block2 as $key=>$value}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 									<div class="am-icon-times-circle am-fr two-remove-root"></div>
@@ -217,7 +217,7 @@
 						<h5>三级模块列表</h5>
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">		
 {if !empty($third)}
-						<ul class="accept-list{if count($third)>4} am-scrollable-vertical{/if} three-root-area" style="margin:0px;padding: 0px;">
+						<ul class="accept-list{if count($third)>3} am-scrollable-vertical{/if} three-root-area" style="margin:0px;padding: 0px;">
 			{foreach $third as $row}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 									<div class="am-icon-chevron-circle-right am-fr three-add-root"></div>
@@ -248,7 +248,7 @@
 						<form >
 						<div class="am-panel am-panel-default am-padding" style="height:350px;">
 {if !empty($block3)}
-							<ul class="accept-list{if count($block3)>4} am-scrollable-vertical{/if} three-block-area" style="margin:0px;padding: 0px;">
+							<ul class="accept-list{if count($block3)>3} am-scrollable-vertical{/if} three-block-area" style="margin:0px;padding: 0px;">
 {foreach $block3 as $key=>$value}
 								<li style="padding: 10px;margin-bottom:5px;overflow: hidden;border: 1px solid #d8e1eb;list-style: none;">
 									<div class="am-icon-times-circle am-fr three-remove-root"></div>
@@ -326,10 +326,10 @@
 	});
 	function addselector(sign,that){
 		$(that).removeClass('am-icon-chevron-circle-right '+sign+'-add-root').addClass('am-icon-times-circle '+sign+'-remove-root');
-		if($('.'+sign+'-block-area').children().length==4){
+		if($('.'+sign+'-block-area').children().length==3){
 			$('.'+sign+'-block-area').addClass('am-scrollable-vertical');
 		}
-		if($('.'+sign+'-root-area').children().length==5){
+		if($('.'+sign+'-root-area').children().length==4){
 			$('.'+sign+'-root-area').removeClass('am-scrollable-vertical');
 		}
 		$('.'+sign+'-block-area').append($(that).parent().prop("outerHTML"));
@@ -337,10 +337,10 @@
 	}
 	function moveselector(sign,that){
 		$(that).removeClass('am-icon-times-circle '+sign+'-remove-root').addClass('am-icon-chevron-circle-right '+sign+'-add-root');
-		if($('.'+sign+'-root-area').children().length==4){
+		if($('.'+sign+'-root-area').children().length==3){
 			$('.'+sign+'-root-area').addClass('am-scrollable-vertical');
 		}
-		if($('.'+sign+'-block-area').children().length==5){
+		if($('.'+sign+'-block-area').children().length==4){
 			$('.'+sign+'-block-area').removeClass('am-scrollable-vertical');
 		}
 		$('.'+sign+'-root-area').append($(that).parent().prop("outerHTML"));
