@@ -135,7 +135,7 @@ class Info extends \think\Controller{
 	}
 	
 	public function timed_task($id=0){
-		if($id==0){
+		if($id<=0){
 			
 		}else{
 			$t=new TimedTask($id);
@@ -159,7 +159,8 @@ class Info extends \think\Controller{
 			  }
 			}
 		}
-	  
+		return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+		/*--------------------------------------------------------*/
 		echo request()->ip().'<br>';
 		echo $_SERVER["REMOTE_ADDR"].'<br>';
 		$user_IP = isset($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
@@ -205,8 +206,6 @@ class Info extends \think\Controller{
 		  $onlineip = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 		}
 		echo $onlineip.'<br>';
-	  
-		return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
 	}
 	
 	public function test(){

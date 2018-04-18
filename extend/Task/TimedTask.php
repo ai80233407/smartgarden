@@ -137,14 +137,14 @@ class TimedTask{
 			return 2;
 		if($this->start>strtotime(date("Y-m-d H:i:s"))){
 			sleep(30);
-			$ch4 = curl_init("http://{$_SERVER['SERVER_ADDR']}:{$_SERVER['SERVER_PORT']}/User/Info/Start_task?id=".$this->id);
+			$ch4 = curl_init("http://127.0.0.1/User/Info/Start_task?id=".$this->id);
 			curl_exec($ch4);
 			curl_close($ch4);
 			return 3;
 		}
 		if($this->status){
 			sleep(30);
-			$ch5 = curl_init("http://{$_SERVER['SERVER_ADDR']}:{$_SERVER['SERVER_PORT']}/User/Info/Start_task?id=".$this->id);
+			$ch5 = curl_init("http://127.0.0.1/User/Info/Start_task?id=".$this->id);
 			curl_exec($ch5);
 			curl_close($ch5);
 			return 4;
@@ -218,7 +218,7 @@ class TimedTask{
 				curl_close($ch2);
 				$res=json_decode($file_contents,true);
 				sleep($this->frequency);
-				$ch3 = curl_init("http://{$_SERVER['SERVER_ADDR']}:{$_SERVER['SERVER_PORT']}/User/Info/Start_task?id=".$this->id);
+				$ch3 = curl_init("http://127.0.0.1/User/Info/Start_task?id=".$this->id);
 				curl_exec($ch3);
 				curl_close($ch3);
 				
@@ -273,7 +273,7 @@ class TimedTask{
 	}
 	
 	public static function start_task($id){
-	$url="http://{$_SERVER['SERVER_ADDR']}:{$_SERVER['SERVER_PORT']}/index.php/User/Info/Timed_task?id=".$id;
+	$url="http://127.0.0.1/index.php/User/Info/Timed_task?id=".$id;
 		$scheme = parse_url($url,PHP_URL_SCHEME);
 		if($scheme == 'https'){
 			$host = 'ssl://'.$host;  
