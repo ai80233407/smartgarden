@@ -297,13 +297,13 @@ class TimedTask{
 			$header.="Connection: close\r\n\r\n";//长连接关闭  
 			fwrite($fp, $header);
 			//添加同步等待请去掉注释
-			
+			/*
 			$data='';
 			while(!feof($fp)){
 				$data.=fgets($fp,1024);
 			}
 			echo $data;
-			/**/
+			*/
 			usleep(1000); // 这一句也是关键，如果没有这延时，可能在nginx服务器上就无法执行成功  
 			fclose($fp);   
 		}
