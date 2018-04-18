@@ -20,9 +20,9 @@ class Index extends \think\Controller{
 			Slide::instance(3); 
 			// 通过，程序则继续执行
 			// RSA 解密 、 [使用了加密函数的，都需要 urldecode 再次解码]
-			$account = urldecode(   \Crypt\Rsa::decrypt(input('post.account'))    );
-			$pwd  = urldecode(   \Crypt\Rsa::decrypt(input('post.pwd'))     );
-			$token = urldecode(   \Crypt\Rsa::decrypt(input('post.__token__'))     );
+			$account = urldecode(\Crypt\Rsa::decrypt(input('post.account')));
+			$pwd  = urldecode(\Crypt\Rsa::decrypt(input('post.pwd')));
+			$token = urldecode(\Crypt\Rsa::decrypt(input('post.__token__')));
 			// 待验证的 帐号与密码
 			//$account=input('post.account');
 			//$pwd=input('post.pwd');
@@ -69,6 +69,15 @@ class Index extends \think\Controller{
 				$msg['logstatus']=false;
 				$msg['out']=$validate->getError();
 				exit(json_encode($msg));
+			}
+			$remeber=urldecode(\Crypt\Rsa::decrypt(input('post.remeber')));
+			if($remeber==1){
+				cookie(['prefix'=>'think_','expire'=>60*60,'path'=>'/']);
+				cookie('account',$account,60*60*24*365);
+				cookie('password',input('post.pwd'),60*60*24*365);
+				cookie('remeber',1,60*60*24*365);
+			}else{
+				cookie(null,'think_');
 			}
 			session(null);
 			$rootlist=Roots_role::get_one_role($role)->rootlist;

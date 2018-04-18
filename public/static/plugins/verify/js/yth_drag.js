@@ -39,7 +39,7 @@
 			},false);
 			imgposition();
 			$('#Verification').css({
-				'top': $('.handler').offset().top-116,
+				'top': $('.handler').offset().top-125,
 			});
 			$('#yth_captchar').removeClass('yth_captchar');
 			$('.handler').mousedown(function(){

@@ -209,7 +209,20 @@ class Info extends \think\Controller{
 	}
 	
 	public function test(){
-		echo $_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'];
+		/*
+		unset($_COOKIE['account']);
+		unset($_COOKIE['password']);
+		unset($_COOKIE['remeber']);
+		*/
+		//cookie(null,'think_');
+		//echo $_COOKIE['think_account'];
+		//echo cookie('account','','think_');
+		//cookie('fack','you');
+		//cookie('fack',null);
+		//cookie(null,'think_');
+		print_r($_COOKIE);
+		
+		//echo $_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'];
 		//echo date("h:i:sa");
 		//echo $_SERVER['HTTP_USER_AGENT'];
 		/*
