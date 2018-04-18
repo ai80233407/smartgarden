@@ -34,7 +34,7 @@ class Index extends \think\Controller{
 				exit( json_encode($msg)  );
 			}
 			$validate=validate('Register');
-			if(!$validate->scene('login')->check(array('account'=>$account,'password'=>$pwd,'__token__'=>$token))){
+			if(!$validate->scene('login')->check(array('account'=>$account,'password'=>$pwd))){
 				$msg['logstatus']=false;
 				$msg['out']=$validate->getError();
 				exit(json_encode($msg));
@@ -64,6 +64,11 @@ class Index extends \think\Controller{
 				// 提示用户的错误信息，请以 {"status":false,"out":"这里是错误信息"} 形式输出
 				$msg['out'] = '您的帐号受限，无法登录';
 				exit( json_encode($msg) );
+			}
+			if(!$validate->scene('token')->check(array('__token__'=>$token))){
+				$msg['logstatus']=false;
+				$msg['out']=$validate->getError();
+				exit(json_encode($msg));
 			}
 			session(null);
 			$rootlist=Roots_role::get_one_role($role)->rootlist;

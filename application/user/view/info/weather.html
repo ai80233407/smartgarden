@@ -21,7 +21,7 @@
 			<h4>今日气象</h4>
 			<hr />
 			<div class="am-u-sm-12">
-				<h2 class="am-text-center"><span class=" am-text-primary">{$imweather['city']}</span><span class="am-text-sm am-text-success"> - - {$imweather['forecast']['weather'][0]['date']}</span></h2>
+				<h2 class="am-text-center"><span class=" am-text-primary">{$imweather['city']}</span><span class="am-text-sm am-text-success"> - - <?= date("Y-m-d"); ?></span></h2>
 				<p class="am-text-center">更新于 : {$imweather['updatetime']}</p>
 				<br />
 				<div class="am-u-sm-6">
@@ -93,7 +93,7 @@
 							<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
 						</tr>
 						<tr>
-						<td><p class="am-text-center">{{$value['day']['type']}</p></td>
+						<td><p class="am-text-center">{$value['day']['type']}</p></td>
 						<td><p class="am-text-center"> {$value['night']['type']}</p></td>
 						</tr>
 						<tr>

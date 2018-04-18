@@ -48,6 +48,11 @@
 					<li class="am-panel">
 						<a data-am-collapse="{parent:'#sidebar-admin'}" href="#/"><i class="am-icon-magic am-margin-left-sm"></i>&nbsp;智能提示</a>
 					</li>
+	{if queryroot(array('定时任务'=>array('查看'=>1)))} 
+					<li class="am-panel">
+						<a href="/User/Info/Task_info"><i class="am-icon-hourglass-o am-margin-left-sm"></i>&nbsp;定时任务</a>
+					</li>
+	{/if}
 				</ul>
 			</li>
 {/if}

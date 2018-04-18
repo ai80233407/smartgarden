@@ -1,0 +1,157 @@
+{include file="public/head"}
+{include file="public/header"}
+{include file="public/sidebar"}
+<div class="am-u-sm-11" style="background:#fff;">
+	<br />
+	<div class="am-margin">
+		<div class="am-margin"><h1 class="am-text-primary am-text-center">添加任务</h1></div>
+		<div classs="am-margin">
+			<ol class="am-breadcrumb">
+				<li><a class="am-icon-home" href="/">&nbsp;首页</a></li>
+				<li class="am-active">资讯信息</li>
+				<li class="am-active"><a href="{:url('/User/Info/Task_info')}">&nbsp;定时任务</a></li>
+			</ol>
+		</div>
+		<hr />
+	</div>
+	<div class="am-margin-bottom-lg">
+		<div class="am-u-sm-8 am-u-sm-centered">
+			<form action="" class="am-form">
+				<div class="am-form-group">
+					<input name="task[name]" class="am-form-field" placeholder="任务名称" type="text" />
+				</div>
+				<div class="am-form-group">
+					<select name="task[type]" class="am-form-field" data-am-selected>
+						<optgroup label="任务类型">
+							<option value="coding">coding - sign</option>
+							<option value="bilibili">bilibili - sign</option>
+							<option value="sfacg">sfacg - sign</option>
+							<option value="netease">netease music - sign</option>
+							<option value="aliyun">aliyun - sign</option>
+							<option value="w3c school">w3c school - sign</option>
+							<option value="china mobile">china mobile - sign</option>
+						</optgroup>
+					</select>
+				</div>
+				<div class="am-form-group">
+					<select name="task[frequency]" class="am-form-field" data-am-selected>
+						<optgroup label="任务频率">
+							<option value="1">1 / 分</option>
+							<option value="2">1 / 时</option>
+							<option value="3">1 / 天</option>
+							<option value="4">1 / 月</option>
+							<option value="5">1 / 年</option>
+						</optgroup>
+					</select>
+				</div>
+				<div class="am-alert am-alert-danger" id="my-alert" style="display: none">
+				  <p>开始日期应小于结束日期！</p>
+				</div>
+				<div class="am-form-group am-form-icon" id="my-start">
+					<i class="am-icon-calendar"  style="cursor:not-allowed;"></i>
+					<input type="text" name="task[start]" value="" class="am-form-field" placeholder="开始时间" readonly id="my-startDate">
+				</div>
+				<div class="am-form-group am-form-icon" id="my-end">
+					<i class="am-icon-clock-o"  style="cursor:not-allowed;"></i>
+					<input type="text" name="task[endtime]" value="" class="am-form-field" placeholder="结束时间" readonly id="my-endDate">
+				</div>
+				<textarea name="task[mark]" rows="6" placeholder="任务备注"></textarea>
+			</form>
+			<hr />
+			<a class="am-btn am-btn-block am-btn-primary save">保存</a>
+			<a class="am-btn am-btn-block am-btn-danger" href="/User/Info/Task_info">取消</a>
+		</div>
+	</div>
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script>
+	$(function() {
+    var nowTemp = new Date();
+	var startDate = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate());
+    var endDate = new Date(3000, 12, 31)
+    var nowDay = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0).valueOf();
+    var nowMoth = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), 1, 0, 0, 0, 0).valueOf();
+    var nowYear = new Date(nowTemp.getFullYear(), 0, 1, 0, 0, 0, 0).valueOf();
+    var $alert = $('#my-alert');
+    $('#my-start').datepicker({
+      onRender: function(date,viewMode){
+        // 默认 days 视图，与当前日期比较
+        var viewDate = nowDay;
+        switch (viewMode) {
+          // moths 视图，与当前月份比较
+          case 1:
+            viewDate = nowMoth;
+            break;
+          // years 视图，与当前年份比较
+          case 2:
+            viewDate = nowYear;
+            break;
+        }
+        return date.valueOf() < viewDate ? 'am-disabled' : '';
+      }
+    }).on('changeDate.datepicker.amui', function(event) {
+        if (event.date.valueOf() > endDate.valueOf()) {
+          $alert.find('p').text('开始日期应小于结束日期！').end().show();
+        } else {
+          $alert.hide();
+          startDate = new Date(event.date);
+          $('#my-startDate').val($('#my-start').data('date'));
+        }
+        $(this).datepicker('close');
+    }).data('amui.datepicker');
+
+    $('#my-end').datepicker({
+		theme:'success',
+		onRender: function(date, viewMode) {
+			var inTime = startDate;
+			var inDay = inTime.valueOf();
+			var inMoth = new Date(inTime.getFullYear(), inTime.getMonth(), 1, 0, 0, 0, 0).valueOf();
+			var inYear = new Date(inTime.getFullYear(), 0, 1, 0, 0, 0, 0).valueOf();
+			// 默认 days 视图，与当前日期比较
+			var viewDate = inDay;
+			switch (viewMode) {
+			  // moths 视图，与当前月份比较
+			  case 1:
+				viewDate = inMoth;
+				break;
+			  // years 视图，与当前年份比较
+			  case 2:
+				viewDate = inYear;
+				break;
+			}
+			return date.valueOf() <= viewDate ? 'am-disabled' : '';
+		}
+	}).on('changeDate.datepicker.amui', function(event) {
+        if (event.date.valueOf() < startDate.valueOf()) {
+          $alert.find('p').text('结束日期应大于开始日期！').end().show();
+        } else {
+          $alert.hide();
+          endDate = new Date(event.date);
+          $('#my-endDate').val($('#my-end').data('date'));
+        }
+        $(this).datepicker('close');
+    }).data('amui.datepicker');
+	$('.save').on('click',function(){
+		$.ajax({
+			url:'/index.php/User/Info/Insert_task',
+			data:$('form').serialize(),
+			dataType:'json',
+			type:'post',
+			async:true,
+			success:function(res){
+				if(res.error!='0'){
+					alertwarn(res.msg);
+				}else{
+					alertsuccess(res.msg);
+					setTimeout(function(){location.href="/index.php/User/Info/Task_info";},5000);
+				}
+			},
+			error:function(request,error){
+				alertfailed('操作失败->'+error);
+			}
+		});
+	});
+  });
+</script>
+{include file="public/foot"}
