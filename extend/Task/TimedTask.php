@@ -253,6 +253,10 @@ class TimedTask{
 		if($this->endtime<strtotime(date("Y-m-d H:i:s"))){
 			return 3;
 		}
+		if(!$this->firststart){
+			Task_info::firststart_down($this->id);
+			$this->start_task($this->id);
+		}
 		Task_info::task_status_up($this->id);
 		return 0;
 	}
