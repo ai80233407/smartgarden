@@ -163,6 +163,8 @@ class Info extends \think\Controller{
 	}
 	
 	public function test(){
+		
+		
 		echo request()->ip().'<br>';
 		echo $_SERVER["REMOTE_ADDR"].'<br>';
 		$user_IP = isset($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
