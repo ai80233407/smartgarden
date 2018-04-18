@@ -11,7 +11,7 @@ class Index extends \think\Controller{
 			}
 			return $this->fetch('/index/index');
 		}else{
-			return User::need_login();
+			return Users::need_login();
 		}
 	}
 }	
