@@ -145,26 +145,21 @@ class Info extends \think\Controller{
 	
 	function getRealIp()
 	{
-	  $ip=false;
-	  if(!empty($_SERVER["HTTP_CLIENT_IP"])){
-		$ip = $_SERVER["HTTP_CLIENT_IP"];
-	  }
-	  if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-		$ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
-		if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
-		for ($i = 0; $i < count($ips); $i++) {
-		  if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
-			$ip = $ips[$i];
-			break;
-		  }
+		$ip=false;
+		if(!empty($_SERVER["HTTP_CLIENT_IP"])){
+			$ip = $_SERVER["HTTP_CLIENT_IP"];
 		}
-	  }
-	  return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
-	}
-	
-	public function test(){
-		
-		
+		if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+			$ips = explode (", ", $_SERVER['HTTP_X_FORWARDED_FOR']);
+		if ($ip) { array_unshift($ips, $ip); $ip = FALSE; }
+			for ($i = 0; $i < count($ips); $i++) {
+			  if (!eregi ("^(10│172.16│192.168).", $ips[$i])) {
+				$ip = $ips[$i];
+				break;
+			  }
+			}
+		}
+	  
 		echo request()->ip().'<br>';
 		echo $_SERVER["REMOTE_ADDR"].'<br>';
 		$user_IP = isset($_SERVER["HTTP_VIA"]) ? $_SERVER["HTTP_X_FORWARDED_FOR"] : $_SERVER["REMOTE_ADDR"];
@@ -210,6 +205,12 @@ class Info extends \think\Controller{
 		  $onlineip = $HTTP_SERVER_VARS['REMOTE_ADDR'];
 		}
 		echo $onlineip.'<br>';
+	  
+		return ($ip ? $ip : $_SERVER['REMOTE_ADDR']);
+	}
+	
+	public function test(){
+		echo $_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'];
 		//echo date("h:i:sa");
 		//echo $_SERVER['HTTP_USER_AGENT'];
 		/*
