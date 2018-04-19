@@ -34,12 +34,27 @@
         //添加背景，文字，滑块
 		//$('#drag').css('width',$('.set-width').css('width'));
         if (initial.if_hide) {
+			/*
 			window.addEventListener('resize',function(){
 				imgposition();
+				
 			},false);
-			imgposition();
+			*/
+			$(window).resize(function() {
+				var vtop=getTop(document.getElementById('drag'));
+				var htop=$('#Verification').css('top');
+				$('#Verification').css({
+					'display': 'none',
+					'position': 'fixed',
+					'z-index': '1000',
+					'top': vtop-120,
+				});
+			});
 			$('#Verification').css({
-				'top': $('.handler').offset().top-125,
+				'display': 'none',
+				'position': 'fixed',
+				'z-index': '1000',
+				'top': getTop(document.getElementById('drag'))-240,
 			});
 			$('#yth_captchar').removeClass('yth_captchar');
 			$('.handler').mousedown(function(){
@@ -85,13 +100,16 @@
             mouse_end(event);
         });
 		
-		function imgposition(){
-			$('#Verification').css({
-				'display': 'none',
-				'position': 'fixed',
-				'z-index': '1000',
-				'top': $('.handler').offset().top-116,
-			});
+		function getTop(e){ 
+			var offset=e.offsetTop; 
+			if(e.offsetParent!=null) offset+=getTop(e.offsetParent); 
+			return offset; 
+		} 
+		
+		function getLeft(e){ 
+			var offset=e.offsetLeft; 
+			if(e.offsetParent!=null) offset+=getLeft(e.offsetParent); 
+			return offset; 
 		}
 
         function mouse_start(e) {
