@@ -14,7 +14,7 @@
 		<hr />
 	</div>
 {php}
-	$envlist=array('aqi'=>'污染指数','pm25'=>'PM 2.5','suggest'=>'舒适度','quality'=>'空气质量','o3'=>'臭氧','co'=>'一氧化碳','pm10'=>'PM 10','no2'=>'二氧化氮','so2'=>'二氧化硫','time'=>'更新时间','MajorPollutants'=>'');
+	$envlist=array('aqi'=>'污染指数','pm25'=>'PM 2.5','suggest'=>'舒适度','quality'=>'空气质量','o3'=>'臭氧','co'=>'一氧化碳','pm10'=>'PM 10','no2'=>'二氧化氮','so2'=>'二氧化硫','time'=>'更新时间','MajorPollutants'=>'其他');
 {/php}
 	<div class="am-u-sm-8 am-u-sm-centered">
 		<div class="am-u-sm-12">
@@ -32,8 +32,8 @@
 								<td><p class="am-text-center">夜晚</p></td>
 							</tr>
 							<tr>
-								<td><img sytle="text-align:center" src="http://open.sojson.com/images/weather/night/1.png"></td>
-								<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+								<td style="text-align:center;"><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+								<td style="text-align:center;"><img src="http://open.sojson.com/images/weather/night/1.png"></td>
 							</tr>
 							<tr>
 								<td><p class="am-text-center"> {$imweather['forecast']['weather'][0]['day']['type']}</p></td>
@@ -54,10 +54,10 @@
 					</table>	
 				</div>
 				<div class="am-u-sm-6">
-					<div class="am-u-sm-4">
+					<div class="am-u-sm-2">
 						
 					</div>
-					<div class="am-u-sm-8">
+					<div class="am-u-sm-10">
 						<table class="am-table ">
 							<tbody>
 {foreach $imweather['environment'] as $key=>$value}
@@ -89,8 +89,8 @@
 								<td><p class="am-text-center">夜晚</p></td>
 						</tr>
 						<tr>
-							<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
-							<td><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+							<td class="am-text-center"><img src="http://open.sojson.com/images/weather/night/1.png"></td>
+							<td class="am-text-center"><img src="http://open.sojson.com/images/weather/night/1.png"></td>
 						</tr>
 						<tr>
 						<td><p class="am-text-center">{$value['day']['type']}</p></td>
