@@ -2,14 +2,14 @@
 	<body>
 	<!--主导航栏开始-->
 	<div class="am-g header-style am-topbar-fixed-top">
-		<div class="am-u-sm-3">
+		<div class="am-u-sm-5 am-u-lg-3">
 			<header>
 				<a class="logo-icon"></a>
 			</header>
 		</div>
-		<div class="am-u-sm-6 main-nav">
-			<ul class="am-nav am-nav-pills am-nav-justify">
-				<li><a href="/Index/">主页</a></li>
+		<div class="am-u-lg-7 main-nav am-hide-sm-only">
+			<ul class="am-nav am-nav-pills am-hide-sm-only am-nav-justify">
+				<li ><a href="/Index/">主页</a></li>
 				<li class="am-dropdown" data-am-dropdown>
 					<a href="javascript:void(0);" class="am-dropdown-toggle" data-am-dropdown-toddle>产品</a>
 					<ul class="am-dropdown-content">
@@ -33,9 +33,9 @@
 						<li><a>案例</a></li>
 					</ul>
 				</li>
-				<li class=""><a href="">社区</a></li>
-				<li class=""><a href="/Index/About">关于我们</a></li>
-				<li class=""><a href="/Index/Process/">更新进度</a></li>
+				<li><a href="">社区</a></li>
+				<li ><a href="/Index/About">关于我们</a></li>
+				<li ><a href="/Index/Process/">更新进度</a></li>
 			</ul>
 		</div>
 {php}
@@ -44,7 +44,7 @@ $status=Users::is_login();
 $user=Users::get_one_user(session('uid'));
 {/php}
 {if $status}
-		<div class="am-u-sm-2">
+		<div class="am-u-lg-2 am-hide-sm-only">
 			<div class="head-div am-dropdown"  data-am-dropdown>
 				<img src="/static/image/avatar/avatar-{$user->head}.png" class="am-circle head-icon am-dropdown-toggle" data-am-dropdown-toggle>
 				<span class="head-text">{$user->nickname}</span>}&nbsp;<i class=" am-icon-caret-down"></i></span>
@@ -61,7 +61,7 @@ $user=Users::get_one_user(session('uid'));
 			</div>
 		</div>
 {else}
-		<div class="am-u-sm-2 am-u-sm-push-1 login-style">
+		<div class="am-u-lg-2 am-u-sm-push-1 login-style am-hide-sm-only">
 			<a href="/Index/Index/Register" class="login-reg">注册</a>
 			<a href="/Index/Index/Login" class="login-log">登录</a>
 		</div>

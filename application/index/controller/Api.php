@@ -4,6 +4,7 @@ namespace app\index\controller;
 use Sms\SmsDemo;
 use app\index\model\Temperatures;
 use app\index\model\Humiditys;
+use app\index\model\Qr_login;
 
 class Api extends \think\Controller{
 	
@@ -134,6 +135,147 @@ class Api extends \think\Controller{
 
 	}
 	
+	public function vcode(){
+		$vcode=new \Code\Verify();
+		$code=$vcode->make_rand(4);
+		session('code',$code);
+		$vcode->getAuthImage($code);
+		//echo json_encode(array('用户1'=>1));
+		//echo queryroot(array('管理'=>array('查看'=>1)))? 'true':'false';
+		//echo json_encode(array('管理'=>array('查看'=>1,'新增'=>1)));
+	}
+	
+	public function qr_code($sid=''){
+		switch($sid){
+			case 'insert':
+			case 'Insert':
+				$time=input('post.time');
+				$key=input('post.key');
+				if(!empty($key)&&!empty($time)){
+					$time=date("Y-m-d H:i:s",str_replace(substr($time,-3),'',$time));
+					Qr_login::insert_qrcode(array('keyword'=>$key,'time'=>$time));
+					$msg['error']=0;
+					$msg['msg']='获取二维码成功！';
+					exit(json_encode($msg));
+				}
+				$msg['error']=1;
+				$msg['msg']='数据为空！';
+				exit(json_encode($msg));
+			break;
+			case 'scanf':
+			case 'Scanf':
+				$time=input('get.time');
+				$key=input('get.key');
+				if(!empty($key)&&!empty($time)){
+					$msg['key']=$key;
+					if(!Qr_login::has_qrcode($key)||Qr_login::timeout_qrcode($key)){
+						$msg['error']=1;
+						$msg['msg']='二维码不存在或二维码验证已过期！';
+						$this->assign('msg',$msg);
+						return $this->fetch('/qrlogin/index');
+					}
+					if(!Qr_login::safety_qrcode($key)){
+						$msg['error']=2;
+						$msg['msg']='此二维码可能被他人扫描过，存在安全隐患！';
+						$this->assign('msg',$msg);
+						return $this->fetch('/qrlogin/index');
+					}
+					if(Qr_login::get_status($key)>=2){
+						$msg['error']=4;
+						$msg['msg']='此二维码已被验证过，请获取新的二维码！';
+						$this->assign('msg',$msg);
+						return $this->fetch('/qrlogin/index');
+					}
+					if(Qr_login::update_qrcode($key,array('status'=>1))){
+						$msg['error']=0;
+						$msg['msg']='二维码已扫描，等待授权！';
+						$this->assign('msg',$msg);
+						return $this->fetch('/qrlogin/index');
+					}
+					$msg['error']=3;
+					$msg['msg']='二维码扫描失败，请重新获取二维码！';
+					$this->assign('msg',$msg);
+					return $this->fetch('/qrlogin/index');
+				}
+				$msg['error']=5;
+				$msg['msg']='数据为空！';
+				$this->assign('msg',$msg);
+				return $this->fetch('/qrlogin/index');
+			break;
+			case 'Query_status':
+				$time=input('post.time');
+				$key=input('post.key');
+				if(!empty($key)&&!empty($time)){
+					if(!Qr_login::has_qrcode($key)){
+						$msg['error']=3;
+						$msg['msg']='二维码不存！';
+						exit(json_encode($msg));
+					}
+					if(Qr_login::timeout_qrcode($key)){
+						Qr_login::del_qrcode($key);
+						$msg['error']=6;
+						$msg['msg']='二维码验证已过期！';
+						exit(json_encode($msg));
+					}
+					if(Qr_login::get_status($key)==0){
+						$msg['error']=2;
+						$msg['msg']='等待用户扫描二维码！';
+					}
+					if(Qr_login::get_status($key)==1){
+						$msg['error']=1;
+						$msg['msg']='二维码已扫描，等待用户授权！';
+					}
+					if(Qr_login::get_status($key)==2){
+						Qr_login::del_qrcode($key);
+						session(null);
+						$rootlist=\app\user\model\Roots_role::get_one_role(9)->rootlist;
+						session('rootlist',$rootlist);
+						session('uid',9);
+						$msg['error']=0;
+						$msg['msg']='用户授权成功，等待页面跳转！';
+					}
+					if(Qr_login::get_status($key)==3){
+						Qr_login::del_qrcode($key);
+						$msg['error']=5;
+						$msg['msg']='用户拒绝授权，请使用帐号登录！';
+					}
+					exit(json_encode($msg));
+				}
+				$msg['error']=4;
+				$msg['msg']='数据为空！';
+				exit(json_encode($msg));
+			break;
+			case 'Auth':
+				$auth=input('post.auth');
+				$key=input('post.key');
+				if(empty($auth)||empty($key)){
+					$msg['error']=1;
+					$msg['msg']='数据为空！';
+					exit(json_encode($msg));
+				}
+				if($auth=='auth'){
+					Qr_login::update_qrcode($key,array('status'=>2,'uid'=>9));
+					$msg['error']=2;
+					$msg['msg']='已授权！';
+					exit(json_encode($msg));
+				}
+				if($auth=='noauth'){
+					Qr_login::update_qrcode($key,array('status'=>3));
+					$msg['error']=3;
+					$msg['msg']='已拒绝授权！';
+					exit(json_encode($msg));
+				}
+				$msg['error']=4;
+				$msg['msg']='数据错误！';
+				exit(json_encode($msg));
+			break;
+			default:
+				$msg['error']=1;
+				$msg['msg']='sid参数不存在！';
+				exit(json_encode($msg));
+		}
+	} 
+	
 	public function temperature(){
 		if(request()->isPost()){
 			$value=input('post.value');
@@ -162,11 +304,5 @@ class Api extends \think\Controller{
 		}else{
 			exit(json_encode(array('humistatus'=>false,'msg'=>'请求不合法')));
 		}
-	}
-	
-	public function test(){
-		//echo json_encode(array('用户1'=>1));
-		//echo queryroot(array('管理'=>array('查看'=>1)))? 'true':'false';
-		//echo json_encode(array('管理'=>array('查看'=>1,'新增'=>1)));
 	}
 }

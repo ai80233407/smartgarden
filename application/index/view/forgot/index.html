@@ -1,0 +1,164 @@
+{include file='public/head'}
+<style>
+	.cssanimations [data-am-scrollspy*=animation] {
+		opacity: 0;
+		width:100%;
+	}
+	.cssanimations [data-am-scrollspy*=animation] {
+		opacity: 0;
+		width: 100%;
+		margin:60px 0px 60px 0px;
+	}
+	.am-progress-bar {
+		font-size: 2rem;
+		line-height: 3rem;
+	}
+</style>
+{include file='public/header'}
+<div  class="am-g">
+	<div class="main-bg">
+		<div class="main-title">
+			<p>忘记密码</p>
+		</div>
+		<div class="main-sub">
+			<p>请按提示完成密码的重置！</p>
+		</div>
+	</div>
+	<div class="am-u-sm-10 am-u-sm-centered step-view">
+		<div class="am-progress am-margin-lg am-active am-progress-striped" style="height:3rem;">
+			<div class="am-progress-bar"  style="width: 25%">第一步</div>
+			<div class="am-progress-bar am-progress-bar-secondary" style="width: 25%;display:none;">第二步</div>
+			<div class="am-progress-bar am-progress-bar-warning" style="width: 25%;display:none;">第三步</div>
+			<div class="am-progress-bar am-progress-bar-success" style="width: 25%;display:none;">完成</div>
+		</div>
+		<form class="am-form am-margin-lg am-padding-sm am-panel am-panel-default">
+			<div class="am-u-sm-9 am-u-sm-centered">
+				<h2 class="am-text-primary">Step.1 输入帐号</h2>
+				<hr />
+				<div class="am-form-group">
+					<input name="account" type="text" class="am-form-field" placeholder="您的帐号">
+				</div>
+				<div class="am-form-group" style="cursor:not-allowed">
+					<a class="am-btn am-btn-block am-btn-primary" >下一步</a>
+				</div>
+			</div>
+		</form>
+		<form class="am-form am-margin-lg am-padding-sm am-panel am-panel-default" style="display:none;">
+			<div class="am-u-sm-9 am-u-sm-centered">
+				<h2 class="am-text-primary">Step.2 验证邮箱</h2>
+				<hr />
+				<div class="am-form-group">
+					<input type="text" value="" class="am-form-field verify-email" placeholder="您的邮箱" readonly>
+				</div>
+				<div class="am-form-group">
+					<input name="email" type="text" class="am-form-field" placeholder="请根据上面的提示信息，输入您的邮箱">
+				</div>
+				<div class="am-form-group" style="cursor:not-allowed;">
+					<a class="am-btn am-btn-block am-btn-primary" >下一步</a>
+				</div>
+			</div>
+		</form>
+		<form class="am-form am-margin-lg am-padding-sm am-panel am-panel-default" style="display:none;">
+			<div class="am-u-sm-9 am-u-sm-centered">
+				<h2 class="am-text-primary">Step.3 获取邮件验证码</h2>
+				<hr />
+				<div class="am-form-group">
+					<input type="text" value="ai80233407@163.com" class="am-form-field" placeholder="您的邮箱" readonly>
+				</div>
+				<div class="am-margin-bottom" style="width:100%;">
+					<div class="am-input-group">
+						<input name="verify" type="text" class="am-form-field img-verify" placeholder="请输入右侧的图片验证码，来获取邮件验证码">
+						<span class="am-input-group-btn">
+							<a href="javascript:void(0);" class="vcode-box">
+								<div class="am-panel am-panel-default" style="width:148px;height:38.6px;margin:0 0 0 0;"></div>
+							</a>
+						</span>
+					</div>
+				</div>
+				<div class="am-form-group">
+					<a class="am-btn am-btn-block am-btn-primary" >下一步</a>
+				</div>
+			</div>
+		</form>
+		<form class="am-form am-margin-lg am-padding-sm am-panel am-panel-default" style="display:none;">
+			<div class="am-u-sm-9 am-u-sm-centered">
+				<h2 class="am-text-primary">Step.4 密码修改</h2>
+				<hr />
+				<div class="am-form-group">
+					<input name="password" type="password" class="am-form-field" placeholder="请输入您的新密码">
+				</div>
+				<div class="am-form-group">
+					<input name="repwd" type="password" class="am-form-field" placeholder="重复输入一遍您的新密码">
+				</div>
+				<div class="am-form-group">
+					<input name="emailcode" type="text" class="am-form-field" placeholder="请输入您邮箱收到的邮件验证码">
+				</div>
+				<div class="am-form-group">
+					<a class="am-btn am-btn-block am-btn-success" >提交</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+{include file='public/footer'}
+{include file='public/common'}
+<script type="text/javascript">
+	$(function(){
+		$('.step-view').on('click','.am-btn:visible',function(){
+			if($(this).parents('.am-u-sm-9').find('input[name][type="text"]').val()==''){
+				layer.msg('数据为空！',{
+					icon:5,
+					time:1000
+				});
+				return ;
+			}
+			var nextbtn=$(this);
+			nextbtn.addClass('am-disabled').html('<i class="am-icon-spinner am-icon-spin"></i>&nbsp;加载中，请稍候...');
+			$.ajax({
+				url:'/index.php/Index/Index/Forgot',
+				data:$('form:visible').serialize(),
+				dataType:'json',
+				type:'post',
+				async:true,
+				success:function(res){
+					if(res.error==0){
+						layer.msg(res.msg,{
+							icon:6,
+							time:2000
+						});
+						if($('form:visible').next().length>0){
+							res.email?$('.verify-email').val(res.email):'';
+							$('form:visible').hide('fast').next().show('fast');
+							$('.am-progress-bar:visible').next().show('fast');
+							nextbtn.removeClass('am-disabled').html('下一步');
+						}else{
+							nextbtn.html('完成');
+							setTimeout(function(){
+								location.href="/Index/Index/Login";
+							},2000);
+						}
+						
+					}else{
+						layer.msg(res.msg,{
+							icon:5,
+							time:2000
+						});
+						nextbtn.removeClass('am-disabled').html('下一步');
+					}
+				},
+				error:function(req,msg){
+					layer.msg('通讯失败->'+msg,{
+						icon:5,
+						time:2000
+					});
+					nextbtn.removeClass('am-disabled').html('下一步');
+				}
+			});
+		});
+		$('.img-verify').focus(vcode_f5);
+	});
+	function vcode_f5(){
+	    $('.vcode-box').html('<img src="/index.php/Index/Api/Vcode" style="height:37px;" />');
+	}
+</script>
+{include file='public/foot'}

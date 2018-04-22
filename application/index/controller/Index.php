@@ -12,6 +12,9 @@ class Index extends \think\Controller{
 	}
 	
 	public function login(){
+		if(islogined()){
+			return $this->redirect('/');
+		}
 		if(request()->isGet()){
 			return $this->fetch('login/login');
 		}else{
@@ -106,6 +109,9 @@ class Index extends \think\Controller{
 	}
 	
 	public function Register(){
+		if(islogined()){
+			return $this->redirect('/');
+		}
 		if(request()->isGet()){
 			return $this->fetch('register/register');
 		}else{
@@ -154,6 +160,86 @@ class Index extends \think\Controller{
 			$msg['out']='注册成功！';
 			session(null);
 			exit(json_encode($msg));
+		}
+	}
+	
+	public function forgot(){
+		if(islogined()){
+			return $this->redirect('/');
+		}
+		if(request()->isPost()){
+			$account=input('post.account');
+			$email=input('post.email');
+			$verify=input('post.verify');
+			$pass=input('post.password');
+			$repwd=input('post.repwd');
+			$emailcode=input('post.emailcode');
+			if(!empty($account)){
+				session(null);
+				$user=Users::get_one_record($account);
+				if(empty($user->id)){
+					$msg['error']=1;
+					$msg['msg']='账号不存在！';
+					die(json_encode($msg));
+				}
+				if(empty($user->email)){
+					$msg['error']=1;
+					$msg['msg']='账号未绑定邮箱，无法通过邮箱找回！';
+					die(json_encode($msg));
+				}
+				session('tempid',$user->id);
+				session('email',$user->email);
+				session('nick',$user->nickname);
+				die(json_encode(array('error'=>0,'msg'=>'帐号获取成功！','email'=>hidestr($user->email,0,4,2))));
+			}
+			if(!empty($email)){
+				if($email!=session('email')||!session('email')){
+					$msg['error']=1;
+					$msg['msg']='邮箱信息不正确或未获取到邮箱信息！';
+					die(json_encode($msg));
+				}
+				session('emailcheck',1);
+				die(json_encode(array('error'=>0,'msg'=>'邮箱验证成功！')));
+			}
+			if(!empty($verify)){
+				if(strtoupper($verify)!=session('code')||!session('emailcheck')||!session('email')){
+					$msg['error']=1;
+					$msg['msg']='验证码信息不正确或邮箱信息未验证！';
+					die(json_encode($msg));
+				}
+				session('code',null);
+				$email=new \Email\SendEmail();
+				$code=rand(100000,999999);
+				$result=$email->send(array('add'=>session('email'),'nick'=>session('nick'),'number'=>$code));
+				if(empty($result)){
+					$msg['error']=1;
+					$msg['msg']='邮件发送失败！';
+					die(json_encode($msg));
+				}else{
+					session('emailcode',$code);
+					$msg['error']=0;
+					$msg['msg']='邮件发送成功！';
+					die(json_encode($msg));
+				}
+			}
+			if(!empty($emailcode)){
+				if($emailcode!=session('emailcode')||!session('emailcode')||!session('tempid')||!session('emailcheck')){
+					$msg['error']=1;
+					$msg['msg']='邮件验证码信息不正确或帐号、邮箱信息未验证！';
+					die(json_encode($msg));
+				}
+				if($pass!=$repwd&&!empty($pass)){
+					$msg['error']=1;
+					$msg['msg']='两次输入的密码不一致或输入的密码为空！';
+					die(json_encode($msg));
+				}
+				Users::change_pass(session('tempid'),array('password'=>sha1($pass)));
+				session(null);
+				die(json_encode(array('error'=>0,'msg'=>'密码重置成功！')));
+			}
+			die(json_encode(array('error'=>1,'msg'=>'数据为空！')));
+		}else{
+			return $this->fetch('/forgot/index');
 		}
 	}
 }

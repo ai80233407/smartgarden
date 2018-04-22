@@ -208,7 +208,26 @@ class Info extends \think\Controller{
 		echo $onlineip.'<br>';
 	}
 	
-	public function test(){
+	private function test(){
+		
+		$str0 = "abcd一二三四五六七八九十";
+		$str2 = "hengqin2008@qq.com";
+		$str3 = "hengqin2008@yahoo.com.cn";
+		$str4 = "0123456789";
+		echo "原始字符串：$str0";
+		echo "<br/>从左边第5个字符向右隐藏4个字符：" . hideStr($str0, 4, 4);
+		echo "<br/>===========================================================";
+		echo "<br/>原始字符串：$str0";
+		echo "<br/>从右边第5个字符向左隐藏4个字符：" . hideStr($str0, 4, 4, 1);
+		echo "<br/>===========================================================";
+		echo "<br/>原始字符串：$str2";
+		echo "<br/>隐藏指定字符@（或其他字符）前面的从右边第1个字符向左隐藏4个字符：" . hideStr($str2, 0, 4, 2);
+		echo "<br/>===========================================================";
+		echo "<br/>原始字符串：$str3";
+		echo "<br/>隐藏指定字符@（或其他字符）后面的从左边第1个字符向右隐藏4个字符：" . hideStr($str3, 0, 4, 3);
+		echo "<br/>===========================================================";
+		echo "<br/>原始字符串：$str4";
+		echo "<br/>隐藏首保留3个字符，右保留2个字符：" . hideStr($str4, 3, 2, 4);
 		/*
 		unset($_COOKIE['account']);
 		unset($_COOKIE['password']);
@@ -220,7 +239,7 @@ class Info extends \think\Controller{
 		//cookie('fack','you');
 		//cookie('fack',null);
 		//cookie(null,'think_');
-		print_r($_COOKIE);
+		//print_r($_COOKIE);
 		
 		//echo $_SERVER['SERVER_ADDR'].':'.$_SERVER['SERVER_PORT'];
 		//echo date("h:i:sa");

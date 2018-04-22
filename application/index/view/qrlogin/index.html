@@ -1,0 +1,159 @@
+{include file="public/head"}
+<style>
+	.scanf-success{
+		background-image:url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlLz48L2RlZnM+PHBhdGggZD0iTTUxMiA5NDcuMkMyNzEuMzYgOTQ3LjIgNzYuOCA3NTIuNjQgNzYuOCA1MTJTMjcxLjM2IDc2LjggNTEyIDc2LjggOTQ3LjIgMjcxLjM2IDk0Ny4yIDUxMiA3NTIuNjQgOTQ3LjIgNTEyIDk0Ny4yTTUxMiAwQzIzMC40IDAgMCAyMzAuNCAwIDUxMnMyMzAuNCA1MTIgNTEyIDUxMiA1MTItMjMwLjQgNTEyLTUxMlM3OTMuNiAwIDUxMiAwIiBmaWxsPSIjMzVCMzRBIi8+PHBhdGggZD0iTTcxNi44IDMwNy4yTDQ1MC41NiA2MjkuNzYgMzEyLjMyIDQ4MS4yOCAyNTYgNTMyLjQ4bDE5OS42OCAyMTUuMDQgMzE3LjQ0LTM5NC4yNHoiIGZpbGw9IiMzNUIzNEEiLz48L3N2Zz4=);
+		background-size: 40px 40px;
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		text-indent: -99999px;
+		background-position: 0 0;
+	}
+	.qr-timeout{
+		background-image: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlLz48L2RlZnM+PHBhdGggZD0iTTUxMiA5NDcuMkMyNzEuMzYgOTQ3LjIgNzYuOCA3NTIuNjQgNzYuOCA1MTJTMjcxLjM2IDc2LjggNTEyIDc2LjggOTQ3LjIgMjcxLjM2IDk0Ny4yIDUxMiA3NTIuNjQgOTQ3LjIgNTEyIDk0Ny4yTTUxMiAwQzIzMC40IDAgMCAyMzAuNCAwIDUxMnMyMzAuNCA1MTIgNTEyIDUxMiA1MTItMjMwLjQgNTEyLTUxMlM3OTMuNiAwIDUxMiAwIiBmaWxsPSIjRjE1NTMzIi8+PHBhdGggZD0iTTcxNi44IDM1My4yOGwtNjEuNDQtNDYuMDhMNTEyIDQ1NS42OCAzNjguNjQgMzA3LjJsLTYxLjQ0IDQ2LjA4TDQ1NS42OCA1MTIgMzA3LjIgNjY1LjZsNjEuNDQgNTEuMkw1MTIgNTY4LjMyIDY1NS4zNiA3MTYuOGw2MS40NC01MS4yTDU2My4yIDUxMnoiIGZpbGw9IiNGMTU1MzMiLz48L3N2Zz4=);
+		background-size: 40px 40px;
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		text-indent: -99999px;
+		background-position: 0 0;
+	}
+</style>
+{include file="public/header"}
+<div class="am-u-sm-12 am-u-lg-6 am-u-lg-centered" style="height:455px;">
+{if $msg['error']==0}
+	<div class="am-u-sm-12 am-text-center">
+		<div class="am-margin-top am-padding-top auth-result" style="height:300px;">
+			<div class="am-text-center">
+				<img src="/static/image/avatar/avatar-14.png" class="am-circle" style="width:100px;height:100px;">
+			</div>
+			<h4 class="am-text-center">二维码登录测试帐号</h4>
+		</div>
+		<a class="am-btn am-btn-block am-btn-success"  href="javascript:auth('auth');">授权登录</a>
+		<br>
+		<a class="am-btn am-btn-block am-btn-danger"  href="javascript:auth('noauth');">拒绝授权</a>
+	</div>
+{elseif $msg['error']==1}
+	<div class="am-u-sm-12">
+		<h2 class="am-margin-top am-padding-top am-text-center">{$msg['msg']}</h2>
+	</div>
+{elseif $msg['error']==2}
+	<div class="am-u-sm-12 am-text-center">
+		<div class="am-margin-top am-padding-top  auth-result" style="height:300px;">
+			<div class="am-text-center">
+				<img src="/static/image/avatar/avatar-14.png" class="am-circle" style="width:100px;height:100px;">
+			</div>
+			<h4 class="am-text-center">二维码登录测试帐号</h4>
+			<p  class="am-text-center am-text-danger">此二维码可能被他人扫描过，存在安全隐患！</p>
+		</div>
+		<a class="am-btn am-btn-block am-btn-success" href="javascript:auth('auth');">授权登录</a>
+		<br>
+		<a class="am-btn am-btn-block am-btn-danger" href="javascript:auth('noauth');">拒绝授权</a>
+	</div>
+{elseif $msg['error']==3}
+	<div class="am-u-sm-12">
+		<h2 class="am-margin-top am-padding-top am-text-center">{$msg['msg']}</h2>
+	</div>
+{elseif $msg['error']==4}
+	<div class="am-u-sm-12">
+		<h2 class="am-margin-top am-padding-top am-text-center">{$msg['msg']}</h2>
+	</div>
+{else}
+	<div class="am-u-sm-12">
+		<h2 class="am-margin-top am-padding-top am-text-center">{$msg['msg']}</h2>
+	</div>
+{/if}
+</div>
+{include file="public/footer"}
+{include file="public/common"}
+<script type="text/javascript">
+	function auth(authcode){
+		$.ajax({
+			url:'/Index/Api/Qr_code/sid/Auth',
+			data:{'auth':authcode,'key':'{$msg['key']}'},
+			dataType:'json',
+			type:'post',
+			success:function(res){
+				if(res.error==2){
+					layer.msg(res.msg,{
+						icon:6,
+						time:1200
+					});
+					$('.auth-result').each(function(){
+						$(this).append('<br><br><br><i class="scanf-success"></i><h3 class="am-text-success">以通过本次授权请求</h3>');
+					});
+				}else{
+					layer.msg(res.msg,{
+						icon:5,
+						time:1200
+					});
+					$('.auth-result').each(function(){
+						$(this).append('<br><br><br><i class="qr-timeout"></i><h3 class="am-text-danger">以拒绝本次授权请求</h3>');
+					});
+				}
+				$('.am-btn-block').each(function(){
+					$(this).hide('fast');
+				});
+				if(getos()=='Weixin'){
+					setTimeout(WeixinJSBridge.call('closeWindow'),3000);
+				}else if(getos()=='Chrome'){
+					window.opener=null;
+					window.open('','_self');
+					window.close();
+				}else if(getos()=='MSIE'){
+					if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+						window.opener = null;
+						window.close();
+					} else {
+						window.open('', '_top');
+						window.top.close();
+					}
+				}else if(getos()=='Firefox'){
+					window.location.href = 'about:blank ';
+				}else if(getos()=='UCBrowser'){
+					window.opener=null;
+					window.open('','_self');
+					window.close();
+				}
+			},
+			error:function(req,msg){
+				layer.msg(msg,{
+					icon:5,
+					time:1200
+				});
+			}
+		});
+	}
+	function getos(){
+		if(navigator.userAgent.indexOf("MicroMessenger")>0){   
+			return "Weixin";   
+		}
+		if(navigator.userAgent.indexOf("QQ")>0){   
+			return "QQ";   
+		}
+		if(navigator.userAgent.indexOf("Weibo")>0){   
+			return "Weibo";   
+		}
+		if(navigator.userAgent.indexOf("UCBrowser")>0){   
+			return "UCBrowser";   
+		}
+		if(navigator.userAgent.indexOf("MSIE")>0) {   
+			return "MSIE";   
+		}   
+		if(navigator.userAgent.indexOf("Firefox")>0){   
+			return "Firefox";   
+		}
+		if(navigator.userAgent.indexOf("Chrome")>0) {   
+			return "Chrome";   
+		}  		
+		if(navigator.userAgent.indexOf("Camino")>0){   
+			return "Camino";   
+		}   
+		if(navigator.userAgent.indexOf("Gecko")>0){   
+			return "Gecko";   
+		}
+	}
+</script>
+{include file="public/foot"}

@@ -19,17 +19,52 @@
 		border-radius:20px;
 		background: #f8f8f8;
 	}
+	.twocode-img {
+		background: url(/static/image/twocode.png) no-repeat;
+		background-size: 40px 40px;
+		width: 40px;
+		height: 40px;
+		margin:8px 8px 0 0;
+	}
+	.userlogin-img {
+		background: url(/static/image/userlogin.png) no-repeat;
+		background-size: 40px 40px;
+		width: 40px;
+		height: 40px;
+		margin:8px 8px 0 0;
+	}
+	.scanf-success{
+		background-image:url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlLz48L2RlZnM+PHBhdGggZD0iTTUxMiA5NDcuMkMyNzEuMzYgOTQ3LjIgNzYuOCA3NTIuNjQgNzYuOCA1MTJTMjcxLjM2IDc2LjggNTEyIDc2LjggOTQ3LjIgMjcxLjM2IDk0Ny4yIDUxMiA3NTIuNjQgOTQ3LjIgNTEyIDk0Ny4yTTUxMiAwQzIzMC40IDAgMCAyMzAuNCAwIDUxMnMyMzAuNCA1MTIgNTEyIDUxMiA1MTItMjMwLjQgNTEyLTUxMlM3OTMuNiAwIDUxMiAwIiBmaWxsPSIjMzVCMzRBIi8+PHBhdGggZD0iTTcxNi44IDMwNy4yTDQ1MC41NiA2MjkuNzYgMzEyLjMyIDQ4MS4yOCAyNTYgNTMyLjQ4bDE5OS42OCAyMTUuMDQgMzE3LjQ0LTM5NC4yNHoiIGZpbGw9IiMzNUIzNEEiLz48L3N2Zz4=);
+		background-size: 40px 40px;
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		text-indent: -99999px;
+		background-position: 0 0;
+	}
+	.qr-timeout{
+		background-image: url(data:image/svg+xml;base64,PHN2ZyBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlLz48L2RlZnM+PHBhdGggZD0iTTUxMiA5NDcuMkMyNzEuMzYgOTQ3LjIgNzYuOCA3NTIuNjQgNzYuOCA1MTJTMjcxLjM2IDc2LjggNTEyIDc2LjggOTQ3LjIgMjcxLjM2IDk0Ny4yIDUxMiA3NTIuNjQgOTQ3LjIgNTEyIDk0Ny4yTTUxMiAwQzIzMC40IDAgMCAyMzAuNCAwIDUxMnMyMzAuNCA1MTIgNTEyIDUxMiA1MTItMjMwLjQgNTEyLTUxMlM3OTMuNiAwIDUxMiAwIiBmaWxsPSIjRjE1NTMzIi8+PHBhdGggZD0iTTcxNi44IDM1My4yOGwtNjEuNDQtNDYuMDhMNTEyIDQ1NS42OCAzNjguNjQgMzA3LjJsLTYxLjQ0IDQ2LjA4TDQ1NS42OCA1MTIgMzA3LjIgNjY1LjZsNjEuNDQgNTEuMkw1MTIgNTY4LjMyIDY1NS4zNiA3MTYuOGw2MS40NC01MS4yTDU2My4yIDUxMnoiIGZpbGw9IiNGMTU1MzMiLz48L3N2Zz4=);
+		background-size: 40px 40px;
+		background-repeat: no-repeat;
+		width: 40px;
+		height: 40px;
+		display: inline-block;
+		text-indent: -99999px;
+		background-position: 0 0;
+	}
 </style>
 {include file="public/header"}
 <div class="login-bg" style="height:100%;">
 	<div class="am-u-sm-6 am-u-sm-centered">
 		<div class="modal-center">
 			<div>
-				<h3 class="am-text-center">用户登录</h3>
+				<h3 class="am-fr twocode twocode-img" style="cursor:pointer;"></h3>
 			</div>
-			<hr />
-			<div class="am-u-sm-8 am-u-sm-centered" style="height:220px;">
+			<br />
+			<div class="am-u-sm-8 am-u-sm-centered user-login" style="height:220px;">
 				<form  id="form_check">
+					<h2 class="am-text-center am-text-primary">用户登录</h2>
 					<div class="am-input-group am-input-group-primary">
 						<span class="am-input-group-label"><i class="am-icon-user am-icon-fw"></i></span>
 						<input class="am-form-field" value="{:cookie('account','','think_')}" name="account" type="text" placeholder="帐号" />
@@ -47,7 +82,7 @@
 							<input type="checkbox" value="1" class="see" data-am-ucheck />查看密码
 						</label>
 						<label class="am-checkbox-inline am-fr" style="padding:1px 0 0 0;margin:0 13px 0 5px;">
-							<a href="">忘记密码?</a>
+							<a href="/index.php/Index/Index/Forgot">忘记密码?</a>
 						</label>
 					</div>
 					{:token()}
@@ -57,15 +92,26 @@
 				<div id="yth_captchar" class="yth_captchar"></div>
 				<br />
 				<a class="am-btn am-btn-success set-width am-btn-block am-round login-btn"  data-am-loading="{spinner:'circle-o-notch',loadingText:'登录中...',resetText:'登录'}">登录</a>
+				<br>
+				<div class="">
+					<ul class="am-nav-pills am-nav-justify">
+						<li><a class="am-icon-btn am-icon-qq am-primary"></a></li>
+						<li><a class="am-icon-btn am-icon-weixin am-success"></a></li>
+						<li><a class="am-icon-btn am-icon-weibo am-danger"></a></li>
+					</ul>	
+				</div>
 			</div>
-			<hr />
-			<div class="am-u-sm-8 am-u-sm-centered">
-				<ul class="am-nav-pills am-nav-justify">
-					<li><a class="am-icon-btn am-icon-qq am-primary"></a></li>
-					<li><a class="am-icon-btn am-icon-weixin am-success"></a></li>
-					<li><a class="am-icon-btn am-icon-weibo am-danger"></a></li>
-					<li><a class="am-icon-btn am-icon-bank am-warning"></a></li>
-				</ul>	
+			<div class="am-u-sm-8 am-u-sm-centered tcode-login" style="height:220px;display:none;">
+				<h2 class="am-text-center am-text-primary">扫码登录</h2>
+				<hr />
+				<div class="am-text-center code-box"></div>
+				<hr />
+				<div class="am-text-center">打开 <a class="test" href="">智能花园APP</a> 扫一扫登录</div>
+				<br>
+				<br>
+				<div class="am-text-center">
+					<a>下载APP</a>-<a>注册帐号</a>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -93,6 +139,7 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 				});
 			}
 		});
+		
 		// 适应当前样式
 		// $("#yth_captchar").css({
 		//     "margin-left": "10px",
@@ -101,6 +148,7 @@ loadjs(["/static/plugins/verify/js/yth_drag.js"], {
 		// });
 	}
 });
+var wheel;
 $('.see').on('click',function(){
 	if($('.see').is(':checked')){
 		$('.pwd').attr('type', 'text');
@@ -108,7 +156,123 @@ $('.see').on('click',function(){
 		$('.pwd').attr('type', 'password');
 	}
 });
-</script>
-<script>
+$('.twocode').on('click',function(){
+	if($('.user-login').is(':visible')){
+		$(this).removeClass('twocode-img').addClass('userlogin-img');
+		$('.user-login').hide('fast');
+		$('.tcode-login').show('fast');
+		makeCode();
+	}else{
+		$(this).removeClass('userlogin-img').addClass('twocode-img');
+		$('.tcode-login').hide('fast');
+		$('.user-login').show('fast');
+		clearInterval(wheel);
+	}
+	
+});
+function makeCode(){
+	var rand=make_rand(18)
+	var now=new Date().valueOf();
+	$.ajax({
+		url:'/Index/Api/Qr_code/sid/Insert',
+		data:{'key':rand,'time':now},
+		dataType:'json',
+		type:'post',
+		success:function(res){
+			if(res.error==0){
+				layer.msg(res.msg,{
+					icon:6,
+					time:800
+				});
+				var QRCode=$.AMUI.qrcode;
+				if(document.location.host=='127.0.0.1'||document.location.host=='localhost'){
+					var url='http://192.168.43.85/'
+				}else{
+					var url=document.location.protocol+'//'+document.location.host;
+				}
+				$('.code-box').html(new QRCode({
+					text: url+'/Index/Api/Qr_code/sid/Scanf?key='+rand+'&time='+now, // 要生产二维码的文字
+					render: 'canvas', // 渲染方式，默认的选择顺序为 `canvas` -> `svg` -> `table`
+					width: 150, // 二维码宽度 `px`
+					height: 150, // 二维码高度 `px`
+					correctLevel: 3, // 纠错级别，可取 0、1、2、3，数字越大说明所需纠错级别越大
+					background: "#ffffff", // 背景色
+					foreground: "#000000" // 前景色
+				}));
+				$('.test').attr('href','/Index/Api/Qr_code/sid/Scanf?key='+rand+'&time='+now);
+				wheel=setInterval(function(){
+					$.ajax({
+						url:'/Index/Api/Qr_code/sid/Query_status',
+						data:{'key':rand,'time':now},
+						dataType:'json',
+						type:'post',
+						success:function(res){
+							if(res.error==0){
+								clearInterval(wheel);
+								layer.msg(res.msg,{
+									icon:6,
+									time:1000
+								},setTimeout(function(){
+									location.href="/";
+								},2000));
+							}else if(res.error==1){
+								$('.code-box').html('<br><i class="scanf-success"></i><br><br><br><h4>二维码已被扫描，等待授权！</h4>');
+							}else if(res.error==2){
+								
+							}else if(res.error==3){
+								$('.code-box').html('<br><i class="qr-timeout"></i><br><br><br><h4>二维码不存在，请重新获取！</h4><p><a href="javascript:makeCode();">刷新二维码</a></p>');
+								clearInterval(wheel);
+							}else if(res.error==5){
+								layer.msg(res.msg,{
+									icon:5,
+									time:1000
+								});
+								$('.code-box').html('<br><i class="qr-timeout"></i><br><br><br><h4>用户拒绝授权，请使用帐号登录！</h4>');
+								clearInterval(wheel);
+							}else if(res.error==6){
+								layer.msg(res.msg,{
+									icon:5,
+									time:1000
+								});
+								$('.code-box').html('<br><i class="qr-timeout"></i><br><br><br><h4>二维码已过期，请重新获取！</h4><p><a href="javascript:makeCode();">刷新二维码</a></p>');
+								clearInterval(wheel);
+							}else{
+								layer.msg(res.msg,{
+									icon:5,
+									time:1000
+								});
+								clearInterval(wheel);
+							}
+						},
+						error:function(req,msg){
+							layer.msg(msg,{
+								icon:5,
+								time:1000
+							});
+							$('.code-box').html('<br><i class="qr-timeout"></i><br><br><br><h4>登录失败，请使用帐号登录！</h4>');
+							clearInterval(wheel);
+						}
+					});
+				},5000);
+			}else{
+				
+			}
+		},
+		error:function(req,msg){
+			layer.msg(msg,{
+				icon:5,
+				time:1000
+			});
+		}
+	});
+}
+function make_rand(length=32){
+	var str="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwsyz";
+	var result="";
+	for(var i=0;i<length;i++){
+		result+=str[Math.round(Math.random()*61)];
+	}
+	return result;
+}
 </script>
 {include file="public/foot"}
