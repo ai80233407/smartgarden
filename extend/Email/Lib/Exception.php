@@ -18,7 +18,7 @@
  * FITNESS FOR A PARTICULAR PURPOSE.
  */
 
-namespace PHPMailer\PHPMailer;
+namespace Email\Lib;
 
 /**
  * PHPMailer exception handler.

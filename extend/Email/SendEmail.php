@@ -2,8 +2,8 @@
 namespace Email;
 
 use Email\Lib\PHPMailer;
-use Email\Lib\Exception;
 use Email\Lib\SMTP;
+use Email\Lib\Exception;
 
 class SendEmail{
 	// 引入PHPMailer的核心文件
@@ -21,9 +21,9 @@ class SendEmail{
 		// 链接qq域名邮箱的服务器地址
 		$this->mail->Host = 'smtp.163.com';
 		// 设置使用ssl加密方式登录鉴权
-		//$this->mail->SMTPSecure = 'ssl';
+		$this->mail->SMTPSecure = 'ssl';
 		// 设置ssl连接smtp服务器的远程服务器端口号465
-		$this->mail->Port = 25;
+		$this->mail->Port = 465;
 		// 设置发送的邮件的编码
 		$this->mail->CharSet = 'UTF-8';
 		// smtp登录的账号 QQ邮箱即可
