@@ -63,7 +63,7 @@
 				<h2 class="am-text-primary">Step.3 获取邮件验证码</h2>
 				<hr />
 				<div class="am-form-group">
-					<input type="text" value="ai80233407@163.com" class="am-form-field" placeholder="您的邮箱" readonly>
+					<input type="text" value="" class="am-form-field notice-email" placeholder="您的邮箱" readonly>
 				</div>
 				<div class="am-margin-bottom" style="width:100%;">
 					<div class="am-input-group">
@@ -128,6 +128,7 @@
 						});
 						if($('form:visible').next().length>0){
 							res.email?$('.verify-email').val(res.email):'';
+							res.temail?$('.notice-email').val(res.temail):'';
 							$('form:visible').hide('fast').next().show('fast');
 							$('.am-progress-bar:visible').next().show('fast');
 							nextbtn.removeClass('am-disabled').html('下一步');

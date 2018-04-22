@@ -199,7 +199,7 @@ class Index extends \think\Controller{
 					die(json_encode($msg));
 				}
 				session('emailcheck',1);
-				die(json_encode(array('error'=>0,'msg'=>'邮箱验证成功！')));
+				die(json_encode(array('error'=>0,'msg'=>'邮箱验证成功！','temail'=>session('email'))));
 			}
 			if(!empty($verify)){
 				if(strtoupper($verify)!=session('code')||!session('emailcheck')||!session('email')){
