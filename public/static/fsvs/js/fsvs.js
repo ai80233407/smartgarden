@@ -19,26 +19,37 @@
 		 */
 
 		var defaults = {
+			el : null,
 			speed : 5000,
+			autoPlay : false,
 			bodyID : 'fsvs-body',
-			selector : '> .slide',
 			mouseSwipeDisance : 40,
 			afterSlide : function(){},
 			beforeSlide : function(){},
 			endSlide : function(){},
 			mouseWheelEvents : true,
+			mouseWheelDelay : false,
+			scrollableArea : 'scrollable',
 			mouseDragEvents : true,
 			touchEvents : true,
 			arrowKeyEvents : true,
 			pagination : true,
 			nthClasses : false,
-			detectHash : true
+			detectHash : true,
+			slideClass : "slide",
+			selector : '> .' + this.slideClass,
 		};
 
 		for( var i in options ) {
 			defaults[i] = options[i];
 		}
 		options = defaults;
+
+		/**
+		 * [loop description]
+		 * @type {[type]}
+		 */
+		var loop = null;
 
 		/**
 		 * [currentSlideIndex description]
@@ -83,11 +94,33 @@
 		var mouseWheelTimer = false;
 
 		/**
+		 * [mouseWheelScrollStart description]
+		 * Indicates when the mouseWheel last invoked a slide event.
+		 * @type {Integer}
+		 */
+
+		var mouseWheelScrollStart = 0;
+
+		/**
 		 * [pagination description]
 		 * @type {Boolean}
 		 */
 
 		var pagination = false;
+
+		/**
+		 * [curentActiveSlide description]
+		 * @type {Number}
+		 */
+
+		var _curentActiveSlide = null;
+
+		/**
+		 * [curentActiveSlide description]
+		 * @type {Number}
+		 */
+
+		var _activeSlideClass = "active-slide";
 
 		/**
 		 * [isChrome description]
@@ -156,19 +189,36 @@
 		 */
 
 		var bindMouseDrag = function() {
+			function isScrollable(element) {
+				return element.parents( '.' + options.scrollabelArea ).length != 0 ;
+			}
 			var x, y;
 			window.onmousedown = function(e) {
-				e.preventDefault();
-				y = e.y;
+				var cancelOn = ['a','input','textarea','select'];
+				if( $.inArray( e.target.nodeName.toLowerCase(), cancelOn ) != -1 && isScrollable( $(e.target) ) ) {
+					cancel = true;
+				} else {
+					y = e.y;
+					cancel = false;
+				}
 			}
 			window.onmouseup = function(e) {
-				if( e.y > ( y+options.mouseSwipeDisance ) ) {
+				if( e.y > ( y+options.mouseSwipeDisance && !cancel ) ) {
 					app.slideUp();
-				} else if( e.y < ( y-options.mouseSwipeDisance ) ) {
+				} else if( e.y < ( y-options.mouseSwipeDisance && !cancel ) ) {
 					app.slideDown();
 				}
 			}
 		};
+
+		/**
+		 * [unBindMouseDrag description]
+		 * @return {[type]} [description]
+		 */
+		var unBindMouseDrag = function(){
+			window.onmousedown = function(){};
+			window.onmouseup = function(){};
+		}
 
 		/**
 		 * [bindTouchSwipe description]
@@ -177,17 +227,27 @@
 
 		var bindTouchSwipe = function() {
 			var startY = null;
-			$(window).on( "touchstart", function(ev) {
+			$(window).on( "touchstart.fsvs", function(ev) {
     			var e = ev.originalEvent;
-				if( e.target.nodeName.toLowerCase() !== 'a' ) {
+    			var cancelOn = ['a','input','textarea','select'];
+    			var targetName = e.target.nodeName.toLowerCase();
+    			var cancel = false;
+    			cancelOn.forEach(function(_cancelOn){
+    				if( $(e.target).parents(_cancelOn).length !== 0 ) {
+    					cancel = true;
+    				}
+					if( $(e.target).parents( '.' + options.scrollableArea ).length != 0 ){
+						cancel = true;
+					}
+    			});
+				if( $.inArray( targetName, cancelOn ) == -1 && ! cancel ) {
 					var touches = e.touches;
 					if( touches && touches.length ) {
 						startY = touches[0].pageY;
 					}
-					e.preventDefault();
 				}
 			});
-			$(window).on( "touchmove", function(ev) {
+			$(window).on( "touchmove.fsvs", function(ev) {
     			var e = ev.originalEvent;
 				if( startY !== null ) {
 					var touches = e.touches;
@@ -208,6 +268,15 @@
 		};
 
 		/**
+		 * [unbindTouchSwipe description]
+		 * @return {[type]} [description]
+		 */
+		var unbindTouchSwipe = function() {
+			$(window).unbind( "touchstart.fsvs" );
+			$(window).unbind( "touchmove.fsvs" );
+		};
+
+		/**
 		 * [mouseWheelHandler description]
 		 * @param  {[type]} e [description]
 		 * @return {[type]}   [description]
@@ -215,30 +284,75 @@
 
 		var mouseWheelHandler = function( ev ) {
 			var e = window.event || ev;
-			var wheely = ( e.wheelDelta || -e.detail || e.originalEvent.detail );
+			var wheely = 0;
+			if (e.type == 'mousewheel') {
+				// Fix for IE11 originalEvent being undefined
+				// IE offers wheelDelta and detail directly through the event
+				if(e.originalEvent !== undefined) {
+					wheely = (e.originalEvent.wheelDelta * -1);
+				} else {
+					wheely = (e.wheelDelta * -1);
+				}
+			}
+			else if (e.type == 'DOMMouseScroll') {
+				if(e.originalEvent !== undefined) {
+					wheely = 40 * e.originalEvent.detail;
+				} else {
+					wheely = 40 * e.detail;
+				}
+			}
+			wheely = ( e.wheelDelta || -e.detail || wheely);
 			var delta = Math.max( -1, Math.min( 1, wheely ) );
 			if( isChrome() ) {
 				// chrome seems to extends its "wheely" motion
 				wheely = Math.floor( wheely / 5 );
 			}
-			if( ! scrolling && Math.abs( wheely ) > 5 ) {
+			if( ( ! scrolling || ( options.mouseWheelDelay && Date.now() > mouseWheelScrollStart + options.mouseWheelDelay ) ) && Math.abs( wheely ) > 5 ) {
+				mouseWheelScrollStart = Date.now();
 				scrolling = true;
-				// Firefox goes backwards... obviously
-				if( e.originalEvent && e.originalEvent.detail ) {
-					if( delta > 0 ) {
-						app.slideDown();
-					} else {
+				var allowToRun = true;
+				var target = $(ev.target);
+				if( target.hasClass( options.scrollableArea ) || target.parents( '.' + options.scrollableArea ).length !== 0 ) {
+					allowToRun = false;
+					var scrollableArea = target.closest('.' + options.scrollableArea);
+					if( target.hasClass( options.scrollableArea ) ) scrollableArea = target;
+					if( isScrollingUp(ev) && scrollableArea.scrollTop() === 0 ) {
+						allowToRun = true;
+					} else if( scrollableArea[0].scrollHeight - scrollableArea.scrollTop() === scrollableArea.outerHeight() ) {
+						allowToRun = true;
+					}
+				}
+				if( allowToRun ) {
+					if( isScrollingUp(ev) ) {
 						app.slideUp();
+					} else {
+						app.slideDown();
 					}
 				} else {
-					if( delta > 0 ) {
-						app.slideUp();
-					} else {
-						app.slideDown();
-					}
+					scrolling = false;
 				}
 			}
 		};
+
+		/**
+		 * [isScrollingUp description]
+		 * @param  {[type]}  ev [description]
+		 * @return {Boolean}    [description]
+		 */
+		var isScrollingUp = function(ev){
+			var e = window.event || ev;
+			var wheely = ( e.wheelDelta || e.detail || e.originalEvent.detail );
+			var delta = Math.max( -1, Math.min( 1, wheely ) );
+			if( isChrome() ) wheely = Math.floor( wheely / 5 );
+			if( e.originalEvent && e.originalEvent.detail ) {
+				if( delta > 0 ) {
+					return false;
+				}
+			} else if( delta < 0 ) {
+				return false;
+			}
+			return true;
+		}
 
 		/**
 		 * [bindMouseWheelEvent description]
@@ -246,7 +360,15 @@
 		 */
 
 		var bindMouseWheelEvent = function() {
-			$(window).bind('wheel mousewheel DOMMouseScroll MozMousePixelScroll', mouseWheelHandler );
+			$(window).bind('wheel.fsvs mousewheel.fsvs DOMMouseScroll.fsvs MozMousePixelScroll.fsvs', mouseWheelHandler );
+		};
+
+		/**
+		 * [unBindMouseWheelEvent description]
+		 * @return {[type]} [description]
+		 */
+		var unBindMouseWheelEvent = function(){
+			$(window).unbind('wheel.fsvs mousewheel.fsvs DOMMouseScroll.fsvs MozMousePixelScroll.fsvs', mouseWheelHandler );
 		};
 
 		/**
@@ -255,15 +377,24 @@
 		 */
 
 		var bindKeyArrows = function() {
+			allow = true;
+			$('input,textarea,select,option', body)
+			.bind( 'focus.fsvs', function(){ allow = false; })
+			.bind( 'blur.fsvs', function(){ allow = true; });
 			window.onkeydown = function(e) {
 				e = e || window.event;
-			    if ( e.keyCode == '38' ) {
-			        app.slideUp();
-			    }
-			    else if ( e.keyCode == '40' ) {
-					app.slideDown();
-			    }
+			    if ( e.keyCode == '38' && allow ) app.slideUp();
+			    else if ( e.keyCode == '40' && allow ) app.slideDown();
 			}
+		};
+
+		/**
+		 * [unbindKeyArrows description]
+		 * @return {[type]} [description]
+		 */
+		var unbindKeyArrows = function(){
+			$('input,textarea,select,option', body).unbind('focus.fsvs blur.fsvs');
+			window.onkeydown = function(){};
 		};
 
 		/**
@@ -281,6 +412,9 @@
 			}
 			if( ! app.canSlideDown() ) {
 				options.endSlide( index );
+			}
+			if( options.autoPlay && loop === null ) {
+				play();
 			}
 			scrolling = false;
 		};
@@ -307,6 +441,7 @@
 		 */
 
 		var jQuerySlide = function( index ) {
+			options.beforeSlide( index );
 			if( body.is( ':animated' ) ) {
 				currentSlideIndex = index;
 				body.stop();
@@ -325,6 +460,7 @@
 		 */
 
 		var cssSlide = function( index ) {
+			options.beforeSlide( index );
 			body.css({
 				'-webkit-transform' : 'translate3d(0, -' + (index*100) + '%, 0)',
 				'-moz-transform' : 'translate3d(0, -' + (index*100) + '%, 0)',
@@ -339,7 +475,34 @@
 				slideCallback( index );
 				bodyTimeout = null;
 			}, options.speed );
-		}
+		};
+
+		/**
+		 * [play description]
+		 * @return {[type]} [description]
+		 */
+		var play = function(){
+			loop = setInterval(function(){
+				if( app.canSlideDown() ) {
+					app.slideDown();
+				} else {
+					app.slideToIndex(0);
+				}
+			}, options.autoPlay );
+		};
+
+		/**
+		 * [removeStyling description]
+		 * @return {[type]} [description]
+		 */
+		var removeStyling = function(){
+			body.attr('style', '');
+			$(options.selector, body).each(function(i){
+				$(this).removeClass(_activeSlideClass);
+			});
+			$('body').removeClass(_activeSlideClass + '-' + _curentActiveSlide);
+			$('#fsvs-pagination').remove();
+		};
 
 		/**
 		 * [app description]
@@ -376,7 +539,7 @@
 					marginTop : '-' + (paginationHeight/2) + 'px',
 					right : '25px'
 				});
-				$('li', pagination).click( function(e){
+				$('li', pagination).bind( 'click.fsvs', function(e){
 					ignoreHashChange = true;
 					$('.active', pagination).removeClass( 'active' );
 					$(this).addClass( 'active' );
@@ -436,12 +599,11 @@
 
 			addClasses : function( before, after ) {
 				var _body = $('body');
-				_body.removeClass( removeClass = 'active-slide-' + (before+1) );
-				_body.addClass( 'active-slide-' + (after+1) );
-
-				$( options.selector, body ).eq( before ).removeClass( 'active-slide' );
-				$( options.selector, body ).eq( after ).addClass( 'active-slide' );
-
+				_curentActiveSlide =  (after+1);
+				_body.removeClass( removeClass = _activeSlideClass +'-' + (before+1) );
+				_body.addClass( _activeSlideClass + '-' + _curentActiveSlide  );
+				$( options.selector, body ).eq( before ).removeClass( _activeSlideClass );
+				$( options.selector, body ).eq( after ).addClass( _activeSlideClass );
 				if( options.nthClasses ) {
 					_body.removeClass( 'active-nth-slide-' + (( before % options.nthClasses )+1) );
 					_body.addClass( 'active-nth-slide-' + (( after % options.nthClasses )+1) );
@@ -456,6 +618,10 @@
 
 			slideToIndex : function( index, e ) {
 				var e = e || false;
+				if( e && options.autoPlay ) {
+					clearInterval( loop );
+					loop = null;
+				}
 				if( ! e && pagination ) {
 					$('.active', pagination).removeClass( 'active' );
 					$('> *', pagination).eq(index).addClass( 'active' );
@@ -466,6 +632,28 @@
 				} else {
 					jQuerySlide( index );
 				}
+			},
+
+			/**
+			 * [unbind description]
+			 * @return {[type]} [description]
+			 */
+			unbind : function(){
+				unBindMouseDrag();
+				unBindMouseWheelEvent();
+				unbindKeyArrows();
+				unbindTouchSwipe();
+				removeStyling();
+				$('html').removeClass('fsvs');
+			},
+
+			/**
+			 * [rebind description]
+			 * @return {[type]} [description]
+			 */
+			rebind : function() {
+				$('html').addClass('fsvs');
+				app.init();
 			},
 
 			/**
@@ -502,7 +690,7 @@
 			 */
 
 			init : function() {
-				body = $( '#' + options.bodyID );
+				body = $( (options.el) ? options.el : '#' + options.bodyID );
 				if( hasTransition() ) {
 					app.setSpeed( options.speed );
 				}
@@ -533,7 +721,14 @@
 					    window.attachEvent( "onhashchange", changeViaHash );
 					}
 				}
-				app.addClasses( 0, 0 );
+				if( window.location.hash === '' ) {
+					app.addClasses( 0, 0 );
+				}
+				if( options.autoPlay ) {
+					if( options.autoPlay > options.speed ) {
+						play();
+					}
+				}
 			}
 
 		};

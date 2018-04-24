@@ -13,7 +13,7 @@
 	}
 </style>
 {include file='public/header'}
-<div class="p0">
+<div class="">
 	<div class="main-bg">
 		<div class="main-title">
 			<p>数据引领时代的浪潮，计算谱写世纪的篇章</p>
@@ -47,57 +47,6 @@
 		</div>
 	</div>
 </div>
-<div class="p1" style="height:900px;background-color:red;display:none;">
-</div>
-<div class="p2" style="height:900px;background-color:blue;display:none;">
-</div>
 {include file='public/footer'}
 {include file='public/common'}
-
-<script type="text/javascript">
-	/*$(function(){
-		var page=0;
-		var scrollFunc=function (e){
-			e=e||window.event;
-			if(e.wheelDelta){
-				//-+120 正上负下
-				//console.log();
-				//
-				if(e.wheelDelta>0){
-					$('.p'+page).fadeOut(3000);
-					--page;
-					$('.p'+page).fadeIn(3000);*/
-					/*$('.p0').animate({top:"-500px"},998,function (){
-						//$('.no-alive').hide();
-					});
-				}else{
-					$('.p'+page).fadeOut(3000);
-					++page;
-					$('.p'+page).fadeIn(3000);
-				}
-			}else if(e.detail){
-				//firefox -+3
-			}
-		};
-		if(document.addEventListener){
-			document.addEventListener('DOMMouseScroll',scrollFunc,false);//firefox
-		}
-		window.onmousewheel=document.onmousewheel=scrollFunc;*/
-		//alert($(window).height());
-		//$('footer').hide();
-		/*$('.alive-page').slideToggle('slow',function (){
-			//$('.alive-page').hide();
-		});
-		
-		$('.no-alive').animate({top:0},999,function(){
-			$('.no-alive').animate({height:0},998,function (){
-				//$('.no-alive').hide();
-			});
-			$('.n-alive').animate({height:857},997,function(){
-				//$('footer').show();
-			});
-		});
-		
-	});*/
-</script>
 {include file='public/foot'}

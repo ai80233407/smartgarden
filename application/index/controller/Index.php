@@ -11,6 +11,10 @@ class Index extends \think\Controller{
 		return $this->fetch('index/index');
 	}
 	
+	public function showtime(){
+		return $this->fetch('showtime/index');
+	}
+	
 	public function login(){
 		if(islogined()){
 			return $this->redirect('/');
