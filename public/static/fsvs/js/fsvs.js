@@ -204,7 +204,7 @@
 			}
 			window.onmouseup = function(e) {
 				if( e.y > ( y+options.mouseSwipeDisance && !cancel ) ) {
-					app.slideUp();
+					//app.slideUp();
 				} else if( e.y < ( y-options.mouseSwipeDisance && !cancel ) ) {
 					app.slideDown();
 				}
