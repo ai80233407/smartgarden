@@ -67,7 +67,14 @@
 				cursor:pointer;
 				background-color: #343446;
 			}
-			
+			.head-icon{
+				width:39px;
+				height:39px;
+			}
+			.head-text{
+				color:#fff;
+				margin-left:8px;
+			}
 			.footer p {
 			  color: #7f8c8d;
 			  margin: 0;
@@ -106,10 +113,35 @@
 					<li ><a href="/Index/Process/">更新进度</a></li>
 				</ul>
 			</div>
-			<div class="am-u-lg-2 am-u-sm-push-1 login-style am-hide-sm-only">
-				<a href="/Index/Index/Register" style="color:#fff;" class="login-reg">注册</a>
-				<a href="/Index/Index/Login" style="color:#fff;" class="login-log">登录</a>
+{php}
+use app\user\model\Users;
+$status=Users::is_login();
+$user=Users::get_one_user(session('uid'));
+{/php}
+{if $status}
+		<div class="am-u-lg-2 am-hide-sm-only">
+			<div class="head-div am-dropdown"  data-am-dropdown>
+				<img src="/static/image/avatar/avatar-{$user->head}.png" class="am-circle head-icon am-dropdown-toggle" data-am-dropdown-toggle>
+				<span class="head-text">{$user->nickname}</span>}&nbsp;<i class=" am-icon-caret-down"></i></span>
+				<ul class="am-dropdown-content">
+{if queryroot(array('管理'=>array('查看'=>1)))}
+					<li><a href="/Admin/Index/Index">管理中心</a></li>
+{/if}
+{if queryroot(array('用户'=>array('查看'=>1)))}
+					<li><a href="/User/Index/Index">我的花园</a></li>
+{/if}
+					<li><a>我的消息<span class="am-badge am-round am-badge-success am-margin-left-xl">7</span></a></li>
+					<li><a href="/Index/Index/Out_login">注销</a></li>
+				</ul>
 			</div>
+		</div>
+{else}
+		<div class="am-u-lg-2 am-u-sm-push-1 login-style am-hide-sm-only">
+			<a href="/Index/Index/Register" style="color:#fff;" class="login-reg">注册</a>
+			<a href="/Index/Index/Login" style="color:#fff;" class="login-log">登录</a>
+		</div>
+{/if}
+			
 		</div>
 		<div id="fsvs-body">
 			<div class="slide fsvs-img0">
