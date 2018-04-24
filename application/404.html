@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta http-equiv="Cache-Control" content="no-siteapp"/>
+		<title>软件工程开发组</title>
+		<meta name="KeyWords" content="开发 软件工程 项目" />
+		<meta name="Description" content="软件开发" />
+		<meta name="viewport" content="width=device-width" />
+		<!--link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" /-->
+		<link rel="stylesheet" href="/static/amazeui/css/amazeui.min.css" />
+		<style>
+		.logo-icon{
+			display:block;
+			height:25px;
+			width:120px;
+			margin-top:5px;
+			background:url(/static/image/logo-software.png) no-repeat left center;
+			background-size:120px 28px;
+		}
+		.header-style{
+			padding-top:6px;
+			padding-bottom:6px;
+			background-color:#343446;
+		}
+		.footer p {
+		  color: #7f8c8d;
+		  margin: 0;
+		  padding: 10px 0;
+		  text-align: center;
+		  background: rgba(238,238,238,0.8)!important;
+		}
+		.pre {
+			display: block;
+			padding: 9.5px;
+			margin: 0 0 10px;
+			font-size: 13px;
+			line-height: 1.42857143;
+			color: #333;
+			word-break: break-all;
+			word-wrap: break-word;
+			border-radius: 4px;
+			overflow: auto;
+			font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+			white-space: pre-wrap;
+		}
+		</style>
+		<!--[if lt IE 9]><script src="//cdn.bootcss.com/html5shiv/r29/html5.js"></script><![endif]-->
+	</head>
+	<body>
+	<!--主导航栏开始-->
+	<div class="am-g header-style am-topbar-fixed-top">
+		<div class="am-u-sm-5 am-u-lg-3">
+			<header>
+				<a class="logo-icon"></a>
+			</header>
+		</div>
+		
+	</div>
+	<!--主导航栏结束-->
+<div class="am-u-sm-6 am-margin am-padding am-u-sm-centered">
+	<h1 style="font-size:40px;" class="am-text-center am-text-primary am-margin am-padding">404 Not Found!</h1>
+	<div class="pre am-text-center am-margin">
+//////////////////////////////////////////////////////////////////
+//                            _ooOoo_                           //
+//                           o8888888o                          //
+//                           88" . "88                          //
+//                           (| -_- |)                          //
+//                           O\  =  /O                          //
+//                        ____/`---'\_                          //
+//                      .'  \\|     |//  `.                     //
+//                     /  \\|||  :  |||//  \                    //
+//                    /  _||||| -:- |||||-  \                   //
+//                    |   | \\\  -  /// |   |                   //
+//                    | \_|  ''\---/''  |   |                   //
+//                    \  .-\__  `-`  ___/-. /                   //
+//                  ___`. .'  /--.--\  `. . ___                 //
+//               ."" '<  `.___\_<|>_/___.'  >'"".               //
+//              | | :  `- \`.;`\ _ /`;.`/ - ` : | |             //
+//              \  \ `-.   \_ __\ /__ _/   .-` /  /             //
+//         ======`-.____`-.___\_____/___.-`____.-'======        //
+//                            `=---='                           //
+//        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^       //
+//  No Bug! No Change! No Girl!  Buddha Department Programmer!  //
+//////////////////////////////////////////////////////////////////
+	</div>
+	<div class="am-text-center">
+		<a href="/">返回首页</a>-<a href="javascript:history.go(-1);">返回上一页</a>-<a href="javascript:pageclose();">拜见佛祖</a>
+	</div>
+	
+</div>
+
+	<footer>
+		<div class="footer">
+			<p style="background:rgba(238,238,238,1);">&copy; Copyright 2017-{:date("Y")} 智能花园<span style="display: inline;"><span class="am-hide-sm-only">  -  辽ICP备16009157号-2</span></span></p>
+		</div>
+<!--script type="text/javascript" color="0,0,255" opacity='0.8' zIndex="-2" count="200" src="http://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js"></script-->
+<script type="text/javascript">
+	function pageclose(){
+		if(getos()=='Weixin'){
+			setTimeout(WeixinJSBridge.call('closeWindow'),3000);
+		}else if(getos()=='Chrome'){
+			try{
+				window.opener=null;
+				window.open('','_self','');
+				window.close();
+			}
+			catch(e){
+				window.location.href="about:blank";
+			}
+			
+		}else if(getos()=='MSIE'){
+			if (navigator.userAgent.indexOf("MSIE 6.0") > 0) {
+				window.opener = null;
+				window.close();
+			} else {
+				window.open('', '_top');
+				window.top.close();
+			}
+		}else if(getos()=='Firefox'){
+			window.location.href = 'about:blank ';
+		}else if(getos()=='UCBrowser'){
+			/*
+			window.opener=null;
+			window.open('','_self');
+			window.close();
+			*/
+			window.location.href="about:blank";
+			window.close();
+		}else{
+			window.location.href="about:blank";
+			window.close();
+		}
+	}
+	function getos(){
+		if(navigator.userAgent.indexOf("MicroMessenger")>0){   
+			return "Weixin";   
+		}
+		if(navigator.userAgent.indexOf("QQ")>0){   
+			return "QQ";   
+		}
+		if(navigator.userAgent.indexOf("Weibo")>0){   
+			return "Weibo";   
+		}
+		if(navigator.userAgent.indexOf("UCBrowser")>0){   
+			return "UCBrowser";   
+		}
+		if(navigator.userAgent.indexOf("MSIE")>0) {   
+			return "MSIE";   
+		}   
+		if(navigator.userAgent.indexOf("Firefox")>0){   
+			return "Firefox";   
+		}
+		if(navigator.userAgent.indexOf("Chrome")>0) {   
+			return "Chrome";   
+		}  		
+		if(navigator.userAgent.indexOf("Camino")>0){   
+			return "Camino";   
+		}   
+		if(navigator.userAgent.indexOf("Gecko")>0){   
+			return "Gecko";   
+		}
+	}
+</script>
+	</footer>
+	</body>
+</html>
